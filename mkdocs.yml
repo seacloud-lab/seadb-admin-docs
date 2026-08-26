@@ -1,0 +1,97 @@
+site_name: SeaDB Admin Manual
+site_author: seadb
+docs_dir: ./manual
+site_url: https://seacloud-lab.github.io/seadb-admin-docs/
+
+repo_name: seacloud-lab/seadb-admin-docs
+repo_url: https://github.com/seacloud-lab/seadb-admin-docs/
+edit_uri: blob/main/manual
+
+copyright: Copyright &copy; 2026 SeaCloud Labs.
+
+theme:
+  name: material
+  favicon: media/favicon.ico
+  features:
+    - navigation.footer
+    - navigation.tracking
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - math
+    - content.code.copy
+    - content.code.annotate
+
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - awesome-pages
+  - mike
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/seacloud-lab/seadb-admin-docs/
+  version:
+    provider: mike
+  status:
+    new: Work in progress
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.codehilite:
+      guess_lang: true
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+      toc_depth: "1-4"
+  - pymdownx.superfences: # allows 1) nesting of fences 2) custom fences 3) disable indented code
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed: # provides a syntax to easily add tabbed Markdown content
+      alternate_style: true
+  - pymdownx.arithmatex: # LaTex format support
+      generic: true
+
+# Page tree
+nav:
+  - Introduction: index.md
+  - Setup:
+    - Overview: setup/overview.md
+    - FoundationDB:
+      - Single node: setup/foundationdb_single.md
+      - Cluster: setup/foundationdb_cluster.md
+    - SeaDB with Docker:
+      - Single node: setup/setup_seadb_single.md
+      - Cluster (FoundationDB backend): setup/setup_seadb_cluster.md
+    - SeaDB cluster (etcd): setup/seadb_cluster_native.md
+    - Build from source: setup/build_from_source.md
+  - Configuration:
+    - Environment variables: configuration/environment_variables.md
+  - SeaDB CLI:
+    - Overview: cli/overview.md
+    - Build and usage: cli/usage.md
