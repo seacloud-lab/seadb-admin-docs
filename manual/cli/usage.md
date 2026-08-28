@@ -171,6 +171,27 @@ seadb-cli login -s http://127.0.0.1:7777
 
 Login cannot run in a non-interactive terminal; complete login in an interactive terminal first.
 
+### Log out
+
+```bash
+seadb-cli logout
+```
+
+Logout revokes the API key created by `login`, removes the credential from the
+configured credential store, and removes `username` and `key_id` from the
+configuration file. It is safe to run when the server already considers the
+key invalid; the CLI still cleans up the local login state.
+
+Use a one-off timeout when needed:
+
+```bash
+seadb-cli logout --timeout 60s
+```
+
+If the server cannot be reached or the credential cannot be read, the CLI
+reports whether the server-side API key may still exist while cleaning up the
+local state.
+
 ### Execute SQL
 
 `sql` requires a target base UUID. The SQL can be passed with `-e` or read from a pipe or redirected stdin:
@@ -244,7 +265,9 @@ seadb-cli login
 
 File mode stores the encoded API key in `<config file path>.credentials`. The CLI creates the credential file with mode `0600`; when replacing an existing file, its existing permissions are kept.
 
-This file stores the encoded API key in plaintext, which is equivalent to a password and is protected only by file permissions. `keyring` mode does not have this problem — it does not leave a key file in the config directory.
+This file stores the encoded API key in plaintext, which is equivalent to a
+password and is protected only by file permissions. `keyring` mode does not
+leave a key file in the config directory.
 
 You cannot change the server address or `credential_store` while logged in. To switch servers or credential modes, run `logout` first, then `set-config`.
 
@@ -288,4 +311,4 @@ Exit codes:
 
 - `0`: the command succeeded.
 - `1`: a runtime error, such as a connection, authentication, credential, or server request failure.
-- `2`: an incorrect command, argument, or argument value — including `help` and `completion` receiving an unknown command or extra arguments.
+- `2`: an incorrect command, argument, or argument value, including `help` and `completion` receiving an unknown command or extra arguments.

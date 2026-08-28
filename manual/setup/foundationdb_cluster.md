@@ -4,35 +4,45 @@ A FoundationDB cluster consists of multiple `fdbserver` processes that are indep
 
 Before deploying, keep the following points in mind:
 
-- A `fdbserver` process needs at least 4 GB of memory.
-- A `fdbserver` process consumes only one CPU core. You can run multiple processes on a single server to make full use of its resources.
-- A `fdbserver` process can be bound to any number of roles. The cluster assigns roles automatically based on its current state; only the `coordinator` role must be assigned manually by the administrator.
-- Each `fdbserver` process needs a correct `machine-id` and `datacenter-id`, so that multiple replicas of the same data do not fail together.
+- Plan for at least 4 GB of available memory per `fdbserver` process. Actual
+  memory requirements depend on workload and process configuration.
+- An `fdbserver` process can use up to one full CPU core. Run multiple processes
+  on a server when the workload should use additional cores.
+- An `fdbserver` process can run multiple roles. FoundationDB assigns most
+  roles dynamically; administrators explicitly select the coordinator
+  processes with the `coordinators` command.
+- Configure locality values to describe real failure domains. Processes on the
+  same machine should share a `locality-machineid` and `locality-zoneid`;
+  processes in the same datacenter should share a `locality-dcid`.
 
-## 1. Deploy the master node
+## 1. Deploy the bootstrap node
 
 ### `data/fdb.cluster`
 
-Modify the IP address and port as needed. Other nodes read the master node's address from this file when they first start.
+Modify the IP address and port as needed. Use an address that every FoundationDB
+host can reach. Other nodes use this bootstrap cluster file when they first
+start; FoundationDB does not have a permanent master host.
 
 ```text
-docker:docker@127.0.0.1:4500
+docker:docker@10.0.4.1:4500
 ```
 
 ### `image/Dockerfile`
 
-The custom `ENTRYPOINT` and `CMD` are needed to set parameters such as `public-address`, which the default startup script cannot configure.
+The custom `ENTRYPOINT` and `CMD` provide explicit routable addresses and
+locality values for this deployment.
 
 - `public-address`: the externally accessible address
 - `listen-address`: the listening address
-- `datacenter-id`: a hexadecimal value of up to 16 characters
-- `machine-id`: a hexadecimal value of up to 16 characters
+- `locality-dcid`: an identifier for the datacenter
+- `locality-machineid`: a unique identifier for the machine
+- `locality-zoneid`: an identifier for the replication failure zone
 
 ```dockerfile
 FROM foundationdb/foundationdb:7.3.63
 
 ENTRYPOINT ["/usr/bin/tini", "-g", "--"]
-CMD ["fdbserver", "--public-address", "127.0.0.1:4500", "--listen-address", "127.0.0.1:4500", "--logdir", "/var/fdb/logs", "--datadir", "/var/fdb/data", "--datacenter-id", "", "--machine-id", ""]
+CMD ["fdbserver", "--public-address", "10.0.4.1:4500", "--listen-address", "0.0.0.0:4500", "--logdir", "/var/fdb/logs", "--datadir", "/var/fdb/data", "--locality-dcid", "dc-1", "--locality-machineid", "fdb-1", "--locality-zoneid", "fdb-1"]
 ```
 
 ### `compose.yml`
@@ -65,13 +75,17 @@ docker compose exec fdb fdbcli --exec 'configure new single ssd'
 
 ## 2. Deploy the remaining nodes
 
-The `fdb.cluster` file on every node must match the master node. Other settings can be defined as needed.
+The `fdb.cluster` file on every node must identify the same cluster and use
+reachable coordinator addresses. Assign each host unique `locality-machineid`
+and `locality-zoneid` values. Set `locality-dcid` according to real datacenter
+boundaries: hosts in the same datacenter should use the same value, while
+independent datacenters should use different values.
 
 ## 3. Deploy the `backup_agent` process
 
 The `backup_agent` process is responsible for performing backups.
 
-`data/fdb.cluster` must match the master node.
+`data/fdb.cluster` must identify the same cluster as the database nodes.
 
 `image/Dockerfile`:
 
@@ -110,6 +124,10 @@ fdb> status
 ```
 
 ### Adjust the replica count and the number of coordinators
+
+Use an odd number of coordinators. Three or five coordinators are recommended
+for production deployments; place them in independent failure domains when
+possible.
 
 | Replication mode | Recommended number of coordinators |
 | --- | --- |

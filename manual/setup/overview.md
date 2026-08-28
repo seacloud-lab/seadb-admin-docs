@@ -20,7 +20,8 @@ The first two topologies run SeaDB itself as a single container. The third topol
 ## Prerequisites
 
 - **FoundationDB**: SeaDB is tested against FoundationDB `7.3.63`.
-- **Memory**: each `fdbserver` process needs at least 4 GB of memory; allocate accordingly when running multiple processes per machine.
+- **Memory**: plan for at least 4 GB of available memory per `fdbserver`
+  process; actual requirements depend on workload and process configuration.
 - **Go** (source builds only): Go 1.24 or later is required to build `sea-db`, `cluster-manager`, and `sea-db-proxy` from source.
 
 ## Where to start

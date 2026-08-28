@@ -1,18 +1,18 @@
-# Setup SeaDB cluster
+# Set up a SeaDB cluster
 
-SeaDB depends on [FoundationDB](https://apple.github.io/foundationdb/). 
+SeaDB depends on [FoundationDB](https://apple.github.io/foundationdb/).
 
 FoundationDB is a distributed database designed to handle large volumes of structured data across clusters of commodity servers.
 
-## Deploy FoundationDB Cluster
+## Deploy a FoundationDB cluster
 
-This guide uses a three-node FoundationDB (v7.3.63) setup as an example: cluster-fdb1 (192.168.0.10), cluster-fdb2 (192.168.0.11), cluster-fdb3 (192.168.0.12). Each node runs two fdbserver processes, and each fdbserver process uses its own dedicated SSD data disk (`/fdb1` and `/fdb2`). Unless otherwise specified, the following steps should be performed on all three nodes. For more information, please refer to the [official documentation](https://apple.github.io/foundationdb/building-cluster.html?wework_cfm_code=N62oKwB0BwL1eIEfRQ9gi2JYDKFJ2GVPsa4FeatkT5iEMS5q30ZBfJXubqhrhrPzBj07eBXsZFkcrCwzIDbgR4x13xzFY7o2zieAtTi5VZHWQn8SBMg2YjrV2X1If2DQiA%3D%3D).
+This guide uses a three-node FoundationDB (v7.3.63) setup as an example: cluster-fdb1 (192.168.0.10), cluster-fdb2 (192.168.0.11), cluster-fdb3 (192.168.0.12). Each node runs two fdbserver processes, and each fdbserver process uses its own dedicated SSD data disk (`/fdb1` and `/fdb2`). Unless otherwise specified, the following steps should be performed on all three nodes. For more information, please refer to the [official documentation](https://apple.github.io/foundationdb/building-cluster.html).
 
-### FoundationDB Installation
+### Install FoundationDB
 
 Install FoundationDB on each node according to the [official documentation](https://apple.github.io/foundationdb/getting-started-linux.html).
 
-Then, you need to stop the service and migrate existing data to the new directory.
+Stop the service, create the target directories, and migrate any existing data.
 
 ```shell
 # Stop the service
@@ -24,7 +24,7 @@ mkdir -p /fdb2/foundationdb/data/4501 /fdb2/foundationdb/log/4501
 
 # Migrate existing data
 rsync -aHAX --numeric-ids /var/lib/foundationdb/data/4500/ /fdb1/foundationdb/data/4500/
-# If the second fdbserver process has not been started, you don’t need to run this step.
+# Skip this step if the second fdbserver process has never been started.
 rsync -aHAX --numeric-ids /var/lib/foundationdb/data/4501/ /fdb2/foundationdb/data/4501/
 
 # Update permissions
@@ -35,9 +35,11 @@ chmod 755 /fdb1/foundationdb/log/4500 /fdb2/foundationdb/log/4501
 
 ### Modify `foundationdb.conf`
 
-Specify `datadir` and `logdir` separately for each fdbserver process. Assign a `class` role to each fdbserver process.
+Specify `datadir` and `logdir` separately for each `fdbserver` process. Assign
+an appropriate process `class` to each one.
 
-In the existing configuration, keep the default [fdbserver] section unchanged, and add the two fdbserver process configurations as follows:
+Keep the default `[fdbserver]` section unchanged. Update or replace the existing
+`[fdbserver.4500]` section, then add `[fdbserver.4501]`:
 
 ```shell
 [fdbserver.4500]
@@ -53,7 +55,8 @@ logdir  = /fdb2/foundationdb/log/4501
 
 ### Start the FoundationDB service
 
-Check whether the foundationdb processes have started, and verify that the cluster status and the role/class identity of each process are correct.
+Confirm that the FoundationDB processes are running, then verify the cluster
+status and the class and assigned roles of each process.
 
 ```shell
 systemctl start foundationdb || service foundationdb start
@@ -64,24 +67,37 @@ fdbcli --exec "status json" \
 | jq -r '.cluster.processes
          | to_entries[]
          | "\(.value.address)\tclass=\(.value.class_type // "unset")\troles=\((.value.roles // [])|map(.role)|unique|join(","))"'
-         
+```
+
+Sample output:
+
+```text
 192.168.0.12:4501   class=storage  roles=ratekeeper,storage
 192.168.0.11:4500   class=transaction  roles=cluster_controller,coordinator,log,resolver
 192.168.0.12:4500   class=transaction  roles=commit_proxy,coordinator,grv_proxy,log
 192.168.0.10:4500   class=transaction  roles=commit_proxy,coordinator,log,master
 192.168.0.10:4501   class=storage  roles=data_distributor,storage
 192.168.0.11:4501   class=storage  roles=consistency_scan,storage
-
-fdbcli
-> status details
 ```
+
+For a more detailed status report, run:
+
+```shell
+fdbcli
+fdb> status details
+```
+
+FoundationDB assigns most roles dynamically, so the exact role distribution
+may differ from the sample output. The `master` label is also a dynamically
+assigned role; it does not identify a permanent master node.
 
 ### Configure FoundationDB for external access
 
 Run the following on `cluster-fdb1`.
 
 ```shell
-python3 /usr/lib/foundationdb/make_public.py # Generate the externally accessible address, similar to the example below
+# Update the cluster file to use an externally reachable address.
+python3 /usr/lib/foundationdb/make_public.py
 
 cat /etc/foundationdb/fdb.cluster
 # DO NOT EDIT!
@@ -118,6 +134,11 @@ Cluster:
 
 If a new node fails to join the cluster, it is usually because it was previously started with an old configuration. In that case, stop the service, clean the data directories, and rejoin:
 
+!!! danger
+    The following `rm -rf` commands permanently delete the local FoundationDB
+    data on the node. Run them only on a node that is being rejoined and only
+    after confirming that the remaining cluster has healthy replicas.
+
 ```shell
 systemctl stop foundationdb || service foundationdb stop
 
@@ -139,11 +160,13 @@ ss -lntp | egrep '4500|4501'
 fdbcli --exec "status details"
 ```
 
-### Add the coordinator servers
+### Configure coordinators
 
-Switch the coordinator servers and add more coordinators to improve fault tolerance.
+After all nodes have joined, configure an odd number of coordinators to improve
+fault tolerance.
 
-After all nodes have joined the cluster, run the following on any node (it’s recommended to use one process port per node as a coordinator, e.g., port 4500 on each node):
+Run the following on any node. Use one process on each of three separate nodes
+as a coordinator, such as port 4500 in this example:
 
 ```shell
 fdbcli
@@ -165,12 +188,13 @@ fdb> status details
 
 ### Download and modify `.env`
 
-You should deploy the SeaDB service on a new node using Docker.
+Deploy SeaDB on a separate node using Docker.
 
-To deploy SeaDB with Docker, you need to download `.env`, `seadb.yml` and `fdb.cluster` in a directory (e.g., `/opt/seadb`):
+Download `.env`, `seadb.yml`, and `fdb.cluster` into a deployment directory,
+such as `/opt/seadb`:
 
 ```bash
-mkdir /opt/seadb
+mkdir -p /opt/seadb
 cd /opt/seadb
 
 wget -O .env https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/seadb/env
@@ -182,13 +206,14 @@ vim .env
 
 The following fields merit particular attention:
 
-| Variable                        | Description                                                                                                   | Default Value                   |  
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------- |  
-| `SEADB_SERVER_ACCESS_TOKEN`                           | SEADB_SERVER_ACCESS_TOKEN, A random string at least 32 characters long is required by clients, which can be generated by using `pwgen -s 40 1` | (required) |  
-| `SEADB_VOLUME`                | The volume directory of SeaDB data                                                                          | `/opt/seadb-data`             |
-| `TIME_ZONE`                     | Time zone                                                                                                     | `UTC`                           |
+| Variable | Description | Default |
+| --- | --- | --- |
+| `SEADB_SERVER_ACCESS_TOKEN` | A shared secret mapped to SeaDB's `JWT_PRIVATE_KEY` for signing and verifying JWT credentials. Use at least 32 random characters, for example from `pwgen -s 40 1`, and disclose it only to trusted services that issue JWTs for SeaDB. | (required) |
+| `SEADB_VOLUME` | The volume directory for SeaDB data. | `/opt/seadb-data` |
+| `TIME_ZONE` | The time zone. | `UTC` |
 
-Modify `fdb.cluster`, the content should copy from the `/etc/foundationdb/fdb.cluster` file in any FoundationDB node:
+Replace the contents of `fdb.cluster` with the contents of
+`/etc/foundationdb/fdb.cluster` from any FoundationDB node:
 
 ```bash
 vim fdb.cluster
@@ -204,8 +229,16 @@ docker compose up -d
 docker logs -f seadb
 ```
 
-When you see the following log, it means that SeaDB is ready:
+SeaDB is ready when the following log message appears:
 
 ```log
 seadb | seadb started
 ```
+
+Verify the HTTP service:
+
+```shell
+curl -fsS http://127.0.0.1:8888/ping
+```
+
+The expected response is `{"ret":"pong"}`.

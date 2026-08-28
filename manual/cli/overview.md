@@ -4,7 +4,11 @@ SeaDB provides a REST API for SQL execution, base management, user management, a
 
 See [Build and usage](usage.md) for how to build, install, and configure the CLI.
 
-## Commands
+The implemented commands are `set-config`, `login`, `logout`, `sql`, `base`,
+`install`, and `uninstall`. The user-management and API-key-management commands
+later on this page describe the design target and are not yet available.
+
+## Currently available commands
 
 ### SQL
 
@@ -50,11 +54,16 @@ seadb-cli base delete <uuid>
 seadb-cli base set-owner <uuid> <username>
 ```
 
-- `base create` does not accept a user-supplied UUID; the CLI generates a standard UUID and prints it on success.
-- `base list` lists all bases owned by the current user by default, equivalent to `--scope mine`.
+- `base create` does not accept a user-supplied UUID; the CLI generates a UUID and prints it on success.
+- `base list` lists all bases owned by the currently authenticated user by default, equivalent to `--scope mine`.
 - Regular users do not need to specify a scope. Administrators can use `--scope mine` to view their own bases and `--scope all` to view all bases.
 - `base delete` asks for confirmation by default; non-interactive calls must pass `--yes` explicitly.
 - `base set-owner` is only available to administrators.
+
+## Planned commands
+
+The following commands are part of the CLI design but have not been implemented
+in the current `seadb-cli`.
 
 ### User management
 
@@ -81,7 +90,7 @@ seadb-cli api-key list
 seadb-cli api-key delete <key-id> [<key-id>...]
 ```
 
-- `api-key create` only creates a key for the current logged-in user, with a default validity of 30 days. `--expire-days` accepts a positive integer; a permanent key must be specified explicitly with `--no-expire`. The two parameters cannot be used together.
+- `api-key create` creates a key only for the currently authenticated user. The key expires after 30 days by default. `--expire-days` accepts a positive integer; a permanent key must be specified explicitly with `--no-expire`. The two parameters cannot be used together.
 - On success, a single-row table shows `key_id`, `key_name`, `encoded`, the creation time, and the expiration time. `encoded` is returned by the server only once; the CLI does not write it to the login credential or config file.
 - `api-key list` only lists the current user's keys; the output does not include `encoded`.
 - Regular users can only delete their own keys; administrators can delete any user's key by key ID. Deletion asks for confirmation by default.
@@ -89,9 +98,9 @@ seadb-cli api-key delete <key-id> [<key-id>...]
 
 ## Output conventions
 
-- SQL queries, base lists, user lists, and API key lists use table output. Base statistics and metadata use JSON output.
-- Only the `table` format is supported; `JSON` and `CSV` are not provided.
-- A successful response with data only prints the data, without extra status text.
+- SQL queries and list commands use table output. Base statistics and metadata use raw JSON output.
+- The CLI does not provide a selectable output format; JSON and CSV alternatives are not available for table-based commands.
+- A successful response with data prints only the returned data, without extra status text.
 - A successful response with no data prints:
 
     ```text
@@ -115,7 +124,9 @@ seadb-cli api-key delete <key-id> [<key-id>...]
 - Other output formats such as JSON or CSV.
 - Displaying DML affected rows; the current query API does not return this field.
 
-## CLI ↔ API mapping
+## CLI-to-API mapping
+
+### Current commands
 
 | CLI command | SeaDB API |
 | --- | --- |
@@ -130,6 +141,13 @@ seadb-cli api-key delete <key-id> [<key-id>...]
 | `base metadata` | `GET /api/v1/{base_id}/metadata` |
 | `base delete` | `DELETE /api/v1/{base_id}/base` |
 | `base set-owner` | `POST /api/v1/{base_id}/base/update-base-owner` |
+
+### Planned commands
+
+These mappings belong to the unimplemented user and API-key management design:
+
+| CLI command | SeaDB API |
+| --- | --- |
 | `user create` | `POST /api/v1/users` |
 | `user list` | `GET /api/v1/users` |
 | `user set-password` / `user set-role` | `PUT /api/v1/users` |
@@ -140,7 +158,8 @@ seadb-cli api-key delete <key-id> [<key-id>...]
 
 ## Cluster mode prerequisites
 
-For the CLI to fully support management commands in cluster mode, the Proxy must forward the following endpoints:
+For the currently implemented management commands to work in cluster mode, the
+Proxy must forward the following endpoints:
 
 ```text
 GET    /ping
@@ -148,6 +167,11 @@ GET    /api/v1/users/bases
 POST   /api/v1/{base_id}/base/update-base-owner
 POST   /api/v1/users/api_keys
 DELETE /api/v1/users/api_keys
+```
+
+The planned user and API-key management commands additionally require:
+
+```text
 GET    /api/v1/users/api_keys
 GET    /api/v1/users
 POST   /api/v1/users

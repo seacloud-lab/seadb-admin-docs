@@ -16,12 +16,19 @@ curl -L -O https://github.com/apple/foundationdb/releases/download/7.3.63/founda
 ```shell
 sudo dpkg -i ./foundationdb-clients_7.3.63-1_amd64.deb
 sudo dpkg -i ./foundationdb-server_7.3.63-1_amd64.deb
-systemctl start foundationdb
+sudo systemctl start foundationdb
+```
+
+If the instance was initialized with the `memory` storage engine, migrate it to
+the `ssd-2` storage engine:
+
+```shell
 fdbcli --exec "configure storage_migration_type=aggressive"
 fdbcli --exec "configure ssd"
 ```
 
-FoundationDB has some memory requirements; we recommend allocating at least 4 GB of available memory.
+Plan for at least 4 GB of available memory for the `fdbserver` process. Actual
+requirements depend on workload and process configuration.
 
 ## Build sea-db
 
@@ -37,25 +44,41 @@ go env -w GOPROXY=https://goproxy.cn,direct
 
 ### 3. Clone the repository
 
-The project is located at [https://github.com/seafileltd/SeaDB](https://github.com/seafileltd/SeaDB).
+```shell
+git clone https://github.com/seafileltd/SeaDB.git
+cd SeaDB
+```
 
 ### 4. Build
 
-Change to the project directory, then run:
-
 ```shell
-go build ./cmd/sea-db
+go build -o ./sea-db ./cmd/sea-db
 ```
 
 ## Run sea-db
 
-### 1. Create an admin account
+### 1. Configure the runtime environment
+
+The following is a minimal local example. Adjust the paths and use a persistent
+secret of at least 32 random characters for `JWT_PRIVATE_KEY`. All SeaDB nodes
+and trusted services that issue JWTs for SeaDB must use the same value.
+
+```shell
+mkdir -p ./data ./log
+
+export SEADB_LOG_DIR="$PWD/log"
+export SEADB_DATA_DIR="$PWD/data"
+export SEADB_FDB_CLUSTER_FILE="/etc/foundationdb/fdb.cluster"
+export JWT_PRIVATE_KEY="<at-least-32-random-characters>"
+```
+
+### 2. Create an admin account
 
 ```shell
 ./sea-db add-admin -u seadb-admin -p <password>
 ```
 
-### 2. Run sea-db
+### 3. Run sea-db
 
 ```shell
 ./sea-db
@@ -68,7 +91,7 @@ go build ./cmd/sea-db
 Follow the same Go setup and repository clone steps as for `sea-db`, then run:
 
 ```shell
-go build ./cmd/cluster-manager
+go build -o ./cluster-manager ./cmd/cluster-manager
 ```
 
 ### Run
@@ -84,7 +107,7 @@ go build ./cmd/cluster-manager
 Follow the same Go setup and repository clone steps as for `sea-db`, then run:
 
 ```shell
-go build ./cmd/sea-db-proxy
+go build -o ./sea-db-proxy ./cmd/sea-db-proxy
 ```
 
 ### Run
@@ -93,52 +116,36 @@ go build ./cmd/sea-db-proxy
 ./sea-db-proxy
 ```
 
+Manager and Proxy require etcd and component-specific environment variables.
+See [SeaDB cluster (etcd)](seadb_cluster_native.md) for their complete runtime
+configuration and startup order.
+
 ## Troubleshooting
 
 ### `Failed to initialize fdb: ... FoundationDB error code 1510 (Disk i/o operation failed)`
 
-This error indicates an incompatible system. If the host machine is ARM but the SeaDB container is built for amd64, the CPU instruction set cannot be recognized. To resolve it, set up SeaDB in a dedicated ARM container:
-
-1. Create a new container and pull the ARM version of the Ubuntu image (if the host itself is ARM, just pull it directly):
-
-    ```shell
-    docker pull ubuntu:24.04
-    ```
-
-2. Enter the container:
-
-    ```shell
-    docker exec -it <container_name> bash
-    ```
-
-3. Download the ARM FoundationDB packages:
-
-    ```shell
-    curl -L -O https://github.com/apple/foundationdb/releases/download/7.3.63/foundationdb-clients_7.3.63-1_aarch64.deb
-    curl -L -O https://github.com/apple/foundationdb/releases/download/7.3.63/foundationdb-server_7.3.63-1_aarch64.deb
-    ```
-
-4. Install FoundationDB:
-
-    ```shell
-    sudo dpkg -i ./foundationdb-clients_7.3.63-1_aarch64.deb
-    sudo dpkg -i ./foundationdb-server_7.3.63-1_aarch64.deb
-    ```
-
-5. Build `sea-db` following the [Build sea-db](#build-sea-db) section above.
+Error 1510 is a FoundationDB disk I/O failure. Check filesystem permissions,
+free disk space, mount health, and the FoundationDB logs for the failing path.
+It does not by itself identify a CPU architecture mismatch.
 
 ### `Failed to initialize metabase: ... FoundationDB error code 1031 (transaction timed out)`
 
-This error indicates that the FoundationDB service is not running. Start it manually:
+This timeout often means that SeaDB cannot reach a healthy FoundationDB
+cluster. Check the service, cluster file, network connectivity, and cluster
+status:
 
 ```shell
-# Start FoundationDB
-systemctl start foundationdb
+# Start FoundationDB if it is stopped.
+sudo systemctl start foundationdb
 
-# Verify it started
-ps -ef | grep fdbserver
+# Verify the local process and cluster status.
+systemctl status foundationdb
+fdbcli --exec "status details"
 ```
 
 ### `Illegal instruction`
 
-This error indicates that the instruction set used by the binary cannot be recognized by the CPU. Handle it the same way as the `Disk i/o operation failed` error above.
+This usually means that a binary was built for a different CPU architecture or
+requires CPU instructions unavailable on the host. Install the FoundationDB
+packages and build SeaDB for the host architecture. For example, use the
+`aarch64` FoundationDB packages on ARM64 Linux instead of the `amd64` packages.

@@ -15,11 +15,7 @@ services:
     networks:
       - backend-net
     healthcheck:
-      test:
-        - CMD-SHELL
-        - |
-          code=$$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8888/ || echo 000)
-          [ "$$code" -ge 200 ] && [ "$$code" -lt 500 ]
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8888/ping >/dev/null"]
       interval: 30s
       timeout: 10s
       retries: 3

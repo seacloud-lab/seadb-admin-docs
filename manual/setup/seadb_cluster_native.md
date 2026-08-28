@@ -16,8 +16,8 @@ graph LR
 ## Preparation
 
 - Set up an etcd cluster and a FoundationDB cluster before deploying.
-- SeaDB processes must be deployed on different servers.
-- Proxy processes should be deployed on the same servers as the clients.
+- Deploy SeaDB nodes on separate servers for fault isolation in production.
+- Place Proxy processes close to their clients to reduce network latency.
 - The Manager process can be deployed on any server.
 
 ## Setup
@@ -27,24 +27,29 @@ graph LR
 Example configuration:
 
 ```env
-# Non-cluster-related settings must be identical across nodes
-SEADB_LOG_DIR=
+# Node-local paths may differ between servers
+SEADB_LOG_DIR="./log"
 SEADB_DATA_DIR="./data"
-JWT_PRIVATE_KEY="private_key"
+SEADB_FDB_CLUSTER_FILE="/etc/foundationdb/fdb.cluster"
+JWT_PRIVATE_KEY="<at-least-32-random-characters>"
 
 # The following settings are required in cluster mode
 SEADB_CLUSTER_ENABLE="true"
 SEADB_CLUSTER_NODE_ID="1"           # each node must use a different ID
-SEADB_CLUSTER_ETCD_ENDPOINTS="127.0.0.1:2379"
+SEADB_CLUSTER_ETCD_ENDPOINTS="etcd-01:2379,etcd-02:2379,etcd-03:2379"
 ```
+
+Use the same `JWT_PRIVATE_KEY`, FoundationDB cluster, and etcd prefix on every
+SeaDB node. Node-local paths may differ. Keep `SEADB_CLUSTER_NODE_ID` unique
+and stable for each node.
 
 ### 2. Configure and start the Manager process
 
 Example configuration:
 
 ```env
-SEADB_CLUSTER_MANAGER_LOG_DIR="./log"
-SEADB_ETCD_ENDPOINTS="127.0.0.1:2379"
+SEADB_LOG_DIR="./log"
+SEADB_ETCD_ENDPOINTS="etcd-01:2379,etcd-02:2379,etcd-03:2379"
 ```
 
 ### 3. Register the node information
@@ -52,10 +57,12 @@ SEADB_ETCD_ENDPOINTS="127.0.0.1:2379"
 Send a request to the Manager to register the addresses of all SeaDB nodes:
 
 ```shell
-curl -X POST http://cluster-manager/api/cluster/nodes --data-raw '{
+curl -fsS -X POST http://cluster-manager:8890/api/cluster/nodes \
+  -H 'Content-Type: application/json' \
+  --data-raw '{
     "nodes": [
-        {"id": 1, "url": "http://sea-db-01/"},
-        {"id": 2, "url": "http://sea-db-02/"}
+        {"id": 1, "url": "http://sea-db-01:8888/"},
+        {"id": 2, "url": "http://sea-db-02:8888/"}
     ]
 }'
 ```
@@ -65,14 +72,22 @@ curl -X POST http://cluster-manager/api/cluster/nodes --data-raw '{
 Example configuration:
 
 ```env
-SEADB_PROXY_LOG_DIR=
-SEADB_ETCD_ENDPOINTS="127.0.0.1:2379"
-SEADB_CLUSTER_MANAGER_URL="http://cluster-manager"
+SEADB_LOG_DIR="./log"
+SEADB_ETCD_ENDPOINTS="etcd-01:2379,etcd-02:2379,etcd-03:2379"
+SEADB_CLUSTER_MANAGER_URL="http://cluster-manager:8890"
 ```
 
 ### 5. Configure the clients
 
 Clients must connect to SeaDB through a Proxy.
+
+Verify each Proxy before configuring clients:
+
+```shell
+curl -fsS http://proxy-host:8888/ping
+```
+
+The expected response is `{"ret":"pong"}`.
 
 ## Cluster configuration options
 
@@ -133,7 +148,7 @@ The Manager provides the following API to manage cluster node information.
 
 ### `GET /api/cluster/nodes`
 
-Get the cluster node information.
+List the registered cluster nodes.
 
 ```text
 # sample response
@@ -147,7 +162,7 @@ Get the cluster node information.
 
 ### `POST /api/cluster/nodes`
 
-Add nodes.
+Register nodes.
 
 ```text
 # sample request
@@ -161,7 +176,7 @@ Add nodes.
 
 ### `PUT /api/cluster/nodes`
 
-Update node information.
+Update registered node information.
 
 ```text
 # sample request
@@ -174,7 +189,7 @@ Update node information.
 
 ### `DELETE /api/cluster/nodes`
 
-Delete nodes.
+Remove registered nodes.
 
 ```text
 # sample request

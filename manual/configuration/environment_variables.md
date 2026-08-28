@@ -16,6 +16,7 @@ SeaDB is configured through environment variables. This page lists the variables
 | `SEADB_QUERY_PER_MINUTE_LIMIT` | The global per-minute API call limit. | `50000` |
 | `SEADB_DATA_DIR` | The data directory of SeaDB, used to store temporary files such as external sort files. | (required) |
 | `SEADB_REQUEST_TIMEOUT` | The request timeout. | `30s` |
+| `JWT_PRIVATE_KEY` | The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value on every SeaDB node and trusted JWT-issuing service. | (required) |
 
 ### FoundationDB
 
@@ -34,9 +35,9 @@ SeaDB is configured through environment variables. This page lists the variables
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `SEADB_METRICS_ENABLE_BASIC_AUTH` | When `true`, the metrics API uses HTTP authentication; when `false`, it uses JWT authentication and requires admin privileges. | `false` |
-| `SEADB_METRICS_USERNAME` | The username used when HTTP authentication is enabled. | |
-| `SEADB_METRICS_PASSWORD` | The password used when HTTP authentication is enabled. | |
+| `SEADB_METRICS_ENABLE_BASIC_AUTH` | When `true`, the metrics API uses HTTP basic authentication; when `false`, it uses JWT authentication and requires admin privileges. | `false` |
+| `SEADB_METRICS_USERNAME` | The username used when HTTP basic authentication is enabled. | (required when basic authentication is enabled) |
+| `SEADB_METRICS_PASSWORD` | The password used when HTTP basic authentication is enabled. | (required when basic authentication is enabled) |
 | `SEADB_METRICS_INTERVAL` | The statistics update frequency. | `5s` |
 
 ### SQL
@@ -52,8 +53,8 @@ SeaDB is configured through environment variables. This page lists the variables
 | Variable | Description | Default |
 | --- | --- | --- |
 | `SEADB_CLUSTER_ENABLE` | Whether to enable cluster mode. | `false` |
-| `SEADB_CLUSTER_NODE_ID` | The cluster ID of the current node. IDs must be unique across nodes and stay fixed. | |
-| `SEADB_CLUSTER_ETCD_ENDPOINTS` | The etcd server addresses, comma-separated. | |
+| `SEADB_CLUSTER_NODE_ID` | The cluster ID of the current node. IDs must be unique across nodes and stay fixed. | (required in cluster mode) |
+| `SEADB_CLUSTER_ETCD_ENDPOINTS` | The etcd server addresses, comma-separated. | (required in cluster mode) |
 | `SEADB_CLUSTER_ETCD_PREFIX` | The etcd data prefix. Must match the Manager and Proxy. | `/seadb` |
 
 ## Cluster-Manager
