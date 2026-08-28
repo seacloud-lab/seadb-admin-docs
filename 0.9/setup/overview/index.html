@@ -579,7 +579,7 @@
   <span class="md-ellipsis">
     
   
-    FoundationDB
+    Single-node deployment
   
 
     
@@ -595,7 +595,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    FoundationDB
+    Single-node deployment
   
 
           </label>
@@ -615,7 +615,7 @@
   <span class="md-ellipsis">
     
   
-    Single node
+    FoundationDB
   
 
     
@@ -636,14 +636,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../foundationdb_cluster/" class="md-nav__link">
+      <a href="../build_from_source/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cluster
+    SeaDB
   
 
     
@@ -698,7 +698,7 @@
   <span class="md-ellipsis">
     
   
-    SeaDB with Docker
+    Cluster deployment
   
 
     
@@ -714,7 +714,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    SeaDB with Docker
+    Cluster deployment
   
 
           </label>
@@ -727,14 +727,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup_seadb_single/" class="md-nav__link">
+      <a href="../foundationdb_cluster/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Single node
+    FoundationDB
   
 
     
@@ -743,42 +743,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setup_seadb_cluster/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cluster (FoundationDB backend)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -798,7 +762,7 @@
   <span class="md-ellipsis">
     
   
-    SeaDB cluster (etcd)
+    SeaDB
   
 
     
@@ -812,29 +776,9 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../build_from_source/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Build from source
-  
-
-    
-  </span>
-  
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1131,7 +1075,7 @@
 <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
 <p>SeaDB depends on <a href="https://apple.github.io/foundationdb/">FoundationDB</a> for storage. FoundationDB is a distributed database designed to handle large volumes of structured data across clusters of commodity servers, and it can be scaled from a single node to thousands of machines.</p>
 <h2 id="deployment-topologies">Deployment topologies<a class="headerlink" href="#deployment-topologies" title="Permanent link">&para;</a></h2>
-<p>There are three ways to deploy SeaDB, depending on your scale and reliability requirements:</p>
+<p>There are two ways to run SeaDB itself, depending on your scale and reliability requirements:</p>
 <table>
 <thead>
 <tr>
@@ -1142,23 +1086,18 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../setup_seadb_single/">SeaDB single node (Docker)</a></td>
-<td>FoundationDB (single node, Docker) + SeaDB (Docker)</td>
+<td><a href="../build_from_source/">SeaDB single node</a></td>
+<td>FoundationDB (single node) + SeaDB (built from source)</td>
 <td>Non-production, evaluation</td>
 </tr>
 <tr>
-<td><a href="../setup_seadb_cluster/">SeaDB with a FoundationDB cluster (Docker)</a></td>
-<td>FoundationDB cluster (multiple nodes) + SeaDB (Docker)</td>
-<td>Production, horizontally-scaled storage</td>
-</tr>
-<tr>
-<td><a href="../seadb_cluster_native/">SeaDB cluster (etcd)</a></td>
+<td><a href="../seadb_cluster_native/">SeaDB cluster</a></td>
 <td>Multiple SeaDB nodes + SeaDB-Proxy + Cluster-Manager + etcd + FoundationDB</td>
 <td>Production, horizontally-scaled SeaDB service</td>
 </tr>
 </tbody>
 </table>
-<p>The first two topologies run SeaDB itself as a single container. The third topology clusters the SeaDB service itself, using an <a href="https://etcd.io/">etcd</a> cluster and a Cluster-Manager to coordinate multiple SeaDB nodes, with SeaDB-Proxy processes in front of them for client access.</p>
+<p>FoundationDB, the underlying storage layer, can be deployed as a single node or as a cluster; see <a href="../foundationdb_single/">FoundationDB single node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Two kinds of cluster</p>
 <p>"FoundationDB cluster" and "SeaDB cluster" are different concepts. The former clusters the underlying storage layer, while the latter clusters the SeaDB service. They can be used together.</p>
@@ -1172,10 +1111,9 @@
 </ul>
 <h2 id="where-to-start">Where to start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
 <ul>
-<li>To try SeaDB quickly, follow <a href="../setup_seadb_single/">SeaDB single node (Docker)</a>.</li>
-<li>To deploy the storage layer itself, see <a href="../foundationdb_single/">FoundationDB single node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</li>
-<li>To deploy the SeaDB service as a cluster, see <a href="../seadb_cluster_native/">SeaDB cluster (etcd)</a>.</li>
-<li>To build the binaries from source instead of using Docker, see <a href="../build_from_source/">Build from source</a>.</li>
+<li>To try SeaDB quickly, build and run a single node from source — see <a href="../build_from_source/">Build from source</a>.</li>
+<li>To deploy the storage layer, see <a href="../foundationdb_single/">FoundationDB single node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</li>
+<li>To deploy the SeaDB service as a cluster, see <a href="../seadb_cluster_native/">SeaDB cluster</a>.</li>
 <li>For the full list of environment variables, see <a href="../../configuration/environment_variables/">Environment variables</a>.</li>
 </ul>
 
@@ -1230,13 +1168,13 @@
         
         
           
-          <a href="../foundationdb_single/" class="md-footer__link md-footer__link--next" aria-label="Next: Single node">
+          <a href="../foundationdb_single/" class="md-footer__link md-footer__link--next" aria-label="Next: FoundationDB">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Single node
+                FoundationDB
               </div>
             </div>
             <div class="md-footer__button md-icon">

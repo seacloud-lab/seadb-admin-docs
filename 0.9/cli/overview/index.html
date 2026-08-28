@@ -491,7 +491,7 @@
   <span class="md-ellipsis">
     
   
-    FoundationDB
+    Single-node deployment
   
 
     
@@ -507,7 +507,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    FoundationDB
+    Single-node deployment
   
 
           </label>
@@ -527,7 +527,7 @@
   <span class="md-ellipsis">
     
   
-    Single node
+    FoundationDB
   
 
     
@@ -548,14 +548,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../setup/foundationdb_cluster/" class="md-nav__link">
+      <a href="../../setup/build_from_source/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cluster
+    SeaDB
   
 
     
@@ -607,7 +607,7 @@
   <span class="md-ellipsis">
     
   
-    SeaDB with Docker
+    Cluster deployment
   
 
     
@@ -623,7 +623,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    SeaDB with Docker
+    Cluster deployment
   
 
           </label>
@@ -636,14 +636,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../setup/setup_seadb_single/" class="md-nav__link">
+      <a href="../../setup/foundationdb_cluster/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Single node
+    FoundationDB
   
 
     
@@ -652,42 +652,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../setup/setup_seadb_cluster/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cluster (FoundationDB backend)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -707,7 +671,7 @@
   <span class="md-ellipsis">
     
   
-    SeaDB cluster (etcd)
+    SeaDB
   
 
     
@@ -721,29 +685,9 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../setup/build_from_source/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Build from source
-  
-
-    
-  </span>
-  
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1358,6 +1302,7 @@
 
 <h1 id="seadb-cli-overview">SeaDB CLI overview<a class="headerlink" href="#seadb-cli-overview" title="Permanent link">&para;</a></h1>
 <p>SeaDB provides a REST API for SQL execution, base management, user management, and base ownership. The <code>seadb-cli</code> tool is a standalone Go command-line client for this API. The CLI only calls existing SeaDB APIs; it does not access FoundationDB, the metabase, or SeaDB's internal methods directly.</p>
+<p>After login, each request is authenticated with the <code>Authorization: ApiKey &lt;encoded&gt;</code> header, where <code>&lt;encoded&gt;</code> is the API key returned by the server on login.</p>
 <p>See <a href="../usage/">Build and usage</a> for how to build, install, and configure the CLI.</p>
 <p>The implemented commands are <code>set-config</code>, <code>login</code>, <code>logout</code>, <code>sql</code>, <code>base</code>,
 <code>install</code>, and <code>uninstall</code>. The user-management and API-key-management commands

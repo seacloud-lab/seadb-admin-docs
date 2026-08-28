@@ -489,7 +489,7 @@
   <span class="md-ellipsis">
     
   
-    FoundationDB
+    Single-node deployment
   
 
     
@@ -505,7 +505,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    FoundationDB
+    Single-node deployment
   
 
           </label>
@@ -525,7 +525,7 @@
   <span class="md-ellipsis">
     
   
-    Single node
+    FoundationDB
   
 
     
@@ -546,14 +546,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../setup/foundationdb_cluster/" class="md-nav__link">
+      <a href="../../setup/build_from_source/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Cluster
+    SeaDB
   
 
     
@@ -605,7 +605,7 @@
   <span class="md-ellipsis">
     
   
-    SeaDB with Docker
+    Cluster deployment
   
 
     
@@ -621,7 +621,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    SeaDB with Docker
+    Cluster deployment
   
 
           </label>
@@ -634,14 +634,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../setup/setup_seadb_single/" class="md-nav__link">
+      <a href="../../setup/foundationdb_cluster/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Single node
+    FoundationDB
   
 
     
@@ -650,42 +650,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../setup/setup_seadb_cluster/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cluster (FoundationDB backend)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -705,7 +669,7 @@
   <span class="md-ellipsis">
     
   
-    SeaDB cluster (etcd)
+    SeaDB
   
 
     
@@ -719,29 +683,9 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../setup/build_from_source/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Build from source
-  
-
-    
-  </span>
-  
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1426,7 +1370,7 @@ seadb-cli<span class="w"> </span>--help
 Linux: ~/.config/seadb-cli/seadb_cli.yaml
 </code></pre></div>
 <p>When <code>XDG_CONFIG_HOME</code> is set on Linux, the file is at <code>$XDG_CONFIG_HOME/seadb-cli/seadb_cli.yaml</code>. The <code>cmd/seadb-cli/seadb_cli.yaml</code> file in the repository is not read automatically; it is only used when <code>SEADB_CONFIG</code> is set explicitly.</p>
-<p>The CLI creates the directory and config file automatically on the first successful configuration or login. For normal use, do not set <code>SEADB_CONFIG</code>, so that all terminals read the same default config and share login state.</p>
+<p>The CLI creates the directory and config file automatically on the first successful configuration or login, with mode <code>0600</code> on the config file. For normal use, do not set <code>SEADB_CONFIG</code>, so that all terminals read the same default config and share login state.</p>
 <p><code>SEADB_CONFIG</code> is only for temporary debugging, testing, or deliberately isolating environments:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_CONFIG</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.config/seadb-cli-dev.yaml"</span>
 </code></pre></div>
@@ -1574,7 +1518,7 @@ seadb-cli<span class="w"> </span>uninstall
 <ul>
 <li><code>0</code>: the command succeeded.</li>
 <li><code>1</code>: a runtime error, such as a connection, authentication, credential, or server request failure.</li>
-<li><code>2</code>: an incorrect command, argument, or argument value, including <code>help</code> and <code>completion</code> receiving an unknown command or extra arguments.</li>
+<li><code>2</code>: an incorrect command, argument, or argument value, including <code>help</code> and <code>completion</code> receiving an unknown command or extra arguments. An unknown command returns <code>2</code> even with <code>--help</code> and prints no help; for a valid command name, <code>--help</code> takes precedence, prints help, and returns <code>0</code>.</li>
 </ul>
 
 
