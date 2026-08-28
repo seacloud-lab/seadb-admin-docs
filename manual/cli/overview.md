@@ -2,6 +2,8 @@
 
 SeaDB provides a REST API for SQL execution, base management, user management, and base ownership. The `seadb-cli` tool is a standalone Go command-line client for this API. The CLI only calls existing SeaDB APIs; it does not access FoundationDB, the metabase, or SeaDB's internal methods directly.
 
+After login, each request is authenticated with the `Authorization: ApiKey <encoded>` header, where `<encoded>` is the API key returned by the server on login.
+
 See [Build and usage](usage.md) for how to build, install, and configure the CLI.
 
 The implemented commands are `set-config`, `login`, `logout`, `sql`, `base`,

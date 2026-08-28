@@ -4,15 +4,14 @@ SeaDB depends on [FoundationDB](https://apple.github.io/foundationdb/) for stora
 
 ## Deployment topologies
 
-There are three ways to deploy SeaDB, depending on your scale and reliability requirements:
+There are two ways to run SeaDB itself, depending on your scale and reliability requirements:
 
 | Topology | Components | Best for |
 | --- | --- | --- |
-| [SeaDB single node (Docker)](setup_seadb_single.md) | FoundationDB (single node, Docker) + SeaDB (Docker) | Non-production, evaluation |
-| [SeaDB with a FoundationDB cluster (Docker)](setup_seadb_cluster.md) | FoundationDB cluster (multiple nodes) + SeaDB (Docker) | Production, horizontally-scaled storage |
-| [SeaDB cluster (etcd)](seadb_cluster_native.md) | Multiple SeaDB nodes + SeaDB-Proxy + Cluster-Manager + etcd + FoundationDB | Production, horizontally-scaled SeaDB service |
+| [SeaDB single node](build_from_source.md) | FoundationDB (single node) + SeaDB (built from source) | Non-production, evaluation |
+| [SeaDB cluster](seadb_cluster_native.md) | Multiple SeaDB nodes + SeaDB-Proxy + Cluster-Manager + etcd + FoundationDB | Production, horizontally-scaled SeaDB service |
 
-The first two topologies run SeaDB itself as a single container. The third topology clusters the SeaDB service itself, using an [etcd](https://etcd.io/) cluster and a Cluster-Manager to coordinate multiple SeaDB nodes, with SeaDB-Proxy processes in front of them for client access.
+FoundationDB, the underlying storage layer, can be deployed as a single node or as a cluster; see [FoundationDB single node](foundationdb_single.md) and [FoundationDB cluster](foundationdb_cluster.md).
 
 !!! note "Two kinds of cluster"
     "FoundationDB cluster" and "SeaDB cluster" are different concepts. The former clusters the underlying storage layer, while the latter clusters the SeaDB service. They can be used together.
@@ -26,8 +25,7 @@ The first two topologies run SeaDB itself as a single container. The third topol
 
 ## Where to start
 
-- To try SeaDB quickly, follow [SeaDB single node (Docker)](setup_seadb_single.md).
-- To deploy the storage layer itself, see [FoundationDB single node](foundationdb_single.md) and [FoundationDB cluster](foundationdb_cluster.md).
-- To deploy the SeaDB service as a cluster, see [SeaDB cluster (etcd)](seadb_cluster_native.md).
-- To build the binaries from source instead of using Docker, see [Build from source](build_from_source.md).
+- To try SeaDB quickly, build and run a single node from source — see [Build from source](build_from_source.md).
+- To deploy the storage layer, see [FoundationDB single node](foundationdb_single.md) and [FoundationDB cluster](foundationdb_cluster.md).
+- To deploy the SeaDB service as a cluster, see [SeaDB cluster](seadb_cluster_native.md).
 - For the full list of environment variables, see [Environment variables](../configuration/environment_variables.md).

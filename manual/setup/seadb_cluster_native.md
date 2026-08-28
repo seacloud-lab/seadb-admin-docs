@@ -1,4 +1,4 @@
-# SeaDB cluster (etcd)
+# SeaDB cluster
 
 A SeaDB cluster consists of multiple SeaDB processes, multiple SeaDB-Proxy processes (referred to as *Proxy* below), and one Cluster-Manager process (referred to as *Manager* below). The external components are an [etcd](https://etcd.io/) cluster and FoundationDB.
 

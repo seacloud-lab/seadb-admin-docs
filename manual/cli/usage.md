@@ -100,7 +100,7 @@ Linux: ~/.config/seadb-cli/seadb_cli.yaml
 
 When `XDG_CONFIG_HOME` is set on Linux, the file is at `$XDG_CONFIG_HOME/seadb-cli/seadb_cli.yaml`. The `cmd/seadb-cli/seadb_cli.yaml` file in the repository is not read automatically; it is only used when `SEADB_CONFIG` is set explicitly.
 
-The CLI creates the directory and config file automatically on the first successful configuration or login. For normal use, do not set `SEADB_CONFIG`, so that all terminals read the same default config and share login state.
+The CLI creates the directory and config file automatically on the first successful configuration or login, with mode `0600` on the config file. For normal use, do not set `SEADB_CONFIG`, so that all terminals read the same default config and share login state.
 
 `SEADB_CONFIG` is only for temporary debugging, testing, or deliberately isolating environments:
 
@@ -311,4 +311,4 @@ Exit codes:
 
 - `0`: the command succeeded.
 - `1`: a runtime error, such as a connection, authentication, credential, or server request failure.
-- `2`: an incorrect command, argument, or argument value, including `help` and `completion` receiving an unknown command or extra arguments.
+- `2`: an incorrect command, argument, or argument value, including `help` and `completion` receiving an unknown command or extra arguments. An unknown command returns `2` even with `--help` and prints no help; for a valid command name, `--help` takes precedence, prints help, and returns `0`.

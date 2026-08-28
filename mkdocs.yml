@@ -82,14 +82,12 @@ nav:
   - Introduction: index.md
   - Setup:
     - Overview: setup/overview.md
-    - FoundationDB:
-      - Single node: setup/foundationdb_single.md
-      - Cluster: setup/foundationdb_cluster.md
-    - SeaDB with Docker:
-      - Single node: setup/setup_seadb_single.md
-      - Cluster (FoundationDB backend): setup/setup_seadb_cluster.md
-    - SeaDB cluster (etcd): setup/seadb_cluster_native.md
-    - Build from source: setup/build_from_source.md
+    - Single-node deployment:
+      - FoundationDB: setup/foundationdb_single.md
+      - SeaDB: setup/build_from_source.md
+    - Cluster deployment:
+      - FoundationDB: setup/foundationdb_cluster.md
+      - SeaDB: setup/seadb_cluster_native.md
   - Configuration:
     - Environment variables: configuration/environment_variables.md
   - SeaDB CLI:

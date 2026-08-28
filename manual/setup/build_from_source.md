@@ -84,6 +84,14 @@ export JWT_PRIVATE_KEY="<at-least-32-random-characters>"
 ./sea-db
 ```
 
+Verify that SeaDB is ready:
+
+```shell
+curl http://127.0.0.1:8888/ping
+```
+
+The expected response is `{"ret":"pong"}`.
+
 ## Build and run cluster-manager
 
 ### Build
@@ -117,7 +125,7 @@ go build -o ./sea-db-proxy ./cmd/sea-db-proxy
 ```
 
 Manager and Proxy require etcd and component-specific environment variables.
-See [SeaDB cluster (etcd)](seadb_cluster_native.md) for their complete runtime
+See [SeaDB cluster](seadb_cluster_native.md) for their complete runtime
 configuration and startup order.
 
 ## Troubleshooting

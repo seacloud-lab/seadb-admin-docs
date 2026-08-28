@@ -45,7 +45,7 @@ SeaDB is configured through environment variables. This page lists the variables
 | Variable | Description | Default |
 | --- | --- | --- |
 | `SEADB_DEFAULT_RESULT_ROWS` | The default row limit returned when no `LIMIT` clause is provided. | `100` |
-| `SEADB_RESULT_ROWS_HARD_LIMIT` | The hard limit on the number of rows returned. | `1000` |
+| `SEADB_RESULT_ROWS_HARD_LIMIT` | The hard limit on the number of rows returned. | `10000` |
 | `SEADB_EXEC_COST_HARD_LIMIT` | The query execution cost limit. | `5000000` |
 
 ### Cluster
