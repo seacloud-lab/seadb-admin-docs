@@ -1071,6 +1071,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#log-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log out
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#execute-sql" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1244,6 +1255,17 @@
     <span class="md-ellipsis">
       
         Log in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log out
       
     </span>
   </a>
@@ -1451,6 +1473,19 @@ OK: logged in as admin
 seadb-cli<span class="w"> </span>login<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:7777
 </code></pre></div>
 <p>Login cannot run in a non-interactive terminal; complete login in an interactive terminal first.</p>
+<h3 id="log-out">Log out<a class="headerlink" href="#log-out" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span><span class="nb">logout</span>
+</code></pre></div>
+<p>Logout revokes the API key created by <code>login</code>, removes the credential from the
+configured credential store, and removes <code>username</code> and <code>key_id</code> from the
+configuration file. It is safe to run when the server already considers the
+key invalid; the CLI still cleans up the local login state.</p>
+<p>Use a one-off timeout when needed:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span><span class="nb">logout</span><span class="w"> </span>--timeout<span class="w"> </span>60s
+</code></pre></div>
+<p>If the server cannot be reached or the credential cannot be read, the CLI
+reports whether the server-side API key may still exist while cleaning up the
+local state.</p>
 <h3 id="execute-sql">Execute SQL<a class="headerlink" href="#execute-sql" title="Permanent link">&para;</a></h3>
 <p><code>sql</code> requires a target base UUID. The SQL can be passed with <code>-e</code> or read from a pipe or redirected stdin:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">BASE_ID</span><span class="o">=</span>f5a24a4e-a5bf-463a-b878-13b0a3a509c8
@@ -1503,7 +1538,9 @@ seadb-cli<span class="w"> </span>set-config<span class="w"> </span>-c<span class
 seadb-cli<span class="w"> </span>login
 </code></pre></div>
 <p>File mode stores the encoded API key in <code>&lt;config file path&gt;.credentials</code>. The CLI creates the credential file with mode <code>0600</code>; when replacing an existing file, its existing permissions are kept.</p>
-<p>This file stores the encoded API key in plaintext, which is equivalent to a password and is protected only by file permissions. <code>keyring</code> mode does not have this problem — it does not leave a key file in the config directory.</p>
+<p>This file stores the encoded API key in plaintext, which is equivalent to a
+password and is protected only by file permissions. <code>keyring</code> mode does not
+leave a key file in the config directory.</p>
 <p>You cannot change the server address or <code>credential_store</code> while logged in. To switch servers or credential modes, run <code>logout</code> first, then <code>set-config</code>.</p>
 <h2 id="uninstall">Uninstall<a class="headerlink" href="#uninstall" title="Permanent link">&para;</a></h2>
 <p>Log out before uninstalling:</p>
@@ -1537,7 +1574,7 @@ seadb-cli<span class="w"> </span>uninstall
 <ul>
 <li><code>0</code>: the command succeeded.</li>
 <li><code>1</code>: a runtime error, such as a connection, authentication, credential, or server request failure.</li>
-<li><code>2</code>: an incorrect command, argument, or argument value — including <code>help</code> and <code>completion</code> receiving an unknown command or extra arguments.</li>
+<li><code>2</code>: an incorrect command, argument, or argument value, including <code>help</code> and <code>completion</code> receiving an unknown command or extra arguments.</li>
 </ul>
 
 

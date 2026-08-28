@@ -618,15 +618,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-deploy-the-master-node" class="md-nav__link">
+  <a href="#1-deploy-the-bootstrap-node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Deploy the master node
+        1. Deploy the bootstrap node
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Deploy the master node">
+    <nav class="md-nav" aria-label="1. Deploy the bootstrap node">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1167,15 +1167,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-deploy-the-master-node" class="md-nav__link">
+  <a href="#1-deploy-the-bootstrap-node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Deploy the master node
+        1. Deploy the bootstrap node
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Deploy the master node">
+    <nav class="md-nav" aria-label="1. Deploy the bootstrap node">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1312,28 +1312,38 @@
 <p>A FoundationDB cluster consists of multiple <code>fdbserver</code> processes that are independent of each other and exchange data over the network.</p>
 <p>Before deploying, keep the following points in mind:</p>
 <ul>
-<li>A <code>fdbserver</code> process needs at least 4 GB of memory.</li>
-<li>A <code>fdbserver</code> process consumes only one CPU core. You can run multiple processes on a single server to make full use of its resources.</li>
-<li>A <code>fdbserver</code> process can be bound to any number of roles. The cluster assigns roles automatically based on its current state; only the <code>coordinator</code> role must be assigned manually by the administrator.</li>
-<li>Each <code>fdbserver</code> process needs a correct <code>machine-id</code> and <code>datacenter-id</code>, so that multiple replicas of the same data do not fail together.</li>
+<li>Plan for at least 4 GB of available memory per <code>fdbserver</code> process. Actual
+  memory requirements depend on workload and process configuration.</li>
+<li>An <code>fdbserver</code> process can use up to one full CPU core. Run multiple processes
+  on a server when the workload should use additional cores.</li>
+<li>An <code>fdbserver</code> process can run multiple roles. FoundationDB assigns most
+  roles dynamically; administrators explicitly select the coordinator
+  processes with the <code>coordinators</code> command.</li>
+<li>Configure locality values to describe real failure domains. Processes on the
+  same machine should share a <code>locality-machineid</code> and <code>locality-zoneid</code>;
+  processes in the same datacenter should share a <code>locality-dcid</code>.</li>
 </ul>
-<h2 id="1-deploy-the-master-node">1. Deploy the master node<a class="headerlink" href="#1-deploy-the-master-node" title="Permanent link">&para;</a></h2>
+<h2 id="1-deploy-the-bootstrap-node">1. Deploy the bootstrap node<a class="headerlink" href="#1-deploy-the-bootstrap-node" title="Permanent link">&para;</a></h2>
 <h3 id="datafdbcluster"><code>data/fdb.cluster</code><a class="headerlink" href="#datafdbcluster" title="Permanent link">&para;</a></h3>
-<p>Modify the IP address and port as needed. Other nodes read the master node's address from this file when they first start.</p>
-<div class="highlight"><pre><span></span><code>docker:docker@127.0.0.1:4500
+<p>Modify the IP address and port as needed. Use an address that every FoundationDB
+host can reach. Other nodes use this bootstrap cluster file when they first
+start; FoundationDB does not have a permanent master host.</p>
+<div class="highlight"><pre><span></span><code>docker:docker@10.0.4.1:4500
 </code></pre></div>
 <h3 id="imagedockerfile"><code>image/Dockerfile</code><a class="headerlink" href="#imagedockerfile" title="Permanent link">&para;</a></h3>
-<p>The custom <code>ENTRYPOINT</code> and <code>CMD</code> are needed to set parameters such as <code>public-address</code>, which the default startup script cannot configure.</p>
+<p>The custom <code>ENTRYPOINT</code> and <code>CMD</code> provide explicit routable addresses and
+locality values for this deployment.</p>
 <ul>
 <li><code>public-address</code>: the externally accessible address</li>
 <li><code>listen-address</code>: the listening address</li>
-<li><code>datacenter-id</code>: a hexadecimal value of up to 16 characters</li>
-<li><code>machine-id</code>: a hexadecimal value of up to 16 characters</li>
+<li><code>locality-dcid</code>: an identifier for the datacenter</li>
+<li><code>locality-machineid</code>: a unique identifier for the machine</li>
+<li><code>locality-zoneid</code>: an identifier for the replication failure zone</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">foundationdb/foundationdb:7.3.63</span>
 
 <span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/bin/tini"</span><span class="p">,</span><span class="w"> </span><span class="s2">"-g"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--"</span><span class="p">]</span>
-<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fdbserver"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--public-address"</span><span class="p">,</span><span class="w"> </span><span class="s2">"127.0.0.1:4500"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--listen-address"</span><span class="p">,</span><span class="w"> </span><span class="s2">"127.0.0.1:4500"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--logdir"</span><span class="p">,</span><span class="w"> </span><span class="s2">"/var/fdb/logs"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--datadir"</span><span class="p">,</span><span class="w"> </span><span class="s2">"/var/fdb/data"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--datacenter-id"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="s2">"--machine-id"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">]</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fdbserver"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--public-address"</span><span class="p">,</span><span class="w"> </span><span class="s2">"10.0.4.1:4500"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--listen-address"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0.0.0.0:4500"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--logdir"</span><span class="p">,</span><span class="w"> </span><span class="s2">"/var/fdb/logs"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--datadir"</span><span class="p">,</span><span class="w"> </span><span class="s2">"/var/fdb/data"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--locality-dcid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dc-1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--locality-machineid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fdb-1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--locality-zoneid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fdb-1"</span><span class="p">]</span>
 </code></pre></div>
 <h3 id="composeyml"><code>compose.yml</code><a class="headerlink" href="#composeyml" title="Permanent link">&para;</a></h3>
 <p>Set <code>network_mode</code> to <code>host</code> to avoid the latency introduced by <code>docker-proxy</code> forwarding.</p>
@@ -1357,10 +1367,14 @@
 docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>fdb<span class="w"> </span>fdbcli<span class="w"> </span>--exec<span class="w"> </span><span class="s1">'configure new single ssd'</span>
 </code></pre></div>
 <h2 id="2-deploy-the-remaining-nodes">2. Deploy the remaining nodes<a class="headerlink" href="#2-deploy-the-remaining-nodes" title="Permanent link">&para;</a></h2>
-<p>The <code>fdb.cluster</code> file on every node must match the master node. Other settings can be defined as needed.</p>
+<p>The <code>fdb.cluster</code> file on every node must identify the same cluster and use
+reachable coordinator addresses. Assign each host unique <code>locality-machineid</code>
+and <code>locality-zoneid</code> values. Set <code>locality-dcid</code> according to real datacenter
+boundaries: hosts in the same datacenter should use the same value, while
+independent datacenters should use different values.</p>
 <h2 id="3-deploy-the-backup_agent-process">3. Deploy the <code>backup_agent</code> process<a class="headerlink" href="#3-deploy-the-backup_agent-process" title="Permanent link">&para;</a></h2>
 <p>The <code>backup_agent</code> process is responsible for performing backups.</p>
-<p><code>data/fdb.cluster</code> must match the master node.</p>
+<p><code>data/fdb.cluster</code> must identify the same cluster as the database nodes.</p>
 <p><code>image/Dockerfile</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">foundationdb/foundationdb:7.3.63</span>
 
@@ -1388,6 +1402,9 @@ docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">ex
 <div class="highlight"><pre><span></span><code>fdb&gt; status
 </code></pre></div>
 <h3 id="adjust-the-replica-count-and-the-number-of-coordinators">Adjust the replica count and the number of coordinators<a class="headerlink" href="#adjust-the-replica-count-and-the-number-of-coordinators" title="Permanent link">&para;</a></h3>
+<p>Use an odd number of coordinators. Three or five coordinators are recommended
+for production deployments; place them in independent failure domains when
+possible.</p>
 <table>
 <thead>
 <tr>

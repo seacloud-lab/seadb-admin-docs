@@ -967,15 +967,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
+  <a href="#currently-available-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands
+        Currently available commands
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Commands">
+    <nav class="md-nav" aria-label="Currently available commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -999,6 +999,23 @@
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planned-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Planned commands">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#user-management" class="md-nav__link">
@@ -1050,13 +1067,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cli-api-mapping" class="md-nav__link">
+  <a href="#cli-to-api-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI ↔ API mapping
+        CLI-to-API mapping
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="CLI-to-API mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planned-commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1142,15 +1187,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
+  <a href="#currently-available-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands
+        Currently available commands
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Commands">
+    <nav class="md-nav" aria-label="Currently available commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1174,6 +1219,23 @@
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planned-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Planned commands">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#user-management" class="md-nav__link">
@@ -1225,13 +1287,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cli-api-mapping" class="md-nav__link">
+  <a href="#cli-to-api-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI ↔ API mapping
+        CLI-to-API mapping
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="CLI-to-API mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planned-commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1269,7 +1359,10 @@
 <h1 id="seadb-cli-overview">SeaDB CLI overview<a class="headerlink" href="#seadb-cli-overview" title="Permanent link">&para;</a></h1>
 <p>SeaDB provides a REST API for SQL execution, base management, user management, and base ownership. The <code>seadb-cli</code> tool is a standalone Go command-line client for this API. The CLI only calls existing SeaDB APIs; it does not access FoundationDB, the metabase, or SeaDB's internal methods directly.</p>
 <p>See <a href="../usage/">Build and usage</a> for how to build, install, and configure the CLI.</p>
-<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
+<p>The implemented commands are <code>set-config</code>, <code>login</code>, <code>logout</code>, <code>sql</code>, <code>base</code>,
+<code>install</code>, and <code>uninstall</code>. The user-management and API-key-management commands
+later on this page describe the design target and are not yet available.</p>
+<h2 id="currently-available-commands">Currently available commands<a class="headerlink" href="#currently-available-commands" title="Permanent link">&para;</a></h2>
 <h3 id="sql">SQL<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>&lt;uuid&gt;<span class="w"> </span>-e<span class="w"> </span><span class="s1">'&lt;sql&gt;'</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s1">'&lt;sql&gt;'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>&lt;uuid&gt;
@@ -1305,12 +1398,15 @@ seadb-cli<span class="w"> </span>base<span class="w"> </span>delete<span class="
 seadb-cli<span class="w"> </span>base<span class="w"> </span>set-owner<span class="w"> </span>&lt;uuid&gt;<span class="w"> </span>&lt;username&gt;
 </code></pre></div>
 <ul>
-<li><code>base create</code> does not accept a user-supplied UUID; the CLI generates a standard UUID and prints it on success.</li>
-<li><code>base list</code> lists all bases owned by the current user by default, equivalent to <code>--scope mine</code>.</li>
+<li><code>base create</code> does not accept a user-supplied UUID; the CLI generates a UUID and prints it on success.</li>
+<li><code>base list</code> lists all bases owned by the currently authenticated user by default, equivalent to <code>--scope mine</code>.</li>
 <li>Regular users do not need to specify a scope. Administrators can use <code>--scope mine</code> to view their own bases and <code>--scope all</code> to view all bases.</li>
 <li><code>base delete</code> asks for confirmation by default; non-interactive calls must pass <code>--yes</code> explicitly.</li>
 <li><code>base set-owner</code> is only available to administrators.</li>
 </ul>
+<h2 id="planned-commands">Planned commands<a class="headerlink" href="#planned-commands" title="Permanent link">&para;</a></h2>
+<p>The following commands are part of the CLI design but have not been implemented
+in the current <code>seadb-cli</code>.</p>
 <h3 id="user-management">User management<a class="headerlink" href="#user-management" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>&lt;username&gt;
 seadb-cli<span class="w"> </span>user<span class="w"> </span>list
@@ -1332,7 +1428,7 @@ seadb-cli api-key list
 seadb-cli api-key delete &lt;key-id&gt; [&lt;key-id&gt;...]
 </code></pre></div>
 <ul>
-<li><code>api-key create</code> only creates a key for the current logged-in user, with a default validity of 30 days. <code>--expire-days</code> accepts a positive integer; a permanent key must be specified explicitly with <code>--no-expire</code>. The two parameters cannot be used together.</li>
+<li><code>api-key create</code> creates a key only for the currently authenticated user. The key expires after 30 days by default. <code>--expire-days</code> accepts a positive integer; a permanent key must be specified explicitly with <code>--no-expire</code>. The two parameters cannot be used together.</li>
 <li>On success, a single-row table shows <code>key_id</code>, <code>key_name</code>, <code>encoded</code>, the creation time, and the expiration time. <code>encoded</code> is returned by the server only once; the CLI does not write it to the login credential or config file.</li>
 <li><code>api-key list</code> only lists the current user's keys; the output does not include <code>encoded</code>.</li>
 <li>Regular users can only delete their own keys; administrators can delete any user's key by key ID. Deletion asks for confirmation by default.</li>
@@ -1340,9 +1436,9 @@ seadb-cli api-key delete &lt;key-id&gt; [&lt;key-id&gt;...]
 </ul>
 <h2 id="output-conventions">Output conventions<a class="headerlink" href="#output-conventions" title="Permanent link">&para;</a></h2>
 <ul>
-<li>SQL queries, base lists, user lists, and API key lists use table output. Base statistics and metadata use JSON output.</li>
-<li>Only the <code>table</code> format is supported; <code>JSON</code> and <code>CSV</code> are not provided.</li>
-<li>A successful response with data only prints the data, without extra status text.</li>
+<li>SQL queries and list commands use table output. Base statistics and metadata use raw JSON output.</li>
+<li>The CLI does not provide a selectable output format; JSON and CSV alternatives are not available for table-based commands.</li>
+<li>A successful response with data prints only the returned data, without extra status text.</li>
 <li>
 <p>A successful response with no data prints:</p>
 <div class="highlight"><pre><span></span><code>OK: &lt;operation result&gt;
@@ -1366,7 +1462,8 @@ seadb-cli api-key delete &lt;key-id&gt; [&lt;key-id&gt;...]
 <li>Other output formats such as JSON or CSV.</li>
 <li>Displaying DML affected rows; the current query API does not return this field.</li>
 </ul>
-<h2 id="cli-api-mapping">CLI ↔ API mapping<a class="headerlink" href="#cli-api-mapping" title="Permanent link">&para;</a></h2>
+<h2 id="cli-to-api-mapping">CLI-to-API mapping<a class="headerlink" href="#cli-to-api-mapping" title="Permanent link">&para;</a></h2>
+<h3 id="current-commands">Current commands<a class="headerlink" href="#current-commands" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1419,6 +1516,18 @@ seadb-cli api-key delete &lt;key-id&gt; [&lt;key-id&gt;...]
 <td><code>base set-owner</code></td>
 <td><code>POST /api/v1/{base_id}/base/update-base-owner</code></td>
 </tr>
+</tbody>
+</table>
+<h3 id="planned-commands_1">Planned commands<a class="headerlink" href="#planned-commands_1" title="Permanent link">&para;</a></h3>
+<p>These mappings belong to the unimplemented user and API-key management design:</p>
+<table>
+<thead>
+<tr>
+<th>CLI command</th>
+<th>SeaDB API</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td><code>user create</code></td>
 <td><code>POST /api/v1/users</code></td>
@@ -1450,13 +1559,16 @@ seadb-cli api-key delete &lt;key-id&gt; [&lt;key-id&gt;...]
 </tbody>
 </table>
 <h2 id="cluster-mode-prerequisites">Cluster mode prerequisites<a class="headerlink" href="#cluster-mode-prerequisites" title="Permanent link">&para;</a></h2>
-<p>For the CLI to fully support management commands in cluster mode, the Proxy must forward the following endpoints:</p>
+<p>For the currently implemented management commands to work in cluster mode, the
+Proxy must forward the following endpoints:</p>
 <div class="highlight"><pre><span></span><code>GET    /ping
 GET    /api/v1/users/bases
 POST   /api/v1/{base_id}/base/update-base-owner
 POST   /api/v1/users/api_keys
 DELETE /api/v1/users/api_keys
-GET    /api/v1/users/api_keys
+</code></pre></div>
+<p>The planned user and API-key management commands additionally require:</p>
+<div class="highlight"><pre><span></span><code>GET    /api/v1/users/api_keys
 GET    /api/v1/users
 POST   /api/v1/users
 PUT    /api/v1/users

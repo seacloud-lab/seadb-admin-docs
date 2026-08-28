@@ -1166,7 +1166,8 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>FoundationDB</strong>: SeaDB is tested against FoundationDB <code>7.3.63</code>.</li>
-<li><strong>Memory</strong>: each <code>fdbserver</code> process needs at least 4 GB of memory; allocate accordingly when running multiple processes per machine.</li>
+<li><strong>Memory</strong>: plan for at least 4 GB of available memory per <code>fdbserver</code>
+  process; actual requirements depend on workload and process configuration.</li>
 <li><strong>Go</strong> (source builds only): Go 1.24 or later is required to build <code>sea-db</code>, <code>cluster-manager</code>, and <code>sea-db-proxy</code> from source.</li>
 </ul>
 <h2 id="where-to-start">Where to start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>

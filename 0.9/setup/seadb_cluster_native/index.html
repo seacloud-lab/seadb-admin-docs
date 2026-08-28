@@ -1463,45 +1463,55 @@
 <h2 id="preparation">Preparation<a class="headerlink" href="#preparation" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Set up an etcd cluster and a FoundationDB cluster before deploying.</li>
-<li>SeaDB processes must be deployed on different servers.</li>
-<li>Proxy processes should be deployed on the same servers as the clients.</li>
+<li>Deploy SeaDB nodes on separate servers for fault isolation in production.</li>
+<li>Place Proxy processes close to their clients to reduce network latency.</li>
 <li>The Manager process can be deployed on any server.</li>
 </ul>
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
 <h3 id="1-configure-and-start-all-seadb-processes">1. Configure and start all SeaDB processes<a class="headerlink" href="#1-configure-and-start-all-seadb-processes" title="Permanent link">&para;</a></h3>
 <p>Example configuration:</p>
-<div class="highlight"><pre><span></span><code># Non-cluster-related settings must be identical across nodes
-SEADB_LOG_DIR=
+<div class="highlight"><pre><span></span><code># Node-local paths may differ between servers
+SEADB_LOG_DIR="./log"
 SEADB_DATA_DIR="./data"
-JWT_PRIVATE_KEY="private_key"
+SEADB_FDB_CLUSTER_FILE="/etc/foundationdb/fdb.cluster"
+JWT_PRIVATE_KEY="&lt;at-least-32-random-characters&gt;"
 
 # The following settings are required in cluster mode
 SEADB_CLUSTER_ENABLE="true"
 SEADB_CLUSTER_NODE_ID="1"           # each node must use a different ID
-SEADB_CLUSTER_ETCD_ENDPOINTS="127.0.0.1:2379"
+SEADB_CLUSTER_ETCD_ENDPOINTS="etcd-01:2379,etcd-02:2379,etcd-03:2379"
 </code></pre></div>
+<p>Use the same <code>JWT_PRIVATE_KEY</code>, FoundationDB cluster, and etcd prefix on every
+SeaDB node. Node-local paths may differ. Keep <code>SEADB_CLUSTER_NODE_ID</code> unique
+and stable for each node.</p>
 <h3 id="2-configure-and-start-the-manager-process">2. Configure and start the Manager process<a class="headerlink" href="#2-configure-and-start-the-manager-process" title="Permanent link">&para;</a></h3>
 <p>Example configuration:</p>
-<div class="highlight"><pre><span></span><code>SEADB_CLUSTER_MANAGER_LOG_DIR="./log"
-SEADB_ETCD_ENDPOINTS="127.0.0.1:2379"
+<div class="highlight"><pre><span></span><code>SEADB_LOG_DIR="./log"
+SEADB_ETCD_ENDPOINTS="etcd-01:2379,etcd-02:2379,etcd-03:2379"
 </code></pre></div>
 <h3 id="3-register-the-node-information">3. Register the node information<a class="headerlink" href="#3-register-the-node-information" title="Permanent link">&para;</a></h3>
 <p>Send a request to the Manager to register the addresses of all SeaDB nodes:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://cluster-manager/api/cluster/nodes<span class="w"> </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://cluster-manager:8890/api/cluster/nodes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "nodes": [</span>
-<span class="s1">        {"id": 1, "url": "http://sea-db-01/"},</span>
-<span class="s1">        {"id": 2, "url": "http://sea-db-02/"}</span>
+<span class="s1">        {"id": 1, "url": "http://sea-db-01:8888/"},</span>
+<span class="s1">        {"id": 2, "url": "http://sea-db-02:8888/"}</span>
 <span class="s1">    ]</span>
 <span class="s1">}'</span>
 </code></pre></div>
 <h3 id="4-configure-and-start-the-proxy-processes">4. Configure and start the Proxy processes<a class="headerlink" href="#4-configure-and-start-the-proxy-processes" title="Permanent link">&para;</a></h3>
 <p>Example configuration:</p>
-<div class="highlight"><pre><span></span><code>SEADB_PROXY_LOG_DIR=
-SEADB_ETCD_ENDPOINTS="127.0.0.1:2379"
-SEADB_CLUSTER_MANAGER_URL="http://cluster-manager"
+<div class="highlight"><pre><span></span><code>SEADB_LOG_DIR="./log"
+SEADB_ETCD_ENDPOINTS="etcd-01:2379,etcd-02:2379,etcd-03:2379"
+SEADB_CLUSTER_MANAGER_URL="http://cluster-manager:8890"
 </code></pre></div>
 <h3 id="5-configure-the-clients">5. Configure the clients<a class="headerlink" href="#5-configure-the-clients" title="Permanent link">&para;</a></h3>
 <p>Clients must connect to SeaDB through a Proxy.</p>
+<p>Verify each Proxy before configuring clients:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsS<span class="w"> </span>http://proxy-host:8888/ping
+</code></pre></div>
+<p>The expected response is <code>{"ret":"pong"}</code>.</p>
 <h2 id="cluster-configuration-options">Cluster configuration options<a class="headerlink" href="#cluster-configuration-options" title="Permanent link">&para;</a></h2>
 <p>All configuration options are passed through environment variables. The values shown below are the defaults. See <a href="../../configuration/environment_variables/">Environment variables</a> for the complete reference.</p>
 <h3 id="seadb">SeaDB<a class="headerlink" href="#seadb" title="Permanent link">&para;</a></h3>
@@ -1547,7 +1557,7 @@ SEADB_CLUSTER_MANAGER_URL=
 <h2 id="cluster-api">Cluster API<a class="headerlink" href="#cluster-api" title="Permanent link">&para;</a></h2>
 <p>The Manager provides the following API to manage cluster node information.</p>
 <h3 id="get-apiclusternodes"><code>GET /api/cluster/nodes</code><a class="headerlink" href="#get-apiclusternodes" title="Permanent link">&para;</a></h3>
-<p>Get the cluster node information.</p>
+<p>List the registered cluster nodes.</p>
 <div class="highlight"><pre><span></span><code># sample response
 {
     "nodes": [
@@ -1557,7 +1567,7 @@ SEADB_CLUSTER_MANAGER_URL=
 }
 </code></pre></div>
 <h3 id="post-apiclusternodes"><code>POST /api/cluster/nodes</code><a class="headerlink" href="#post-apiclusternodes" title="Permanent link">&para;</a></h3>
-<p>Add nodes.</p>
+<p>Register nodes.</p>
 <div class="highlight"><pre><span></span><code># sample request
 {
     "nodes": [
@@ -1567,7 +1577,7 @@ SEADB_CLUSTER_MANAGER_URL=
 }
 </code></pre></div>
 <h3 id="put-apiclusternodes"><code>PUT /api/cluster/nodes</code><a class="headerlink" href="#put-apiclusternodes" title="Permanent link">&para;</a></h3>
-<p>Update node information.</p>
+<p>Update registered node information.</p>
 <div class="highlight"><pre><span></span><code># sample request
 {
     "nodes": [
@@ -1576,7 +1586,7 @@ SEADB_CLUSTER_MANAGER_URL=
 }
 </code></pre></div>
 <h3 id="delete-apiclusternodes"><code>DELETE /api/cluster/nodes</code><a class="headerlink" href="#delete-apiclusternodes" title="Permanent link">&para;</a></h3>
-<p>Delete nodes.</p>
+<p>Remove registered nodes.</p>
 <div class="highlight"><pre><span></span><code># sample request
 {
     "node_ids": [1]

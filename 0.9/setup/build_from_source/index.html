@@ -911,10 +911,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-create-an-admin-account" class="md-nav__link">
+  <a href="#1-configure-the-runtime-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Create an admin account
+        1. Configure the runtime environment
       
     </span>
   </a>
@@ -922,10 +922,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-run-sea-db" class="md-nav__link">
+  <a href="#2-create-an-admin-account" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Run sea-db
+        2. Create an admin account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-sea-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run sea-db
       
     </span>
   </a>
@@ -1422,10 +1433,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-create-an-admin-account" class="md-nav__link">
+  <a href="#1-configure-the-runtime-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Create an admin account
+        1. Configure the runtime environment
       
     </span>
   </a>
@@ -1433,10 +1444,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-run-sea-db" class="md-nav__link">
+  <a href="#2-create-an-admin-account" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Run sea-db
+        2. Create an admin account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-sea-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run sea-db
       
     </span>
   </a>
@@ -1606,11 +1628,15 @@ curl<span class="w"> </span>-L<span class="w"> </span>-O<span class="w"> </span>
 <h3 id="2-install-foundationdb">2. Install FoundationDB<a class="headerlink" href="#2-install-foundationdb" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>./foundationdb-clients_7.3.63-1_amd64.deb
 sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>./foundationdb-server_7.3.63-1_amd64.deb
-systemctl<span class="w"> </span>start<span class="w"> </span>foundationdb
-fdbcli<span class="w"> </span>--exec<span class="w"> </span><span class="s2">"configure storage_migration_type=aggressive"</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>foundationdb
+</code></pre></div>
+<p>If the instance was initialized with the <code>memory</code> storage engine, migrate it to
+the <code>ssd-2</code> storage engine:</p>
+<div class="highlight"><pre><span></span><code>fdbcli<span class="w"> </span>--exec<span class="w"> </span><span class="s2">"configure storage_migration_type=aggressive"</span>
 fdbcli<span class="w"> </span>--exec<span class="w"> </span><span class="s2">"configure ssd"</span>
 </code></pre></div>
-<p>FoundationDB has some memory requirements; we recommend allocating at least 4 GB of available memory.</p>
+<p>Plan for at least 4 GB of available memory for the <code>fdbserver</code> process. Actual
+requirements depend on workload and process configuration.</p>
 <h2 id="build-sea-db">Build sea-db<a class="headerlink" href="#build-sea-db" title="Permanent link">&para;</a></h2>
 <h3 id="1-install-go">1. Install Go<a class="headerlink" href="#1-install-go" title="Permanent link">&para;</a></h3>
 <p>Refer to <a href="https://golang.google.cn/dl/">https://golang.google.cn/dl/</a>. The Go version must be 1.24 or later.</p>
@@ -1618,22 +1644,34 @@ fdbcli<span class="w"> </span>--exec<span class="w"> </span><span class="s2">"co
 <div class="highlight"><pre><span></span><code>go<span class="w"> </span>env<span class="w"> </span>-w<span class="w"> </span><span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn,direct
 </code></pre></div>
 <h3 id="3-clone-the-repository">3. Clone the repository<a class="headerlink" href="#3-clone-the-repository" title="Permanent link">&para;</a></h3>
-<p>The project is located at <a href="https://github.com/seafileltd/SeaDB">https://github.com/seafileltd/SeaDB</a>.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/seafileltd/SeaDB.git
+<span class="nb">cd</span><span class="w"> </span>SeaDB
+</code></pre></div>
 <h3 id="4-build">4. Build<a class="headerlink" href="#4-build" title="Permanent link">&para;</a></h3>
-<p>Change to the project directory, then run:</p>
-<div class="highlight"><pre><span></span><code>go<span class="w"> </span>build<span class="w"> </span>./cmd/sea-db
+<div class="highlight"><pre><span></span><code>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>./sea-db<span class="w"> </span>./cmd/sea-db
 </code></pre></div>
 <h2 id="run-sea-db">Run sea-db<a class="headerlink" href="#run-sea-db" title="Permanent link">&para;</a></h2>
-<h3 id="1-create-an-admin-account">1. Create an admin account<a class="headerlink" href="#1-create-an-admin-account" title="Permanent link">&para;</a></h3>
+<h3 id="1-configure-the-runtime-environment">1. Configure the runtime environment<a class="headerlink" href="#1-configure-the-runtime-environment" title="Permanent link">&para;</a></h3>
+<p>The following is a minimal local example. Adjust the paths and use a persistent
+secret of at least 32 random characters for <code>JWT_PRIVATE_KEY</code>. All SeaDB nodes
+and trusted services that issue JWTs for SeaDB must use the same value.</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>./data<span class="w"> </span>./log
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_LOG_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/log"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/data"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_FDB_CLUSTER_FILE</span><span class="o">=</span><span class="s2">"/etc/foundationdb/fdb.cluster"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">JWT_PRIVATE_KEY</span><span class="o">=</span><span class="s2">"&lt;at-least-32-random-characters&gt;"</span>
+</code></pre></div>
+<h3 id="2-create-an-admin-account">2. Create an admin account<a class="headerlink" href="#2-create-an-admin-account" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>./sea-db<span class="w"> </span>add-admin<span class="w"> </span>-u<span class="w"> </span>seadb-admin<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
 </code></pre></div>
-<h3 id="2-run-sea-db">2. Run sea-db<a class="headerlink" href="#2-run-sea-db" title="Permanent link">&para;</a></h3>
+<h3 id="3-run-sea-db">3. Run sea-db<a class="headerlink" href="#3-run-sea-db" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>./sea-db
 </code></pre></div>
 <h2 id="build-and-run-cluster-manager">Build and run cluster-manager<a class="headerlink" href="#build-and-run-cluster-manager" title="Permanent link">&para;</a></h2>
 <h3 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
 <p>Follow the same Go setup and repository clone steps as for <code>sea-db</code>, then run:</p>
-<div class="highlight"><pre><span></span><code>go<span class="w"> </span>build<span class="w"> </span>./cmd/cluster-manager
+<div class="highlight"><pre><span></span><code>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>./cluster-manager<span class="w"> </span>./cmd/cluster-manager
 </code></pre></div>
 <h3 id="run">Run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>./cluster-manager
@@ -1641,51 +1679,35 @@ fdbcli<span class="w"> </span>--exec<span class="w"> </span><span class="s2">"co
 <h2 id="build-and-run-sea-db-proxy">Build and run sea-db-proxy<a class="headerlink" href="#build-and-run-sea-db-proxy" title="Permanent link">&para;</a></h2>
 <h3 id="build_1">Build<a class="headerlink" href="#build_1" title="Permanent link">&para;</a></h3>
 <p>Follow the same Go setup and repository clone steps as for <code>sea-db</code>, then run:</p>
-<div class="highlight"><pre><span></span><code>go<span class="w"> </span>build<span class="w"> </span>./cmd/sea-db-proxy
+<div class="highlight"><pre><span></span><code>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>./sea-db-proxy<span class="w"> </span>./cmd/sea-db-proxy
 </code></pre></div>
 <h3 id="run_1">Run<a class="headerlink" href="#run_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>./sea-db-proxy
 </code></pre></div>
+<p>Manager and Proxy require etcd and component-specific environment variables.
+See <a href="../seadb_cluster_native/">SeaDB cluster (etcd)</a> for their complete runtime
+configuration and startup order.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="failed-to-initialize-fdb-foundationdb-error-code-1510-disk-io-operation-failed"><code>Failed to initialize fdb: ... FoundationDB error code 1510 (Disk i/o operation failed)</code><a class="headerlink" href="#failed-to-initialize-fdb-foundationdb-error-code-1510-disk-io-operation-failed" title="Permanent link">&para;</a></h3>
-<p>This error indicates an incompatible system. If the host machine is ARM but the SeaDB container is built for amd64, the CPU instruction set cannot be recognized. To resolve it, set up SeaDB in a dedicated ARM container:</p>
-<ol>
-<li>
-<p>Create a new container and pull the ARM version of the Ubuntu image (if the host itself is ARM, just pull it directly):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ubuntu:24.04
-</code></pre></div>
-</li>
-<li>
-<p>Enter the container:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;container_name&gt;<span class="w"> </span>bash
-</code></pre></div>
-</li>
-<li>
-<p>Download the ARM FoundationDB packages:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-L<span class="w"> </span>-O<span class="w"> </span>https://github.com/apple/foundationdb/releases/download/7.3.63/foundationdb-clients_7.3.63-1_aarch64.deb
-curl<span class="w"> </span>-L<span class="w"> </span>-O<span class="w"> </span>https://github.com/apple/foundationdb/releases/download/7.3.63/foundationdb-server_7.3.63-1_aarch64.deb
-</code></pre></div>
-</li>
-<li>
-<p>Install FoundationDB:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>./foundationdb-clients_7.3.63-1_aarch64.deb
-sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>./foundationdb-server_7.3.63-1_aarch64.deb
-</code></pre></div>
-</li>
-<li>
-<p>Build <code>sea-db</code> following the <a href="#build-sea-db">Build sea-db</a> section above.</p>
-</li>
-</ol>
+<p>Error 1510 is a FoundationDB disk I/O failure. Check filesystem permissions,
+free disk space, mount health, and the FoundationDB logs for the failing path.
+It does not by itself identify a CPU architecture mismatch.</p>
 <h3 id="failed-to-initialize-metabase-foundationdb-error-code-1031-transaction-timed-out"><code>Failed to initialize metabase: ... FoundationDB error code 1031 (transaction timed out)</code><a class="headerlink" href="#failed-to-initialize-metabase-foundationdb-error-code-1031-transaction-timed-out" title="Permanent link">&para;</a></h3>
-<p>This error indicates that the FoundationDB service is not running. Start it manually:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Start FoundationDB</span>
-systemctl<span class="w"> </span>start<span class="w"> </span>foundationdb
+<p>This timeout often means that SeaDB cannot reach a healthy FoundationDB
+cluster. Check the service, cluster file, network connectivity, and cluster
+status:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start FoundationDB if it is stopped.</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>foundationdb
 
-<span class="c1"># Verify it started</span>
-ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>fdbserver
+<span class="c1"># Verify the local process and cluster status.</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>foundationdb
+fdbcli<span class="w"> </span>--exec<span class="w"> </span><span class="s2">"status details"</span>
 </code></pre></div>
 <h3 id="illegal-instruction"><code>Illegal instruction</code><a class="headerlink" href="#illegal-instruction" title="Permanent link">&para;</a></h3>
-<p>This error indicates that the instruction set used by the binary cannot be recognized by the CPU. Handle it the same way as the <code>Disk i/o operation failed</code> error above.</p>
+<p>This usually means that a binary was built for a different CPU architecture or
+requires CPU instructions unavailable on the host. Install the FoundationDB
+packages and build SeaDB for the host architecture. For example, use the
+<code>aarch64</code> FoundationDB packages on ARM64 Linux instead of the <code>amd64</code> packages.</p>
 
 
 

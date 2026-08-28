@@ -1319,6 +1319,11 @@
 <td>The request timeout.</td>
 <td><code>30s</code></td>
 </tr>
+<tr>
+<td><code>JWT_PRIVATE_KEY</code></td>
+<td>The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value on every SeaDB node and trusted JWT-issuing service.</td>
+<td>(required)</td>
+</tr>
 </tbody>
 </table>
 <h3 id="foundationdb">FoundationDB<a class="headerlink" href="#foundationdb" title="Permanent link">&para;</a></h3>
@@ -1372,18 +1377,18 @@
 <tbody>
 <tr>
 <td><code>SEADB_METRICS_ENABLE_BASIC_AUTH</code></td>
-<td>When <code>true</code>, the metrics API uses HTTP authentication; when <code>false</code>, it uses JWT authentication and requires admin privileges.</td>
+<td>When <code>true</code>, the metrics API uses HTTP basic authentication; when <code>false</code>, it uses JWT authentication and requires admin privileges.</td>
 <td><code>false</code></td>
 </tr>
 <tr>
 <td><code>SEADB_METRICS_USERNAME</code></td>
-<td>The username used when HTTP authentication is enabled.</td>
-<td></td>
+<td>The username used when HTTP basic authentication is enabled.</td>
+<td>(required when basic authentication is enabled)</td>
 </tr>
 <tr>
 <td><code>SEADB_METRICS_PASSWORD</code></td>
-<td>The password used when HTTP authentication is enabled.</td>
-<td></td>
+<td>The password used when HTTP basic authentication is enabled.</td>
+<td>(required when basic authentication is enabled)</td>
 </tr>
 <tr>
 <td><code>SEADB_METRICS_INTERVAL</code></td>
@@ -1437,12 +1442,12 @@
 <tr>
 <td><code>SEADB_CLUSTER_NODE_ID</code></td>
 <td>The cluster ID of the current node. IDs must be unique across nodes and stay fixed.</td>
-<td></td>
+<td>(required in cluster mode)</td>
 </tr>
 <tr>
 <td><code>SEADB_CLUSTER_ETCD_ENDPOINTS</code></td>
 <td>The etcd server addresses, comma-separated.</td>
-<td></td>
+<td>(required in cluster mode)</td>
 </tr>
 <tr>
 <td><code>SEADB_CLUSTER_ETCD_PREFIX</code></td>
