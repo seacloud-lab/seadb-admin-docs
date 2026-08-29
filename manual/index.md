@@ -1,6 +1,6 @@
 # Introduction
 
-SeaDB is a scalable multi-tenant database built.
+SeaDB is a scalable multi-tenant database.
 
 It exposes a REST API for executing SQL, managing bases, users, and base ownership, and it ships with a dedicated command-line tool, `seadb-cli`. SeaDB can run as a single node or as a cluster of multiple SeaDB nodes coordinated by a Cluster-Manager.
 
