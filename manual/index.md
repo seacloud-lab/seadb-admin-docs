@@ -1,8 +1,8 @@
 # Introduction
 
-SeaDB is a scalable, high-performance database built on top of [FoundationDB](https://apple.github.io/foundationdb/).
+SeaDB is a scalable multi-tenant database built.
 
-It exposes a REST API for executing SQL, managing bases, users, and base ownership, and it ships with a dedicated command-line tool, `seadb-cli`. SeaDB can run as a single node or as a cluster of multiple SeaDB nodes coordinated by a Cluster-Manager, with SeaDB-Proxy processes in front of them for client access.
+It exposes a REST API for executing SQL, managing bases, users, and base ownership, and it ships with a dedicated command-line tool, `seadb-cli`. SeaDB can run as a single node or as a cluster of multiple SeaDB nodes coordinated by a Cluster-Manager.
 
 A **base** is SeaDB's unit of data organization, roughly equivalent to a database or namespace. Each base has a UUID, and every SQL statement is executed against a specific base.
 
