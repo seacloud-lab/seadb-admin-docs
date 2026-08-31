@@ -93,3 +93,4 @@ nav:
   - SeaDB CLI:
     - Overview: cli/overview.md
     - Build and usage: cli/usage.md
+  - API Reference: https://seadb-api.readme.io
