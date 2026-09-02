@@ -1,20 +1,48 @@
 # Build from source
 
-`sea-db` depends on FoundationDB. We recommend using a fixed FoundationDB version, `7.3.63`.
+This page describes how to build and run SeaDB from source.
 
-## Install FoundationDB
+For a single-node deployment, use the Pebble backend by setting
+`SEADB_STORAGE_BACKEND=pebble`. To use FoundationDB instead, set
+`SEADB_STORAGE_BACKEND=fdb` and configure `SEADB_FDB_CLUSTER_FILE`.
+
+The default backend is `fdb`.
+
+## Choose a storage backend
+
+| Backend | Use when | Runtime storage service |
+| --- | --- | --- |
+| `pebble` | Running one SeaDB node with local embedded storage | None |
+| `fdb` | Running one SeaDB node backed by FoundationDB | FoundationDB |
+
+## Install FoundationDB client
+
+The `sea-db` binary includes both storage backends. When building from source,
+install the FoundationDB client library required by the Go binding, even when
+the runtime backend is Pebble. Pebble does not require a running FoundationDB
+server or a cluster file.
+
+If using the `fdb` backend, install the FoundationDB server package as well. We
+recommend using a fixed FoundationDB version, `7.3.63`.
 
 ### 1. Download FoundationDB
 
 ```shell
 curl -L -O https://github.com/apple/foundationdb/releases/download/7.3.63/foundationdb-clients_7.3.63-1_amd64.deb
-curl -L -O https://github.com/apple/foundationdb/releases/download/7.3.63/foundationdb-server_7.3.63-1_amd64.deb
 ```
 
-### 2. Install FoundationDB
+### 2. Install the FoundationDB client
 
 ```shell
 sudo dpkg -i ./foundationdb-clients_7.3.63-1_amd64.deb
+```
+
+### 3. Install the FoundationDB server (for the `fdb` backend)
+
+Skip this step when using Pebble.
+
+```shell
+curl -L -O https://github.com/apple/foundationdb/releases/download/7.3.63/foundationdb-server_7.3.63-1_amd64.deb
 sudo dpkg -i ./foundationdb-server_7.3.63-1_amd64.deb
 sudo systemctl start foundationdb
 ```
@@ -59,17 +87,27 @@ go build -o ./sea-db ./cmd/sea-db
 
 ### 1. Configure the runtime environment
 
-The following is a minimal local example. Adjust the paths and use a persistent
-secret of at least 32 random characters for `JWT_PRIVATE_KEY`. All SeaDB nodes
-and trusted services that issue JWTs for SeaDB must use the same value.
+The following is a minimal single-node example using Pebble. Adjust the paths
+and use a persistent secret of at least 32 random characters for
+`JWT_PRIVATE_KEY`.
 
 ```shell
 mkdir -p ./data ./log
 
 export SEADB_LOG_DIR="$PWD/log"
 export SEADB_DATA_DIR="$PWD/data"
-export SEADB_FDB_CLUSTER_FILE="/etc/foundationdb/fdb.cluster"
+export SEADB_STORAGE_BACKEND="pebble"
 export JWT_PRIVATE_KEY="<at-least-32-random-characters>"
+```
+
+Pebble stores SeaDB's key-value data in `$SEADB_DATA_DIR/base`; no running
+FoundationDB server or cluster file is required. Pebble is for single-node
+deployments only. To use FoundationDB instead, install and initialize it as
+described above, then use:
+
+```shell
+export SEADB_STORAGE_BACKEND="fdb"
+export SEADB_FDB_CLUSTER_FILE="/etc/foundationdb/fdb.cluster"
 ```
 
 ### 2. Create an admin account
