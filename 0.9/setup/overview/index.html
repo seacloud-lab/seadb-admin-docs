@@ -1119,9 +1119,18 @@
 
 
 <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
-<p>SeaDB depends on <a href="https://apple.github.io/foundationdb/">FoundationDB</a> for storage. FoundationDB is a distributed database designed to handle large volumes of structured data across clusters of commodity servers, and it can be scaled from a single node to thousands of machines.</p>
+<p>SeaDB supports two storage backends for its key-value data:</p>
+<ul>
+<li><strong>Pebble</strong> is the default embedded key-value store for a single SeaDB node. It
+  does not require a running external storage service.</li>
+<li><strong><a href="https://apple.github.io/foundationdb/">FoundationDB</a></strong> is an external
+  distributed storage backend. It is designed to handle large volumes of
+  structured data across clusters of commodity servers, and it can be scaled
+  from a single node to thousands of machines.</li>
+</ul>
 <h2 id="deployment-topologies">Deployment topologies<a class="headerlink" href="#deployment-topologies" title="Permanent link">&para;</a></h2>
-<p>There are two ways to run SeaDB itself, depending on your scale and reliability requirements:</p>
+<p>There are two service topologies. The recommended single-node topology uses
+Pebble by default, while the cluster topology uses FoundationDB:</p>
 <table>
 <thead>
 <tr>
@@ -1133,8 +1142,8 @@
 <tbody>
 <tr>
 <td><a href="../build_from_source/">SeaDB single node</a></td>
-<td>FoundationDB (single node) + SeaDB (built from source)</td>
-<td>Non-production, evaluation</td>
+<td>SeaDB with Pebble (built from source)</td>
+<td>Local development, evaluation</td>
 </tr>
 <tr>
 <td><a href="../seadb_cluster_native/">SeaDB cluster</a></td>
@@ -1143,22 +1152,32 @@
 </tr>
 </tbody>
 </table>
-<p>FoundationDB, the underlying storage layer, can be deployed as a single node or as a cluster; see <a href="../foundationdb_single/">FoundationDB single node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</p>
+<p>Pebble is a node-local embedded storage backend. It is supported only for
+single-node SeaDB deployments and cannot provide shared storage for a SeaDB
+cluster. Select it with <code>SEADB_STORAGE_BACKEND=pebble</code>. Use FoundationDB when
+deploying SeaDB as a cluster. FoundationDB
+itself can be deployed as a single node or as a cluster; see <a href="../foundationdb_single/">FoundationDB single
+node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Two kinds of cluster</p>
 <p>"FoundationDB cluster" and "SeaDB cluster" are different concepts. The former clusters the underlying storage layer, while the latter clusters the SeaDB service. They can be used together.</p>
 </div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>FoundationDB</strong>: SeaDB is tested against FoundationDB <code>7.3.63</code>.</li>
-<li><strong>Memory</strong>: plan for at least 4 GB of available memory per <code>fdbserver</code>
-  process; actual requirements depend on workload and process configuration.</li>
+<li><strong>FoundationDB server</strong>: required only when using the <code>fdb</code> backend. SeaDB is
+  tested against FoundationDB <code>7.3.63</code>.</li>
+<li><strong>FoundationDB client library</strong>: required to build the current <code>sea-db</code>
+  binary from source, including when the runtime backend is <code>pebble</code>; see
+  <a href="../build_from_source/">Build from source</a>.</li>
+<li><strong>Memory</strong>: when using FoundationDB, plan for at least 4 GB of available
+  memory per <code>fdbserver</code> process; actual requirements depend on workload and
+  process configuration.</li>
 <li><strong>Go</strong> (source builds only): Go 1.24 or later is required to build <code>sea-db</code>, <code>cluster-manager</code>, and <code>sea-db-proxy</code> from source.</li>
 </ul>
 <h2 id="where-to-start">Where to start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
 <ul>
-<li>To try SeaDB quickly, build and run a single node from source — see <a href="../build_from_source/">Build from source</a>.</li>
-<li>To deploy the storage layer, see <a href="../foundationdb_single/">FoundationDB single node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</li>
+<li>To try SeaDB quickly, build and run a single node with Pebble — see <a href="../build_from_source/">Build from source</a>.</li>
+<li>To deploy FoundationDB as the storage layer, see <a href="../foundationdb_single/">FoundationDB single node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</li>
 <li>To deploy the SeaDB service as a cluster, see <a href="../seadb_cluster_native/">SeaDB cluster</a>.</li>
 <li>For the full list of environment variables, see <a href="../../configuration/environment_variables/">Environment variables</a>.</li>
 </ul>
