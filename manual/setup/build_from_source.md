@@ -92,39 +92,3 @@ curl http://127.0.0.1:8888/ping
 ```
 
 The expected response is `{"ret":"pong"}`.
-
-## Build and run cluster-manager
-
-### Build
-
-Follow the same Go setup and repository clone steps as for `sea-db`, then run:
-
-```shell
-go build -o ./cluster-manager ./cmd/cluster-manager
-```
-
-### Run
-
-```shell
-./cluster-manager
-```
-
-## Build and run sea-db-proxy
-
-### Build
-
-Follow the same Go setup and repository clone steps as for `sea-db`, then run:
-
-```shell
-go build -o ./sea-db-proxy ./cmd/sea-db-proxy
-```
-
-### Run
-
-```shell
-./sea-db-proxy
-```
-
-Manager and Proxy require etcd and component-specific environment variables.
-See [SeaDB cluster](seadb_cluster_native.md) for their complete runtime
-configuration and startup order.
