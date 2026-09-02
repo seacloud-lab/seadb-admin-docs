@@ -17,15 +17,7 @@
          <lastmod>2026-09-02</lastmod>
     </url>
     <url>
-         <loc>https://seacloud-lab.github.io/seadb-admin-docs/0.9/setup/build_from_source/</loc>
-         <lastmod>2026-09-02</lastmod>
-    </url>
-    <url>
          <loc>https://seacloud-lab.github.io/seadb-admin-docs/0.9/setup/foundationdb_cluster/</loc>
-         <lastmod>2026-09-02</lastmod>
-    </url>
-    <url>
-         <loc>https://seacloud-lab.github.io/seadb-admin-docs/0.9/setup/foundationdb_single/</loc>
          <lastmod>2026-09-02</lastmod>
     </url>
     <url>
@@ -34,6 +26,10 @@
     </url>
     <url>
          <loc>https://seacloud-lab.github.io/seadb-admin-docs/0.9/setup/seadb_cluster_native/</loc>
+         <lastmod>2026-09-02</lastmod>
+    </url>
+    <url>
+         <loc>https://seacloud-lab.github.io/seadb-admin-docs/0.9/setup/seadb_setup_single_node/</loc>
          <lastmod>2026-09-02</lastmod>
     </url>
 </urlset>

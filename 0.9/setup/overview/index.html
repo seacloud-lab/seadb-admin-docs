@@ -16,7 +16,7 @@
         <link rel="prev" href="../..">
       
       
-        <link rel="next" href="../foundationdb_single/">
+        <link rel="next" href="../seadb_setup_single_node/">
       
       
         
@@ -571,70 +571,15 @@
   
   
   
-    
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Single-node deployment
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Single-node deployment
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../foundationdb_single/" class="md-nav__link">
+      <a href="../seadb_setup_single_node/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    FoundationDB
+    Setup SeaDB
   
 
     
@@ -643,42 +588,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../build_from_source/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SeaDB
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -1141,7 +1050,7 @@ Pebble by default, while the cluster topology uses FoundationDB:</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../build_from_source/">SeaDB single node</a></td>
+<td><a href="build_from_source.md">SeaDB single node</a></td>
 <td>SeaDB with Pebble (built from source)</td>
 <td>Local development, evaluation</td>
 </tr>
@@ -1156,7 +1065,7 @@ Pebble by default, while the cluster topology uses FoundationDB:</p>
 single-node SeaDB deployments and cannot provide shared storage for a SeaDB
 cluster. Select it with <code>SEADB_STORAGE_BACKEND=pebble</code>. Use FoundationDB when
 deploying SeaDB as a cluster. FoundationDB
-itself can be deployed as a single node or as a cluster; see <a href="../foundationdb_single/">FoundationDB single
+itself can be deployed as a single node or as a cluster; see <a href="foundationdb_single.md">FoundationDB single
 node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Two kinds of cluster</p>
@@ -1168,7 +1077,7 @@ node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</p>
   tested against FoundationDB <code>7.3.63</code>.</li>
 <li><strong>FoundationDB client library</strong>: required to build the current <code>sea-db</code>
   binary from source, including when the runtime backend is <code>pebble</code>; see
-  <a href="../build_from_source/">Build from source</a>.</li>
+  <a href="build_from_source.md">Build from source</a>.</li>
 <li><strong>Memory</strong>: when using FoundationDB, plan for at least 4 GB of available
   memory per <code>fdbserver</code> process; actual requirements depend on workload and
   process configuration.</li>
@@ -1176,8 +1085,8 @@ node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</p>
 </ul>
 <h2 id="where-to-start">Where to start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
 <ul>
-<li>To try SeaDB quickly, build and run a single node with Pebble — see <a href="../build_from_source/">Build from source</a>.</li>
-<li>To deploy FoundationDB as the storage layer, see <a href="../foundationdb_single/">FoundationDB single node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</li>
+<li>To try SeaDB quickly, build and run a single node with Pebble — see <a href="build_from_source.md">Build from source</a>.</li>
+<li>To deploy FoundationDB as the storage layer, see <a href="foundationdb_single.md">FoundationDB single node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</li>
 <li>To deploy the SeaDB service as a cluster, see <a href="../seadb_cluster_native/">SeaDB cluster</a>.</li>
 <li>For the full list of environment variables, see <a href="../../configuration/environment_variables/">Environment variables</a>.</li>
 </ul>
@@ -1233,13 +1142,13 @@ node</a> and <a href="../foundationdb_cluster/">FoundationDB cluster</a>.</p>
         
         
           
-          <a href="../foundationdb_single/" class="md-footer__link md-footer__link--next" aria-label="Next: FoundationDB">
+          <a href="../seadb_setup_single_node/" class="md-footer__link md-footer__link--next" aria-label="Next: Setup SeaDB">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                FoundationDB
+                Setup SeaDB
               </div>
             </div>
             <div class="md-footer__button md-icon">

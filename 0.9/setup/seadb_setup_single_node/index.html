@@ -10,13 +10,13 @@
         <meta name="author" content="seadb">
       
       
-        <link rel="canonical" href="https://seacloud-lab.github.io/seadb-admin-docs/0.9/setup/foundationdb_single/">
+        <link rel="canonical" href="https://seacloud-lab.github.io/seadb-admin-docs/0.9/setup/seadb_setup_single_node/">
       
       
         <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../build_from_source/">
+        <link rel="next" href="../foundationdb_cluster/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>FoundationDB - SeaDB Admin Manual</title>
+        <title>Setup SeaDB - SeaDB Admin Manual</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#foundationdb-single-node" class="md-skip">
+        <a href="#build-from-source" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              FoundationDB
+              Setup SeaDB
             
           </span>
         </div>
@@ -493,63 +493,6 @@
   
   
   
-    
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Single-node deployment
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Single-node deployment
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-    
-  
-  
-  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -565,7 +508,7 @@
   <span class="md-ellipsis">
     
   
-    FoundationDB
+    Setup SeaDB
   
 
     
@@ -583,7 +526,7 @@
   <span class="md-ellipsis">
     
   
-    FoundationDB
+    Setup SeaDB
   
 
     
@@ -609,44 +552,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#deploy-with-docker-compose" class="md-nav__link">
+  <a href="#run-sea-db" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deploy with Docker Compose
+        Run sea-db
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check-the-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check the status
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
+    <nav class="md-nav" aria-label="Run sea-db">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#storage-server-shows-only-1-gb-of-remaining-space" class="md-nav__link">
+  <a href="#1-configure-the-runtime-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Storage server shows only 1 GB of remaining space
+        1. Configure the runtime environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-an-admin-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Create an admin account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-sea-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run sea-db
       
     </span>
   </a>
@@ -661,42 +604,6 @@
     </ul>
   
 </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../build_from_source/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SeaDB
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1085,44 +992,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#deploy-with-docker-compose" class="md-nav__link">
+  <a href="#run-sea-db" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deploy with Docker Compose
+        Run sea-db
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check-the-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check the status
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
+    <nav class="md-nav" aria-label="Run sea-db">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#storage-server-shows-only-1-gb-of-remaining-space" class="md-nav__link">
+  <a href="#1-configure-the-runtime-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Storage server shows only 1 GB of remaining space
+        1. Configure the runtime environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-an-admin-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Create an admin account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-sea-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run sea-db
       
     </span>
   </a>
@@ -1154,50 +1061,34 @@
   
 
 
-<h1 id="foundationdb-single-node">FoundationDB single node<a class="headerlink" href="#foundationdb-single-node" title="Permanent link">&para;</a></h1>
-<p>FoundationDB offers both installation packages and Docker images. The installation packages start an <code>fdbmonitor</code> process (via systemd/launchd) that manages the <code>fdbserver</code> and <code>backup_agent</code> processes; the Docker image starts the <code>fdbserver</code> process directly.</p>
-<p>This page describes a single-node FoundationDB deployment using Docker.</p>
-<h2 id="deploy-with-docker-compose">Deploy with Docker Compose<a class="headerlink" href="#deploy-with-docker-compose" title="Permanent link">&para;</a></h2>
-<p>Create a <code>compose.yml</code> with the following content:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">fdb</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundationdb/foundationdb:7.3.63</span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FDB_NETWORKING_MODE=container</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FDB_COORDINATOR=fdb</span>
-<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4500:4500</span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span>
-<span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./log</span>
-<span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/fdb/logs</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span>
-<span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data</span>
-<span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/fdb/data</span>
+<h1 id="build-from-source">Build from source<a class="headerlink" href="#build-from-source" title="Permanent link">&para;</a></h1>
+<p>This page describes how to setup SeaDB in a single node mode. In a single node mode, SeaDB uses embedded Pebble KV storage.</p>
+<h2 id="run-sea-db">Run sea-db<a class="headerlink" href="#run-sea-db" title="Permanent link">&para;</a></h2>
+<p>Describe how to run SeaDB via Docker image.</p>
+<p>The following content is outdated.</p>
+<hr />
+<h3 id="1-configure-the-runtime-environment">1. Configure the runtime environment<a class="headerlink" href="#1-configure-the-runtime-environment" title="Permanent link">&para;</a></h3>
+<p>The following is a minimal single-node example. SeaDB uses Pebble by default.
+Adjust the paths and use a persistent secret of at least 32 random characters
+for <code>JWT_PRIVATE_KEY</code>.</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>./data<span class="w"> </span>./log
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_LOG_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/log"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/data"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">JWT_PRIVATE_KEY</span><span class="o">=</span><span class="s2">"&lt;at-least-32-random-characters&gt;"</span>
 </code></pre></div>
-<p>Start the service and initialize the database:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
-docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>fdb<span class="w"> </span>fdbcli<span class="w"> </span>--exec<span class="w"> </span><span class="s1">'configure new single ssd'</span>
+<p>Pebble stores SeaDB's key-value data in <code>$SEADB_DATA_DIR/base</code>. It is supported
+for single-node deployments only.</p>
+<h3 id="2-create-an-admin-account">2. Create an admin account<a class="headerlink" href="#2-create-an-admin-account" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>./sea-db<span class="w"> </span>add-admin<span class="w"> </span>-u<span class="w"> </span>seadb-admin<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
 </code></pre></div>
-<p>SeaDB needs to read the <code>fdb.cluster</code> file. You can copy it from the container, or create it yourself with the correct IP address:</p>
-<div class="highlight"><pre><span></span><code>docker:docker@127.0.0.1:4500
+<h3 id="3-run-sea-db">3. Run sea-db<a class="headerlink" href="#3-run-sea-db" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>./sea-db
 </code></pre></div>
-<h2 id="check-the-status">Check the status<a class="headerlink" href="#check-the-status" title="Permanent link">&para;</a></h2>
-<p>Connect to the database with <code>fdbcli</code> and run <code>status</code>, then verify the following items:</p>
-<ul>
-<li><strong>Storage engine</strong>: configured as <code>ssd-2</code></li>
-<li><strong>Replication health</strong>: shows <code>Healthy</code> after a short while</li>
-<li><strong>Storage server</strong>: shows sufficient remaining space, not just the default 1 GB</li>
-</ul>
-<div class="highlight"><pre><span></span><code>fdbcli
-fdb&gt;<span class="w"> </span>status
+<p>Verify that SeaDB is ready:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://127.0.0.1:8888/ping
 </code></pre></div>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="storage-server-shows-only-1-gb-of-remaining-space">Storage server shows only 1 GB of remaining space<a class="headerlink" href="#storage-server-shows-only-1-gb-of-remaining-space" title="Permanent link">&para;</a></h3>
-<p>This usually means the <code>memory</code> storage engine is in use. Run the following in <code>fdbcli</code> to migrate to the <code>ssd-2</code> storage engine:</p>
-<div class="highlight"><pre><span></span><code>fdb&gt; configure storage_migration_type=aggressive
-fdb&gt; configure ssd
-</code></pre></div>
+<p>The expected response is <code>{"ret":"pong"}</code>.</p>
 
 
 
@@ -1250,13 +1141,13 @@ fdb&gt; configure ssd
         
         
           
-          <a href="../build_from_source/" class="md-footer__link md-footer__link--next" aria-label="Next: SeaDB">
+          <a href="../foundationdb_cluster/" class="md-footer__link md-footer__link--next" aria-label="Next: FoundationDB">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                SeaDB
+                FoundationDB
               </div>
             </div>
             <div class="md-footer__button md-icon">
