@@ -82,9 +82,7 @@ nav:
   - Introduction: index.md
   - Setup:
     - Overview: setup/overview.md
-    - Single-node deployment:
-      - FoundationDB: setup/foundationdb_single.md
-      - SeaDB: setup/build_from_source.md
+    - Setup SeaDB: setup/seadb_setup_single_node.md
     - Cluster deployment:
       - FoundationDB: setup/foundationdb_cluster.md
       - SeaDB: setup/seadb_cluster_native.md
