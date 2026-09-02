@@ -70,9 +70,8 @@ export SEADB_DATA_DIR="$PWD/data"
 export JWT_PRIVATE_KEY="<at-least-32-random-characters>"
 ```
 
-Pebble stores SeaDB's key-value data in `$SEADB_DATA_DIR/base`; no running
-FoundationDB server or cluster file is required. Pebble is for single-node
-deployments only.
+Pebble stores SeaDB's key-value data in `$SEADB_DATA_DIR/base`. It is supported
+for single-node deployments only.
 
 ### 2. Create an admin account
 
