@@ -29,7 +29,8 @@ SeaDB is configured through environment variables. This page lists the variables
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `SEADB_STORAGE_CLEANUP_TIME` | The time at which SeaDB base cleanup starts. Used to clean up deleted table and index data. | `00:00` |
+| `SEADB_STORAGE_BACKEND` | The KV backend used to store data. Choose either `fdb` or `pebble`. | `pebble` |
+| `SEADB_STORAGE_CLEANUP_TIME` | The time at which SeaDB base cleanup starts. It is used to clean up deleted table and index data. | `00:00` |
 
 ### Metrics
 
