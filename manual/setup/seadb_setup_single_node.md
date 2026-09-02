@@ -1,4 +1,4 @@
-# Build from source
+# Setup SeaDB
 
 This page describes how to setup SeaDB in a single node mode. In a single node mode, SeaDB uses embedded Pebble KV storage.
 
