@@ -30,6 +30,7 @@ Example configuration:
 # Node-local paths may differ between servers
 SEADB_LOG_DIR="./log"
 SEADB_DATA_DIR="./data"
+SEADB_STORAGE_BACKEND="fdb"
 SEADB_FDB_CLUSTER_FILE="/etc/foundationdb/fdb.cluster"
 JWT_PRIVATE_KEY="<at-least-32-random-characters>"
 

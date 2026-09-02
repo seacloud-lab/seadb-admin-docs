@@ -2,8 +2,8 @@
 
 SeaDB supports two storage backends for its key-value data:
 
-- **Pebble** is an embedded key-value store for a single SeaDB node. It does not
-  require a running external storage service.
+- **Pebble** is the default embedded key-value store for a single SeaDB node. It
+  does not require a running external storage service.
 - **[FoundationDB](https://apple.github.io/foundationdb/)** is an external
   distributed storage backend. It is designed to handle large volumes of
   structured data across clusters of commodity servers, and it can be scaled
@@ -11,13 +11,12 @@ SeaDB supports two storage backends for its key-value data:
 
 ## Deployment topologies
 
-There are two service topologies. The single-node topology supports either
-backend, depending on your scale and reliability requirements:
+There are two service topologies. The recommended single-node topology uses
+Pebble by default, while the cluster topology uses FoundationDB:
 
 | Topology | Components | Best for |
 | --- | --- | --- |
-| [SeaDB single node with Pebble](build_from_source.md) | SeaDB with Pebble (built from source) | Local development, evaluation |
-| [SeaDB single node with FoundationDB](build_from_source.md) | FoundationDB (single node) + SeaDB (built from source) | Single-node deployments using FoundationDB |
+| [SeaDB single node](build_from_source.md) | SeaDB with Pebble (built from source) | Local development, evaluation |
 | [SeaDB cluster](seadb_cluster_native.md) | Multiple SeaDB nodes + SeaDB-Proxy + Cluster-Manager + etcd + FoundationDB | Production, horizontally-scaled SeaDB service |
 
 Pebble is a node-local embedded storage backend. It is supported only for
