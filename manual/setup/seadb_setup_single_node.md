@@ -22,10 +22,11 @@ Generate a private random value for SeaDB's JWT signing key:
 openssl rand -hex 32
 ```
 
-Save the output in a `.env` file next to `compose.yaml`. Keep this value
+Save the output in a `.env` file next to `seadb.yml`. Keep this value
 unchanged when recreating the container; changing it invalidates existing JWTs.
 
 ```env
+COMPOSE_FILE=seadb.yml
 SEADB_IMAGE=seafileltd/seadb:0.9.0-testing
 SEADB_VOLUME=/opt/seadb-data
 SEADB_SERVER_ACCESS_TOKEN=<paste-the-generated-value-here>
@@ -37,26 +38,10 @@ Restrict access to the file because it contains a secret:
 chmod 600 .env
 ```
 
-Save the following content as `compose.yaml` in the same directory:
+Download the Compose file into the same directory:
 
-```yaml
-services:
-  seadb:
-    image: ${SEADB_IMAGE:-seafileltd/seadb:0.9.0-testing}
-    restart: unless-stopped
-    container_name: seadb
-    ports:
-      - "8888:8888"
-    volumes:
-      - ${SEADB_VOLUME:-/opt/seadb-data}:/shared
-    environment:
-      JWT_PRIVATE_KEY: "${SEADB_SERVER_ACCESS_TOKEN:?SEADB_SERVER_ACCESS_TOKEN must be set}"
-    healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8888/ping >/dev/null"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 10s
+```shell
+wget -O seadb.yml https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/seadb.yml
 ```
 
 ### Initialize and start SeaDB
@@ -67,7 +52,7 @@ you have already started the service, stop it first with
 `docker compose stop seadb`.
 Run this command only for a new data directory and before starting SeaDB.
 Replace `<password>` with a strong admin password. Do not save the actual
-password in `compose.yaml`, `.env`, or a shared script.
+password in `seadb.yml`, `.env`, or a shared script.
 
 ```shell
 docker compose run --rm --no-deps -T \
