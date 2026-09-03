@@ -17,38 +17,38 @@ Every SeaDB node in a cluster also needs the general `sea-db` requirements:
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `SEADB_FDB_CLUSTER_FILE` | Path to the FoundationDB cluster file used by the FDB backend. Set this when `SEADB_STORAGE_BACKEND=fdb`. On Linux FoundationDB installations, the usual location is `/etc/foundationdb/fdb.cluster`. | |
+| `SEADB_FDB_CLUSTER_FILE` | The location of the FoundationDB cluster file. After installing FoundationDB on Linux, the default location is `/etc/foundationdb/fdb.cluster`. | (required) |
 
 ### Cluster coordination
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `SEADB_CLUSTER_ENABLE` | Enable SeaDB node cluster coordination through etcd. | `false` |
-| `SEADB_CLUSTER_NODE_ID` | Numeric identifier of this SeaDB node. It must be nonzero, unique across nodes, and stable for the life of the cluster. | (required when cluster mode is enabled) |
-| `SEADB_CLUSTER_ETCD_ENDPOINTS` | Comma-separated etcd endpoint addresses used by SeaDB nodes. | (required when cluster mode is enabled) |
-| `SEADB_CLUSTER_ETCD_PREFIX` | etcd key namespace for SeaDB cluster coordination. It must match the Manager and Proxy prefix. | `/seadb` |
+| `SEADB_CLUSTER_ENABLE` | Whether to enable cluster mode. | `false` |
+| `SEADB_CLUSTER_NODE_ID` | The cluster ID of the current node. IDs must be unique across nodes and stay fixed. | (required in cluster mode) |
+| `SEADB_CLUSTER_ETCD_ENDPOINTS` | The etcd server addresses, comma-separated. | (required in cluster mode) |
+| `SEADB_CLUSTER_ETCD_PREFIX` | The etcd data prefix. Must match the Manager and Proxy. | `/seadb` |
 
 ## Cluster-Manager
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `SEADB_CLUSTER_MANAGER_HOST` | Address on which Cluster-Manager listens. | `0.0.0.0` |
-| `SEADB_CLUSTER_MANAGER_PORT` | Port on which Cluster-Manager listens. | `8890` |
-| `SEADB_LOG_DIR` | Directory in which Cluster-Manager writes its log files. Required even when `LOG_TO_STDOUT=true`. | (required) |
-| `SEADB_CLUSTER_MANAGER_LOG_LEVEL` | Cluster-Manager log level. An invalid value falls back to `info`. | `info` |
+| `SEADB_CLUSTER_MANAGER_HOST` | The address the program listens on. | `0.0.0.0` |
+| `SEADB_CLUSTER_MANAGER_PORT` | The port the program listens on. | `8890` |
+| `SEADB_LOG_DIR` | The log directory. | (required) |
+| `SEADB_CLUSTER_MANAGER_LOG_LEVEL` | The log level. | `info` |
 | `LOG_TO_STDOUT` | Write Cluster-Manager logs to standard output instead of log files. | `false` |
-| `SEADB_ETCD_ENDPOINTS` | Comma-separated etcd endpoint addresses used by Cluster-Manager. | (required for cluster operation) |
-| `SEADB_ETCD_PREFIX` | etcd key namespace used by Cluster-Manager. It must match the SeaDB node and Proxy prefix. | `/seadb` |
+| `SEADB_ETCD_ENDPOINTS` | The etcd server addresses, comma-separated. | (required) |
+| `SEADB_ETCD_PREFIX` | The etcd data prefix. Must match SeaDB and the Proxy. | `/seadb` |
 
 ## SeaDB-Proxy
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `SEADB_PROXY_HOST` | Address on which SeaDB-Proxy listens. | `0.0.0.0` |
-| `SEADB_PROXY_PORT` | Port on which SeaDB-Proxy listens. | `8888` |
-| `SEADB_LOG_DIR` | Directory in which SeaDB-Proxy writes its log files. Required even when `LOG_TO_STDOUT=true`. | (required) |
-| `SEADB_PROXY_LOG_LEVEL` | SeaDB-Proxy log level. An invalid value falls back to `info`. | `info` |
+| `SEADB_PROXY_HOST` | The address the program listens on. | `0.0.0.0` |
+| `SEADB_PROXY_PORT` | The port the program listens on. | `8888` |
+| `SEADB_LOG_DIR` | The log directory. | (required) |
+| `SEADB_PROXY_LOG_LEVEL` | The log level. | `info` |
 | `LOG_TO_STDOUT` | Write SeaDB-Proxy logs to standard output instead of log files. | `false` |
-| `SEADB_ETCD_ENDPOINTS` | Comma-separated etcd endpoint addresses used by SeaDB-Proxy. | (required for cluster operation) |
-| `SEADB_ETCD_PREFIX` | etcd key namespace used by SeaDB-Proxy. It must match the SeaDB node and Manager prefix. | `/seadb` |
-| `SEADB_CLUSTER_MANAGER_URL` | URL of the Cluster-Manager from which the Proxy obtains node information. | (required) |
+| `SEADB_ETCD_ENDPOINTS` | The etcd server addresses, comma-separated. | (required) |
+| `SEADB_ETCD_PREFIX` | The etcd data prefix. Must match SeaDB and the Manager. | `/seadb` |
+| `SEADB_CLUSTER_MANAGER_URL` | The URL of the Cluster-Manager. | (required) |

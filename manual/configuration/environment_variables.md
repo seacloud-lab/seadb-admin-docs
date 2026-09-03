@@ -45,7 +45,6 @@ FoundationDB connection variables, see [Cluster env](cluster_environment_variabl
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `SEADB_DEFAULT_RESULT_ROWS` | Default number of rows returned when a query has no `LIMIT` clause. | `100` |
-| `SEADB_RESULT_ROWS_HARD_LIMIT` | Maximum number of rows a query can return. | `10000` |
-| `SEADB_EXEC_COST_HARD_LIMIT` | Maximum estimated query execution cost. Set to `0` to disable the limit. | `5000000` |
-| `SEADB_HASH_JOIN_MEM_LIMIT` | Maximum memory, in bytes, used by a hash join. Set to `0` to disable the limit. | `1073741824` (1 GiB) |
+| `SEADB_DEFAULT_RESULT_ROWS` | The default row limit returned when no `LIMIT` clause is provided. | `100` |
+| `SEADB_RESULT_ROWS_HARD_LIMIT` | The hard limit on the number of rows returned. | `10000` |
+| `SEADB_EXEC_COST_HARD_LIMIT` | The query execution cost limit. | `5000000` |
