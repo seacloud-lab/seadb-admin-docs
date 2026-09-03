@@ -1,6 +1,9 @@
 # Environment variables
 
-SeaDB is configured through environment variables. This page lists the variables for each component.
+SeaDB is configured through environment variables. This page documents the
+variables consumed by the `sea-db` process in both single-node and cluster
+deployments. For cluster coordination, Cluster-Manager, SeaDB-Proxy, and
+FoundationDB connection variables, see [Cluster env](cluster_environment_variables.md).
 
 ## SeaDB
 
@@ -12,25 +15,22 @@ SeaDB is configured through environment variables. This page lists the variables
 | `SEADB_PORT` | The port the program listens on. | `8888` |
 | `SEADB_LOG_DIR` | The log directory of SeaDB. | (required) |
 | `SEADB_LOG_LEVEL` | The log level of SeaDB. | `info` |
+| `LOG_TO_STDOUT` | Write SeaDB logs to standard output instead of log files. | `false` |
 | `SEADB_SLOW_QUERY_THRESHOLD` | The slow-query threshold of SeaDB. | `1000ms` |
+| `SEADB_TRANSACTION_TIMEOUT` | Maximum duration of a transaction. Accepts a duration such as `300s` or `5m`; a plain number is seconds. Invalid values fall back to the default. | `300s` |
 | `SEADB_QUERY_PER_MINUTE_LIMIT` | The global per-minute API call limit. | `50000` |
-| `SEADB_DATA_DIR` | The data directory of SeaDB, used to store temporary files such as external sort files. | (required) |
 | `SEADB_REQUEST_TIMEOUT` | The request timeout. | `30s` |
 | `JWT_PRIVATE_KEY` | The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value on every SeaDB node and trusted JWT-issuing service. | (required) |
-
-### FoundationDB
-
-| Variable | Description | Default |
-| --- | --- | --- |
-| `SEADB_KEY_PREFIX` | The key prefix in FoundationDB storage. If the FoundationDB cluster is shared by multiple applications, set a SeaDB-specific prefix to distinguish it from other applications. | |
-| `SEADB_FDB_CLUSTER_FILE` | The location of the FoundationDB cluster file. After installing FoundationDB on Linux, the default location is `/etc/foundationdb/fdb.cluster`. | (required) |
 
 ### Storage
 
 | Variable | Description | Default |
 | --- | --- | --- |
 | `SEADB_STORAGE_BACKEND` | The KV backend used to store data. Choose either `fdb` or `pebble`. | `pebble` |
+| `SEADB_DATA_DIR` | The data directory of SeaDB, used to store temporary files such as external sort files. | (required) |
+| `SEADB_KEY_PREFIX` | The key prefix used by SeaDB's FDB and Pebble storage backends. If the FoundationDB cluster is shared by multiple applications, set a SeaDB-specific prefix to distinguish it from other applications. | |
 | `SEADB_STORAGE_CLEANUP_TIME` | The time at which SeaDB base cleanup starts. It is used to clean up deleted table and index data. | `00:00` |
+| `SEADB_UPDATE_BASE_STATS_AT` | Daily time, in `HH:MM`, at which SeaDB updates base storage and table row-count statistics. Invalid values fall back to the default. | `01:00` |
 
 ### Metrics
 
@@ -48,35 +48,3 @@ SeaDB is configured through environment variables. This page lists the variables
 | `SEADB_DEFAULT_RESULT_ROWS` | The default row limit returned when no `LIMIT` clause is provided. | `100` |
 | `SEADB_RESULT_ROWS_HARD_LIMIT` | The hard limit on the number of rows returned. | `10000` |
 | `SEADB_EXEC_COST_HARD_LIMIT` | The query execution cost limit. | `5000000` |
-
-### Cluster
-
-| Variable | Description | Default |
-| --- | --- | --- |
-| `SEADB_CLUSTER_ENABLE` | Whether to enable cluster mode. | `false` |
-| `SEADB_CLUSTER_NODE_ID` | The cluster ID of the current node. IDs must be unique across nodes and stay fixed. | (required in cluster mode) |
-| `SEADB_CLUSTER_ETCD_ENDPOINTS` | The etcd server addresses, comma-separated. | (required in cluster mode) |
-| `SEADB_CLUSTER_ETCD_PREFIX` | The etcd data prefix. Must match the Manager and Proxy. | `/seadb` |
-
-## Cluster-Manager
-
-| Variable | Description | Default |
-| --- | --- | --- |
-| `SEADB_CLUSTER_MANAGER_HOST` | The address the program listens on. | `0.0.0.0` |
-| `SEADB_CLUSTER_MANAGER_PORT` | The port the program listens on. | `8890` |
-| `SEADB_LOG_DIR` | The log directory. | (required) |
-| `SEADB_CLUSTER_MANAGER_LOG_LEVEL` | The log level. | `info` |
-| `SEADB_ETCD_ENDPOINTS` | The etcd server addresses, comma-separated. | (required) |
-| `SEADB_ETCD_PREFIX` | The etcd data prefix. Must match SeaDB and the Proxy. | `/seadb` |
-
-## SeaDB-Proxy
-
-| Variable | Description | Default |
-| --- | --- | --- |
-| `SEADB_PROXY_HOST` | The address the program listens on. | `0.0.0.0` |
-| `SEADB_PROXY_PORT` | The port the program listens on. | `8888` |
-| `SEADB_LOG_DIR` | The log directory. | (required) |
-| `SEADB_PROXY_LOG_LEVEL` | The log level. | `info` |
-| `SEADB_ETCD_ENDPOINTS` | The etcd server addresses, comma-separated. | (required) |
-| `SEADB_ETCD_PREFIX` | The etcd data prefix. Must match SeaDB and the Manager. | `/seadb` |
-| `SEADB_CLUSTER_MANAGER_URL` | The URL of the Cluster-Manager. | (required) |

@@ -92,7 +92,7 @@ The expected response is `{"ret":"pong"}`.
 
 ## Cluster configuration options
 
-All configuration options are passed through environment variables. The values shown below are the defaults. See [Environment variables](../configuration/environment_variables.md) for the complete reference.
+The examples below show the cluster-specific environment variables. See [Cluster env](../configuration/cluster_environment_variables.md) for the complete cluster reference and [Environment variables](../configuration/environment_variables.md) for general SeaDB variables.
 
 ### SeaDB
 
