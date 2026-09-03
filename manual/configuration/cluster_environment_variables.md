@@ -13,7 +13,7 @@ Every SeaDB node in a cluster also needs the general `sea-db` requirements:
 
 ### FoundationDB
 
-`SEADB_KEY_PREFIX` is documented in the [Storage section](environment_variables.md#storage), because it is applied by both the FoundationDB and Pebble backends.
+`SEADB_KEY_PREFIX` is documented in the [Storage section](environment_variables.md#storage).
 
 | Variable | Description | Default |
 | --- | --- | --- |
