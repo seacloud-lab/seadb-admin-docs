@@ -2,47 +2,93 @@
 
 This page describes how to setup SeaDB in a single node mode. In a single node mode, SeaDB uses embedded Pebble KV storage.
 
-## Run sea-db
+## Run SeaDB from a Docker image
 
-Describe how to run SeaDB via Docker image.
+Use the following Docker Compose configuration to initialize and run a
+single-node SeaDB instance.
 
-The following content is outdated.
+### Prepare the configuration
 
-----
-
-### 1. Configure the runtime environment
-
-The following is a minimal single-node example. SeaDB uses Pebble by default.
-Adjust the paths and use a persistent secret of at least 32 random characters
-for `JWT_PRIVATE_KEY`.
+Create a directory for the Compose files and the persistent SeaDB data:
 
 ```shell
-mkdir -p ./data ./log
-
-export SEADB_LOG_DIR="$PWD/log"
-export SEADB_DATA_DIR="$PWD/data"
-export JWT_PRIVATE_KEY="<at-least-32-random-characters>"
+mkdir -p /opt/seadb /opt/seadb-data
+cd /opt/seadb
 ```
 
-Pebble stores SeaDB's key-value data in `$SEADB_DATA_DIR/base`. It is supported
-for single-node deployments only.
-
-### 2. Create an admin account
+Generate a private random value for SeaDB's JWT signing key:
 
 ```shell
-./sea-db add-admin -u seadb-admin -p <password>
+openssl rand -hex 32
 ```
 
-### 3. Run sea-db
+Save the output in a `.env` file next to `compose.yaml`. Keep this value
+unchanged when recreating the container; changing it invalidates existing JWTs.
 
-```shell
-./sea-db
+```env
+SEADB_IMAGE=seafileltd/seadb:0.9.0-testing
+SEADB_VOLUME=/opt/seadb-data
+SEADB_SERVER_ACCESS_TOKEN=<paste-the-generated-value-here>
 ```
 
-Verify that SeaDB is ready:
+Restrict access to the file because it contains a secret:
 
 ```shell
-curl http://127.0.0.1:8888/ping
+chmod 600 .env
+```
+
+Save the following content as `compose.yaml` in the same directory:
+
+```yaml
+services:
+  seadb:
+    image: ${SEADB_IMAGE:-seafileltd/seadb:0.9.0-testing}
+    restart: unless-stopped
+    container_name: seadb
+    ports:
+      - "8888:8888"
+    volumes:
+      - ${SEADB_VOLUME:-/opt/seadb-data}:/shared
+    environment:
+      JWT_PRIVATE_KEY: "${SEADB_SERVER_ACCESS_TOKEN:?SEADB_SERVER_ACCESS_TOKEN must be set}"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8888/ping >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+```
+
+### Initialize and start SeaDB
+
+Create the first administrator with a one-time container. The SeaDB service
+must not be running while this command accesses the Pebble data directory. If
+you have already started the service, stop it first with
+`docker compose stop seadb`.
+Run this command only for a new data directory and before starting SeaDB.
+Replace `<password>` with a strong admin password. Do not save the actual
+password in `compose.yaml`, `.env`, or a shared script.
+
+```shell
+docker compose run --rm --no-deps -T \
+  -e SEADB_DATA_DIR=/shared \
+  -e SEADB_LOG_DIR=/shared/logs \
+  --entrypoint /opt/seadb/sea-db \
+  seadb add-admin \
+  --user seadb-admin \
+  --password '<password>'
+
+docker compose up -d
+```
+
+The SeaDB service is ready after the health check passes. Check its logs and
+verify the API:
+
+```shell
+docker compose logs --tail=100 seadb
+curl -fsS http://127.0.0.1:8888/ping
 ```
 
 The expected response is `{"ret":"pong"}`.
+
+SeaDB's local data is stored in the host directory configured by `SEADB_VOLUME`. 
