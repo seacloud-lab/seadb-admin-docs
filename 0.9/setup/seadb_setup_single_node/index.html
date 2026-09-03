@@ -552,22 +552,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#run-sea-db" class="md-nav__link">
+  <a href="#run-seadb-from-a-docker-image" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Run sea-db
+        Run SeaDB from a Docker image
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Run sea-db">
+    <nav class="md-nav" aria-label="Run SeaDB from a Docker image">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-configure-the-runtime-environment" class="md-nav__link">
+  <a href="#prepare-the-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Configure the runtime environment
+        Prepare the configuration
       
     </span>
   </a>
@@ -575,21 +575,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-create-an-admin-account" class="md-nav__link">
+  <a href="#initialize-and-start-seadb" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Create an admin account
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-run-sea-db" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Run sea-db
+        Initialize and start SeaDB
       
     </span>
   </a>
@@ -992,22 +981,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#run-sea-db" class="md-nav__link">
+  <a href="#run-seadb-from-a-docker-image" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Run sea-db
+        Run SeaDB from a Docker image
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Run sea-db">
+    <nav class="md-nav" aria-label="Run SeaDB from a Docker image">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-configure-the-runtime-environment" class="md-nav__link">
+  <a href="#prepare-the-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Configure the runtime environment
+        Prepare the configuration
       
     </span>
   </a>
@@ -1015,21 +1004,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-create-an-admin-account" class="md-nav__link">
+  <a href="#initialize-and-start-seadb" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Create an admin account
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-run-sea-db" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Run sea-db
+        Initialize and start SeaDB
       
     </span>
   </a>
@@ -1063,30 +1041,52 @@
 
 <h1 id="setup-seadb">Setup SeaDB<a class="headerlink" href="#setup-seadb" title="Permanent link">&para;</a></h1>
 <p>This page describes how to setup SeaDB in a single node mode. In a single node mode, SeaDB uses embedded Pebble KV storage.</p>
-<h2 id="run-sea-db">Run sea-db<a class="headerlink" href="#run-sea-db" title="Permanent link">&para;</a></h2>
-<p>Describe how to run SeaDB via Docker image.</p>
-<p>The following content is outdated.</p>
-<hr />
-<h3 id="1-configure-the-runtime-environment">1. Configure the runtime environment<a class="headerlink" href="#1-configure-the-runtime-environment" title="Permanent link">&para;</a></h3>
-<p>The following is a minimal single-node example. SeaDB uses Pebble by default.
-Adjust the paths and use a persistent secret of at least 32 random characters
-for <code>JWT_PRIVATE_KEY</code>.</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>./data<span class="w"> </span>./log
+<h2 id="run-seadb-from-a-docker-image">Run SeaDB from a Docker image<a class="headerlink" href="#run-seadb-from-a-docker-image" title="Permanent link">&para;</a></h2>
+<p>Use the following Docker Compose configuration to initialize and run a
+single-node SeaDB instance.</p>
+<h3 id="prepare-the-configuration">Prepare the configuration<a class="headerlink" href="#prepare-the-configuration" title="Permanent link">&para;</a></h3>
+<p>Create a directory for the Compose files and the persistent SeaDB data:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/seadb<span class="w"> </span>/opt/seadb-data
+<span class="nb">cd</span><span class="w"> </span>/opt/seadb
+</code></pre></div>
+<p>Generate a private random value for SeaDB's JWT signing key:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span>
+</code></pre></div>
+<p>Save the output in a <code>.env</code> file next to <code>seadb.yml</code>. Keep this value
+unchanged when recreating the container; changing it invalidates existing JWTs.</p>
+<div class="highlight"><pre><span></span><code>COMPOSE_FILE=seadb.yml
+SEADB_IMAGE=seafileltd/seadb:0.9.0-testing
+SEADB_VOLUME=/opt/seadb-data
+SEADB_SERVER_ACCESS_TOKEN=&lt;paste-the-generated-value-here&gt;
+</code></pre></div>
+<p>Restrict access to the file because it contains a secret:</p>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>.env
+</code></pre></div>
+<p>Download the Compose file into the same directory:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>-O<span class="w"> </span>seadb.yml<span class="w"> </span>https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/seadb.yml
+</code></pre></div>
+<h3 id="initialize-and-start-seadb">Initialize and start SeaDB<a class="headerlink" href="#initialize-and-start-seadb" title="Permanent link">&para;</a></h3>
+<p>Create the first administrator with a one-time container. The SeaDB service
+must not be running while this command accesses the Pebble data directory. If
+you have already started the service, stop it first with
+<code>docker compose stop seadb</code>.
+Run this command only for a new data directory and before starting SeaDB.
+Replace <code>&lt;password&gt;</code> with a strong admin password. Do not save the actual
+password in <code>seadb.yml</code>, <code>.env</code>, or a shared script.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--no-deps<span class="w"> </span>-T<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">SEADB_DATA_DIR</span><span class="o">=</span>/shared<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">SEADB_LOG_DIR</span><span class="o">=</span>/shared/logs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--entrypoint<span class="w"> </span>/opt/seadb/sea-db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>seadb<span class="w"> </span>add-admin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="w"> </span>seadb-admin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--password<span class="w"> </span><span class="s1">'&lt;password&gt;'</span>
 
-<span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_LOG_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/log"</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_DATA_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/data"</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">JWT_PRIVATE_KEY</span><span class="o">=</span><span class="s2">"&lt;at-least-32-random-characters&gt;"</span>
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
-<p>Pebble stores SeaDB's key-value data in <code>$SEADB_DATA_DIR/base</code>. It is supported
-for single-node deployments only.</p>
-<h3 id="2-create-an-admin-account">2. Create an admin account<a class="headerlink" href="#2-create-an-admin-account" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>./sea-db<span class="w"> </span>add-admin<span class="w"> </span>-u<span class="w"> </span>seadb-admin<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
-</code></pre></div>
-<h3 id="3-run-sea-db">3. Run sea-db<a class="headerlink" href="#3-run-sea-db" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>./sea-db
-</code></pre></div>
-<p>Verify that SeaDB is ready:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://127.0.0.1:8888/ping
+<p>The SeaDB service is ready after the health check passes. Check its logs and
+verify the API:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>seadb
+curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1:8888/ping
 </code></pre></div>
 <p>The expected response is <code>{"ret":"pong"}</code>.</p>
 
