@@ -10,13 +10,13 @@
         <meta name="author" content="seadb">
       
       
-        <link rel="canonical" href="https://seacloud-lab.github.io/seadb-admin-docs/0.9/configuration/environment_variables/">
+        <link rel="canonical" href="https://seacloud-lab.github.io/seadb-admin-docs/0.9/configuration/cluster_environment_variables/">
       
       
-        <link rel="prev" href="../../setup/seadb_cluster_native/">
+        <link rel="prev" href="../environment_variables/">
       
       
-        <link rel="next" href="../cluster_environment_variables/">
+        <link rel="next" href="../../cli/overview/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Environment variables - SeaDB Admin Manual</title>
+        <title>Cluster env - SeaDB Admin Manual</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#environment-variables" class="md-skip">
+        <a href="#cluster-environment-variables" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Environment variables
+              Cluster env
             
           </span>
         </div>
@@ -277,7 +277,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../environment_variables/" class="md-tabs__link">
           
   
   
@@ -692,6 +692,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment_variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -711,7 +739,7 @@
   <span class="md-ellipsis">
     
   
-    Environment variables
+    Cluster env
   
 
     
@@ -729,7 +757,7 @@
   <span class="md-ellipsis">
     
   
-    Environment variables
+    Cluster env
   
 
     
@@ -767,10 +795,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#general" class="md-nav__link">
+  <a href="#foundationdb" class="md-nav__link">
     <span class="md-ellipsis">
       
-        General
+        FoundationDB
       
     </span>
   </a>
@@ -778,32 +806,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#storage" class="md-nav__link">
+  <a href="#cluster-coordination" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Storage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sql" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SQL
+        Cluster coordination
       
     </span>
   </a>
@@ -815,38 +821,32 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cluster-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster-Manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seadb-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SeaDB-Proxy
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cluster_environment_variables/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cluster env
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1040,10 +1040,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#general" class="md-nav__link">
+  <a href="#foundationdb" class="md-nav__link">
     <span class="md-ellipsis">
       
-        General
+        FoundationDB
       
     </span>
   </a>
@@ -1051,32 +1051,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#storage" class="md-nav__link">
+  <a href="#cluster-coordination" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Storage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metrics
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sql" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SQL
+        Cluster coordination
       
     </span>
   </a>
@@ -1085,6 +1063,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster-Manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seadb-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SeaDB-Proxy
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1108,13 +1108,17 @@
   
 
 
-<h1 id="environment-variables">Environment variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h1>
-<p>SeaDB is configured through environment variables. This page documents the
-variables consumed by the <code>sea-db</code> process in both single-node and cluster
-deployments. For cluster coordination, Cluster-Manager, SeaDB-Proxy, and
-FoundationDB connection variables, see <a href="../cluster_environment_variables/">Cluster env</a>.</p>
+<h1 id="cluster-environment-variables">Cluster environment variables<a class="headerlink" href="#cluster-environment-variables" title="Permanent link">&para;</a></h1>
+<p>This page documents variables used by SeaDB cluster coordination, the
+Cluster-Manager, and SeaDB-Proxy. It also contains the FoundationDB connection
+variable used when <code>SEADB_STORAGE_BACKEND=fdb</code>. For all <code>sea-db</code> variables
+shared by single-node and cluster deployments, see <a href="../environment_variables/">Environment variables</a>.</p>
+<p>Every SeaDB node in a cluster also needs the general <code>sea-db</code> requirements:
+<code>SEADB_STORAGE_BACKEND=fdb</code>, <code>SEADB_DATA_DIR</code>, <code>SEADB_LOG_DIR</code>, and
+<code>JWT_PRIVATE_KEY</code>.</p>
 <h2 id="seadb">SeaDB<a class="headerlink" href="#seadb" title="Permanent link">&para;</a></h2>
-<h3 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
+<h3 id="foundationdb">FoundationDB<a class="headerlink" href="#foundationdb" title="Permanent link">&para;</a></h3>
+<p><code>SEADB_KEY_PREFIX</code> is documented in the <a href="../environment_variables/#storage">Storage section</a>.</p>
 <table>
 <thead>
 <tr>
@@ -1125,150 +1129,140 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
 </thead>
 <tbody>
 <tr>
-<td><code>SEADB_HOST</code></td>
+<td><code>SEADB_FDB_CLUSTER_FILE</code></td>
+<td>The location of the FoundationDB cluster file. After installing FoundationDB on Linux, the default location is <code>/etc/foundationdb/fdb.cluster</code>.</td>
+<td>(required)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cluster-coordination">Cluster coordination<a class="headerlink" href="#cluster-coordination" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SEADB_CLUSTER_ENABLE</code></td>
+<td>Whether to enable cluster mode.</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>SEADB_CLUSTER_NODE_ID</code></td>
+<td>The cluster ID of the current node. IDs must be unique across nodes and stay fixed.</td>
+<td>(required in cluster mode)</td>
+</tr>
+<tr>
+<td><code>SEADB_CLUSTER_ETCD_ENDPOINTS</code></td>
+<td>The etcd server addresses, comma-separated.</td>
+<td>(required in cluster mode)</td>
+</tr>
+<tr>
+<td><code>SEADB_CLUSTER_ETCD_PREFIX</code></td>
+<td>The etcd data prefix. Must match the Manager and Proxy.</td>
+<td><code>/seadb</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="cluster-manager">Cluster-Manager<a class="headerlink" href="#cluster-manager" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SEADB_CLUSTER_MANAGER_HOST</code></td>
 <td>The address the program listens on.</td>
 <td><code>0.0.0.0</code></td>
 </tr>
 <tr>
-<td><code>SEADB_PORT</code></td>
+<td><code>SEADB_CLUSTER_MANAGER_PORT</code></td>
+<td>The port the program listens on.</td>
+<td><code>8890</code></td>
+</tr>
+<tr>
+<td><code>SEADB_LOG_DIR</code></td>
+<td>The log directory.</td>
+<td>(required)</td>
+</tr>
+<tr>
+<td><code>SEADB_CLUSTER_MANAGER_LOG_LEVEL</code></td>
+<td>The log level.</td>
+<td><code>info</code></td>
+</tr>
+<tr>
+<td><code>LOG_TO_STDOUT</code></td>
+<td>Write Cluster-Manager logs to standard output instead of log files.</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>SEADB_ETCD_ENDPOINTS</code></td>
+<td>The etcd server addresses, comma-separated.</td>
+<td>(required)</td>
+</tr>
+<tr>
+<td><code>SEADB_ETCD_PREFIX</code></td>
+<td>The etcd data prefix. Must match SeaDB and the Proxy.</td>
+<td><code>/seadb</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="seadb-proxy">SeaDB-Proxy<a class="headerlink" href="#seadb-proxy" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SEADB_PROXY_HOST</code></td>
+<td>The address the program listens on.</td>
+<td><code>0.0.0.0</code></td>
+</tr>
+<tr>
+<td><code>SEADB_PROXY_PORT</code></td>
 <td>The port the program listens on.</td>
 <td><code>8888</code></td>
 </tr>
 <tr>
 <td><code>SEADB_LOG_DIR</code></td>
-<td>The log directory of SeaDB.</td>
+<td>The log directory.</td>
 <td>(required)</td>
 </tr>
 <tr>
-<td><code>SEADB_LOG_LEVEL</code></td>
-<td>The log level of SeaDB.</td>
+<td><code>SEADB_PROXY_LOG_LEVEL</code></td>
+<td>The log level.</td>
 <td><code>info</code></td>
 </tr>
 <tr>
 <td><code>LOG_TO_STDOUT</code></td>
-<td>Write SeaDB logs to standard output instead of log files.</td>
+<td>Write SeaDB-Proxy logs to standard output instead of log files.</td>
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>SEADB_SLOW_QUERY_THRESHOLD</code></td>
-<td>The slow-query threshold of SeaDB.</td>
-<td><code>1000ms</code></td>
-</tr>
-<tr>
-<td><code>SEADB_TRANSACTION_TIMEOUT</code></td>
-<td>Maximum duration of a transaction. Accepts a duration such as <code>300s</code> or <code>5m</code>; a plain number is seconds. Invalid values fall back to the default.</td>
-<td><code>300s</code></td>
-</tr>
-<tr>
-<td><code>SEADB_QUERY_PER_MINUTE_LIMIT</code></td>
-<td>The global per-minute API call limit.</td>
-<td><code>50000</code></td>
-</tr>
-<tr>
-<td><code>SEADB_REQUEST_TIMEOUT</code></td>
-<td>The request timeout.</td>
-<td><code>30s</code></td>
-</tr>
-<tr>
-<td><code>JWT_PRIVATE_KEY</code></td>
-<td>The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value on every SeaDB node and trusted JWT-issuing service.</td>
-<td>(required)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>SEADB_STORAGE_BACKEND</code></td>
-<td>The KV backend used to store data. Choose either <code>fdb</code> or <code>pebble</code>.</td>
-<td><code>pebble</code></td>
-</tr>
-<tr>
-<td><code>SEADB_DATA_DIR</code></td>
-<td>The data directory of SeaDB, used to store temporary files such as external sort files.</td>
+<td><code>SEADB_ETCD_ENDPOINTS</code></td>
+<td>The etcd server addresses, comma-separated.</td>
 <td>(required)</td>
 </tr>
 <tr>
-<td><code>SEADB_KEY_PREFIX</code></td>
-<td>The key prefix used by SeaDB's FDB and Pebble storage backends. If the FoundationDB cluster is shared by multiple applications, set a SeaDB-specific prefix to distinguish it from other applications.</td>
-<td></td>
+<td><code>SEADB_ETCD_PREFIX</code></td>
+<td>The etcd data prefix. Must match SeaDB and the Manager.</td>
+<td><code>/seadb</code></td>
 </tr>
 <tr>
-<td><code>SEADB_STORAGE_CLEANUP_TIME</code></td>
-<td>The time at which SeaDB base cleanup starts. It is used to clean up deleted table and index data.</td>
-<td><code>00:00</code></td>
-</tr>
-<tr>
-<td><code>SEADB_UPDATE_BASE_STATS_AT</code></td>
-<td>Daily time, in <code>HH:MM</code>, at which SeaDB updates base storage and table row-count statistics. Invalid values fall back to the default.</td>
-<td><code>01:00</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>SEADB_METRICS_ENABLE_BASIC_AUTH</code></td>
-<td>When <code>true</code>, the metrics API uses HTTP basic authentication; when <code>false</code>, it uses JWT authentication and requires admin privileges.</td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td><code>SEADB_METRICS_USERNAME</code></td>
-<td>The username used when HTTP basic authentication is enabled.</td>
-<td>(required when basic authentication is enabled)</td>
-</tr>
-<tr>
-<td><code>SEADB_METRICS_PASSWORD</code></td>
-<td>The password used when HTTP basic authentication is enabled.</td>
-<td>(required when basic authentication is enabled)</td>
-</tr>
-<tr>
-<td><code>SEADB_METRICS_INTERVAL</code></td>
-<td>The statistics update frequency.</td>
-<td><code>5s</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="sql">SQL<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>SEADB_DEFAULT_RESULT_ROWS</code></td>
-<td>The default row limit returned when no <code>LIMIT</code> clause is provided.</td>
-<td><code>100</code></td>
-</tr>
-<tr>
-<td><code>SEADB_RESULT_ROWS_HARD_LIMIT</code></td>
-<td>The hard limit on the number of rows returned.</td>
-<td><code>10000</code></td>
-</tr>
-<tr>
-<td><code>SEADB_EXEC_COST_HARD_LIMIT</code></td>
-<td>The query execution cost limit.</td>
-<td><code>5000000</code></td>
+<td><code>SEADB_CLUSTER_MANAGER_URL</code></td>
+<td>The URL of the Cluster-Manager.</td>
+<td>(required)</td>
 </tr>
 </tbody>
 </table>
@@ -1307,7 +1301,7 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../setup/seadb_cluster_native/" class="md-footer__link md-footer__link--prev" aria-label="Previous: SeaDB">
+          <a href="../environment_variables/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Environment variables">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1317,20 +1311,20 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
                 Previous
               </span>
               <div class="md-ellipsis">
-                SeaDB
+                Environment variables
               </div>
             </div>
           </a>
         
         
           
-          <a href="../cluster_environment_variables/" class="md-footer__link md-footer__link--next" aria-label="Next: Cluster env">
+          <a href="../../cli/overview/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Cluster env
+                Overview
               </div>
             </div>
             <div class="md-footer__button md-icon">
