@@ -90,5 +90,3 @@ curl -fsS http://127.0.0.1:8888/ping
 ```
 
 The expected response is `{"ret":"pong"}`.
-
-SeaDB's local data is stored in the host directory configured by `SEADB_VOLUME`. 
