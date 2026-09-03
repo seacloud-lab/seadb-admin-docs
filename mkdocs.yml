@@ -88,6 +88,7 @@ nav:
       - SeaDB: setup/seadb_cluster_native.md
   - Configuration:
     - Environment variables: configuration/environment_variables.md
+    - Cluster env: configuration/cluster_environment_variables.md
   - SeaDB CLI:
     - Overview: cli/overview.md
     - Build and usage: cli/usage.md
