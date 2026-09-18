@@ -422,19 +422,16 @@ custom column data:
 ```json
 {
     "Table1": {
-        "template_base_name": "template1",
         "template_table_name": "template_table1",
         "custom_columns": ["col1", "col2"]
     },
     "Table2": {
-        "template_base_name": "template1",
         "template_table_name": "template_table2",
         "custom_columns": []
     }
 }
 ```
 
-- `template_base_name` is the template to bind the table to.
 - `template_table_name` is the template table whose schema the table uses.
 - `custom_columns` lists the columns that keep their own custom column data
   (for example, the options of a single-select or multiple-select column)

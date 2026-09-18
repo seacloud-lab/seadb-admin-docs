@@ -31,8 +31,7 @@ A table in a regular base has one of three roles:
 A bound table keeps its own table ID, name, row data, and indexes, and records
 the referenced template base ID, template table ID, and template version. The
 same template table can be referenced by tables with different names in one or
-more bases, and a single base can reference template tables from different
-template bases.
+more bases.
 
 ## Default template
 
