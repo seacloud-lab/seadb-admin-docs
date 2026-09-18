@@ -1361,7 +1361,7 @@ Linux: ~/.config/seadb-cli/seadb_cli.yaml
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_CONFIG</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.config/seadb-cli-dev.yaml"</span>
 </code></pre></div>
 <p>The config file contains the following fields:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://127.0.0.1:7777</span>
+<div class="highlight"><pre><span></span><code><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://127.0.0.1:8888</span>
 <span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
 <span class="nt">credential_store</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring</span>
 </code></pre></div>
@@ -1374,8 +1374,8 @@ Linux: ~/.config/seadb-cli/seadb_cli.yaml
 <p>An empty file or a file containing only comments is equivalent to a missing config file: all fields take their defaults and no parse error is raised.</p>
 <h2 id="first-time-setup">First-time setup<a class="headerlink" href="#first-time-setup" title="Permanent link">&para;</a></h2>
 <h3 id="save-the-connection-configuration">Save the connection configuration<a class="headerlink" href="#save-the-connection-configuration" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>set-config<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:7777
-seadb-cli<span class="w"> </span>set-config<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:7777
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>set-config<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:8888
+seadb-cli<span class="w"> </span>set-config<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:8888
 
 <span class="c1"># Change the timeout alone.</span>
 seadb-cli<span class="w"> </span>set-config<span class="w"> </span>--timeout<span class="w"> </span>60s
@@ -1399,8 +1399,8 @@ OK: logged in as admin
 <li>Subsequent commands use the API key automatically.</li>
 </ul>
 <p>If no server address is configured yet, enter it interactively, or specify it directly:</p>
-<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>login<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:7777
-seadb-cli<span class="w"> </span>login<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:7777
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>login<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:8888
+seadb-cli<span class="w"> </span>login<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:8888
 </code></pre></div>
 <p>Login cannot run in a non-interactive terminal; complete login in an interactive terminal first.</p>
 <h3 id="log-out">Log out<a class="headerlink" href="#log-out" title="Permanent link">&para;</a></h3>
