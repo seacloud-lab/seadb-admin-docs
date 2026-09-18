@@ -111,7 +111,7 @@ export SEADB_CONFIG="$HOME/.config/seadb-cli-dev.yaml"
 The config file contains the following fields:
 
 ```yaml
-server: http://127.0.0.1:7777
+server: http://127.0.0.1:8888
 timeout: 30s
 credential_store: keyring
 ```
@@ -128,8 +128,8 @@ An empty file or a file containing only comments is equivalent to a missing conf
 ### Save the connection configuration
 
 ```bash
-seadb-cli set-config --server http://127.0.0.1:7777
-seadb-cli set-config -s http://127.0.0.1:7777
+seadb-cli set-config --server http://127.0.0.1:8888
+seadb-cli set-config -s http://127.0.0.1:8888
 
 # Change the timeout alone.
 seadb-cli set-config --timeout 60s
@@ -165,8 +165,8 @@ After a successful login:
 If no server address is configured yet, enter it interactively, or specify it directly:
 
 ```bash
-seadb-cli login --server http://127.0.0.1:7777
-seadb-cli login -s http://127.0.0.1:7777
+seadb-cli login --server http://127.0.0.1:8888
+seadb-cli login -s http://127.0.0.1:8888
 ```
 
 Login cannot run in a non-interactive terminal; complete login in an interactive terminal first.
