@@ -89,7 +89,10 @@ nav:
   - Configuration:
     - Environment variables: configuration/environment_variables.md
     - Cluster env: configuration/cluster_environment_variables.md
-  - SeaDB CLI:
-    - Overview: cli/overview.md
-    - Build and usage: cli/usage.md
+  - Usage:
+    - User Management: usage/user_management.md
+    - Base Management: usage/base_management.md
+    - Template Management: usage/template_management.md
+    - Accessing Base: usage/accessing_base.md
+    - SeaDB CLI: usage/cli.md
   - API Reference: https://seadb-api.readme.io
