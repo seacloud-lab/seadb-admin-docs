@@ -135,30 +135,36 @@ All data operations are executed against a specific base. See
 [SQL Syntax](sql_syntax.md) for the supported SQL statements and the
 [SeaDB CLI](cli.md) for running them.
 
-## Templates
+## Template
 
-A **template** is a reusable set of table definitions. Tables that use the same
-template share its column and index definitions, so changing the template
-applies to all of them.
+A **template** is a table whose column and index definitions can be shared
+by other tables. A table that uses a template table takes its column and index
+definitions from it, so a change to the template table applies to all the tables
+that use it.
 
-Every user has a default template. Use the reserved name `template` wherever a
-base reference is expected to work with it. The CLI accepts `template` in the
-`base` commands, so you can list the tables of your default template with:
+Create and modify template tables with the `--template` option of the
+`seadb-cli sql` command:
 
 ```bash
-seadb-cli base metadata template
-seadb-cli base stats template
+# Create a template table.
+seadb-cli sql --template -e "CREATE TABLE Contacts (name text, email text);"
+
+# Modify a template table.
+seadb-cli sql --template -e "ALTER TABLE Contacts ADD COLUMN phone text;"
 ```
 
-Create and modify template tables the same way as regular tables, by targeting
-`template` — for example with `POST /api/v1/template/tables` (see the
-[API reference](https://seadb-api.readme.io)).
-
-When exporting and importing bases, the CLI preserves template bindings:
-
-- Importing a base that uses a template reuses the same template when it exists.
-- `seadb-cli import --skip-template` imports the base without a template.
-- `seadb-cli import --table-templates <json>` maps tables to template tables and
-  specifies which columns keep custom column data.
-
 See the [SeaDB CLI](cli.md) for details.
+
+## Import and export
+
+A base can be exported to a dump file and imported into a new base, which is
+useful for backup and for migrating a base between servers.
+
+When importing:
+
+- A table that uses a template table automatically applies the original
+  template table.
+- A table that does not use a template table requires the template table's
+  definition to be exactly the same as the table's.
+
+See the [SeaDB CLI](cli.md) for the `export` and `import` commands.

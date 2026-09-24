@@ -287,12 +287,11 @@ seadb-cli base delete "$BASE_ID" --yes
 
 #### template
 
-The reserved name `template` addresses the current user's default template. Use
-it wherever a base reference is expected to work with the default template:
+To create and modify template tables, pass `--template` instead of `--base`:
 
 ```bash
-seadb-cli base metadata template
-seadb-cli base stats template
+seadb-cli sql --template -e "CREATE TABLE Contacts (name text, email text);"
+seadb-cli sql --template -e "ALTER TABLE Contacts ADD COLUMN phone text;"
 ```
 
 See [Base Management](base_management.md#templates) for how templates work.
@@ -323,7 +322,7 @@ On success, the new base's UUID is printed. Optional flags:
 
 - `--table-templates <json>` maps table names to template-table definitions
   during import.
-- `--skip-template` imports without applying a base template.
+- `--skip-template` imports without applying table template.
 
 `--skip-template` and `--table-templates` cannot be used together.
 
