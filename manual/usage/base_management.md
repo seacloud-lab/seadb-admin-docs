@@ -132,4 +132,5 @@ DROP INDEX idx_priority;
 ## Run SQL
 
 All data operations are executed against a specific base. See
-[Accessing Base](accessing_base.md) for authenticating requests and running SQL.
+[SQL Syntax](sql_syntax.md) for the supported SQL statements and the
+[SeaDB CLI](cli.md) for running them.

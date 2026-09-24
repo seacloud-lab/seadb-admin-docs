@@ -93,6 +93,6 @@ nav:
     - User Management: usage/user_management.md
     - Base Management: usage/base_management.md
     - Template Management: usage/template_management.md
-    - Accessing Base: usage/accessing_base.md
+    - SQL Syntax: usage/sql_syntax.md
     - SeaDB CLI: usage/cli.md
   - API Reference: https://seadb-api.readme.io

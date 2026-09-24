@@ -38,9 +38,3 @@ value; the server stores only the hash of the key. Clients must save the
 Each base is bound to exactly one owning user. The owner of a base can read and
 write it; an `admin` can access any base. When a base is created, SeaDB records
 the authenticated user as its owner.
-
-## Managing users and API keys
-
-The [SeaDB CLI](cli.md) creates and revokes an API key for you automatically as
-part of `login` and `logout`. See [Accessing Base](accessing_base.md) for how
-credentials are used to authenticate requests.
