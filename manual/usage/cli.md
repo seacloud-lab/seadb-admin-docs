@@ -1,25 +1,13 @@
 # SeaDB CLI
 
-`seadb-cli` is a standalone Go command-line client for the SeaDB REST API. It
-calls only existing SeaDB APIs; it does not access FoundationDB, the metabase,
-or SeaDB's internal methods directly.
+`seadb-cli` is a command-line client for SeaDB.
 
 ## Quick Start
 
-Build, install, connect, and run your first query:
+Connect and run your first query:
 
 ```bash
-cd ./SeaDB
-
-# Build the CLI into a temporary directory.
-mkdir -p ../tmp
-go build -o ../tmp/seadb-cli ./cmd/seadb-cli
-
-# Install to $HOME/.local/bin and make it available on PATH.
-../tmp/seadb-cli install
-export PATH="$HOME/.local/bin:$PATH"
-
-# Save the server address (verified with GET /ping).
+# Save the server address.
 seadb-cli set-config --server http://127.0.0.1:8888
 
 # Log in interactively to create an API key.
@@ -46,16 +34,11 @@ The following subcommands are available:
 - `base`: create, list, inspect, delete bases, and change a base owner, ID, or name.
 - `export`: export a base to a dump file.
 - `import`: import a base from a dump file.
-- `install`: install the current binary to the user directory.
-- `uninstall`: remove the installed binary.
 
 `help` and `completion` are provided by the command framework. The CLI runs one
 command and then exits; there is no REPL or background process. Login state is
 stored in the config file and the credential store, so terminals that use the
 same config file share the login state.
-
-User and API-key management commands are planned but not yet implemented; see
-[Planned commands](#planned-commands).
 
 ## Prerequisites
 
@@ -63,77 +46,6 @@ User and API-key management commands are planned but not yet implemented; see
     - macOS uses Keychain.
     - Linux uses Secret Service, which requires an available user D-Bus session.
     - On headless Linux or over SSH, switch to `file` mode (see [Credential storage](#credential-storage)).
-
-## Build and install
-
-Run the following in the repository root:
-
-```bash
-cd ./SeaDB
-
-# Run CLI unit tests. The tests use a local HTTP test server and do not
-# depend on a running SeaDB or FoundationDB.
-go test ./cmd/seadb-cli/...
-
-# Build into a tmp directory next to the repository.
-mkdir -p ../tmp
-go build -o ../tmp/seadb-cli ./cmd/seadb-cli
-
-# Verify the binary and its subcommands.
-../tmp/seadb-cli --help
-../tmp/seadb-cli -h
-```
-
-Optional cross-compilation examples:
-
-```bash
-# macOS Apple Silicon
-CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 \
-  go build -o ../tmp/seadb-cli-darwin-arm64 ./cmd/seadb-cli
-
-# Linux x86_64
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-  go build -o ../tmp/seadb-cli-linux-amd64 ./cmd/seadb-cli
-```
-
-Cross-compiled binaries can only run on the corresponding operating system and
-CPU architecture.
-
-### Install and upgrade
-
-Use the built binary to install:
-
-```bash
-../tmp/seadb-cli install
-```
-
-This copies the current binary to:
-
-```text
-$HOME/.local/bin/seadb-cli
-```
-
-If `$HOME/.local/bin` is not on your `PATH`, the CLI prints the
-`export PATH=...` line you need to run. It cannot modify the current terminal's
-`PATH` or edit your shell configuration.
-
-On macOS with zsh, add it to `PATH` permanently as follows:
-
-```bash
-printf '\nexport PATH="$HOME/.local/bin:$PATH"\n' >> ~/.zshrc
-source ~/.zshrc
-hash -r
-
-command -v seadb-cli
-seadb-cli --help
-```
-
-After rebuilding, overwrite the installed version with the source binary:
-
-```bash
-../tmp/seadb-cli install --force
-../tmp/seadb-cli install -f
-```
 
 ## Configuration file and login state
 
@@ -198,8 +110,8 @@ seadb-cli set-config --credential-store file
 seadb-cli set-config -c file
 ```
 
-When the server address is changed, the CLI first calls `GET /ping` and only
-saves the new address if it receives `{"ret":"pong"}`.
+When the server address is changed, the CLI verifies that the server is
+reachable and only saves the new address on success.
 
 `--server` is supported only by `set-config` and `login`; all other commands use
 the address from the config file. To switch servers, run `seadb-cli logout`
@@ -208,8 +120,7 @@ first, then `set-config --server` or edit the config file directly.
 `--timeout` is supported only by `set-config`, `login`, `logout`, and `sql`.
 `set-config --timeout` writes the timeout to the config file; for the other
 three commands, `--timeout` only overrides the timeout of the current request.
-`install`, `uninstall`, `base`, `export`, and `import` do not accept the
-`--timeout` parameter.
+`base`, `export`, and `import` do not accept the `--timeout` parameter.
 
 ### login
 
@@ -442,81 +353,6 @@ A table not listed in the file is imported without a template binding. The
 template table's schema must match the source table's schema, otherwise the
 import is rejected.
 
-### install and uninstall
-
-See [Build and install](#build-and-install) for `install`. To uninstall, log out
-first:
-
-```bash
-seadb-cli logout
-seadb-cli uninstall
-```
-
-`uninstall` removes:
-
-- `$HOME/.local/bin/seadb-cli`
-- the default `seadb-cli` config directory and all of its contents, including
-  `seadb_cli.yaml`, file credentials, custom configs, and backups.
-
-If the default config is still logged in, log out with the default config first
-to avoid leaving a server-side API key behind:
-
-```bash
-env -u SEADB_CONFIG seadb-cli logout
-seadb-cli uninstall
-```
-
-A custom `SEADB_CONFIG` inside the default `seadb-cli` directory is removed
-along with the directory; one outside that directory is not. The uninstall
-command must be run by the installed `seadb-cli`, not by `../tmp/seadb-cli`.
-
-## Planned commands
-
-The following commands are part of the CLI design but have not been implemented
-in the current `seadb-cli`.
-
-### User management
-
-```bash
-seadb-cli user create <username>
-seadb-cli user list
-seadb-cli user set-password <username>
-seadb-cli user set-role <username> --role admin
-seadb-cli user delete <username>
-```
-
-- When creating a user or changing a password, the target password is read
-  without echo by default.
-- `--role` can be specified multiple times; the same role must not be repeated.
-  Updating replaces all of the user's roles.
-- Only the roles currently supported by SeaDB are accepted: `admin` and
-  `default_role`.
-- `user delete` uses the same confirmation rules as `base delete`.
-
-### API key management
-
-```text
-seadb-cli api-key create <name>
-seadb-cli api-key create <name> --expire-days 30
-seadb-cli api-key create <name> --no-expire
-seadb-cli api-key list
-seadb-cli api-key delete <key-id> [<key-id>...]
-```
-
-- `api-key create` creates a key only for the currently authenticated user. The
-  key expires after 30 days by default. `--expire-days` accepts a positive
-  integer; a permanent key must be specified explicitly with `--no-expire`. The
-  two parameters cannot be used together.
-- On success, a single-row table shows `key_id`, `key_name`, `encoded`, the
-  creation time, and the expiration time. `encoded` is returned by the server
-  only once; the CLI does not write it to the login credential or config file.
-- `api-key list` only lists the current user's keys; the output does not include
-  `encoded`.
-- Regular users can only delete their own keys; administrators can delete any
-  user's key by key ID. Deletion asks for confirmation by default.
-- Deleting the key currently used for login also removes the local login
-  credential and login identity from the config file.
-
 ## Credential storage
 
 The default `keyring` mode is suitable for macOS and Linux with a desktop
@@ -567,17 +403,11 @@ switch servers or credential modes, run `logout` first, then `set-config`.
 
 ## Unsupported operations
 
-- Managing users and API keys through `seadb-cli` is not yet implemented; see
-  [Planned commands](#planned-commands).
-- Managing users, grants, and bases through SQL statements such as `CREATE
-  USER`, `GRANT`, or `CREATE DATABASE`.
-- Creating, querying, or deleting custom roles.
-- Authorizing one base to multiple users, or setting roles such as
-  `reader`/`writer` on a base.
+- Creating bases through SQL statements such as `CREATE DATABASE`.
 - User-facing JWT token management commands, and metrics, request, and
   cluster-node management commands.
 - Other output formats such as JSON or CSV.
-- Displaying DML affected rows; the current query API does not return this field.
+- Displaying the number of rows affected by DML statements.
 
 ## FAQ and exit codes
 
