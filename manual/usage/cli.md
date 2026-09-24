@@ -374,16 +374,15 @@ seadb-cli base delete "$BASE_ID" --yes
   administrators.
 - `base stats` and `base metadata` print raw JSON; lists use table output.
 
-The reserved name `template` addresses the current user's default template
-base. Use it wherever a base reference is expected to inspect the default
-template:
+The reserved name `template` addresses the current user's default template.
+Use it wherever a base reference is expected to inspect the default template:
 
 ```bash
 seadb-cli base metadata template
 seadb-cli base stats template
 ```
 
-See [Template Management](template_management.md) for how templates work.
+See [Base Management](base_management.md#templates) for how templates work.
 
 ### export
 

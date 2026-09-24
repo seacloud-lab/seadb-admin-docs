@@ -134,3 +134,31 @@ DROP INDEX idx_priority;
 All data operations are executed against a specific base. See
 [SQL Syntax](sql_syntax.md) for the supported SQL statements and the
 [SeaDB CLI](cli.md) for running them.
+
+## Templates
+
+A **template** is a reusable set of table definitions. Tables that use the same
+template share its column and index definitions, so changing the template
+applies to all of them.
+
+Every user has a default template. Use the reserved name `template` wherever a
+base reference is expected to work with it. The CLI accepts `template` in the
+`base` commands, so you can list the tables of your default template with:
+
+```bash
+seadb-cli base metadata template
+seadb-cli base stats template
+```
+
+Create and modify template tables the same way as regular tables, by targeting
+`template` — for example with `POST /api/v1/template/tables` (see the
+[API reference](https://seadb-api.readme.io)).
+
+When exporting and importing bases, the CLI preserves template bindings:
+
+- Importing a base that uses a template reuses the same template when it exists.
+- `seadb-cli import --skip-template` imports the base without a template.
+- `seadb-cli import --table-templates <json>` maps tables to template tables and
+  specifies which columns keep custom column data.
+
+See the [SeaDB CLI](cli.md) for details.
