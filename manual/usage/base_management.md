@@ -142,6 +142,8 @@ by other tables. A table that uses a template table takes its column and index
 definitions from it, so a change to the template table applies to all the tables
 that use it.
 
+Every user can define its own template tables. Templates created by different users are isolated.
+
 Create and modify template tables with the `--template` option of the
 `seadb-cli sql` command:
 
@@ -162,9 +164,9 @@ useful for backup and for migrating a base between servers.
 
 When importing:
 
+- A table that doesn't use a template table are imported as is.
 - A table that uses a template table automatically applies the original
   template table.
-- A table that does not use a template table requires the template table's
-  definition to be exactly the same as the table's.
+- A table that doesn't use a template table can be migrated to use specific template table.
 
 See the [SeaDB CLI](cli.md) for the `export` and `import` commands.
