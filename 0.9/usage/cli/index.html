@@ -10,10 +10,10 @@
         <meta name="author" content="seadb">
       
       
-        <link rel="canonical" href="https://seacloud-lab.github.io/seadb-admin-docs/0.9/cli/usage/">
+        <link rel="canonical" href="https://seacloud-lab.github.io/seadb-admin-docs/0.9/usage/cli/">
       
       
-        <link rel="prev" href="../overview/">
+        <link rel="prev" href="../sql_syntax/">
       
       
       
@@ -25,7 +25,7 @@
     
     
       
-        <title>Build and usage - SeaDB Admin Manual</title>
+        <title>SeaDB CLI - SeaDB Admin Manual</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#seadb-cli-build-and-usage" class="md-skip">
+        <a href="#seadb-cli" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Build and usage
+              SeaDB CLI
             
           </span>
         </div>
@@ -295,11 +295,11 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../overview/" class="md-tabs__link">
+        <a href="../user_management/" class="md-tabs__link">
           
   
   
-  SeaDB CLI
+  Usage
 
         </a>
       </li>
@@ -779,7 +779,7 @@
   <span class="md-ellipsis">
     
   
-    SeaDB CLI
+    Usage
   
 
     
@@ -795,7 +795,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    SeaDB CLI
+    Usage
   
 
           </label>
@@ -808,14 +808,70 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../user_management/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Overview
+    User Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../base_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Base Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql_syntax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Syntax
   
 
     
@@ -852,7 +908,7 @@
   <span class="md-ellipsis">
     
   
-    Build and usage
+    SeaDB CLI
   
 
     
@@ -870,7 +926,7 @@
   <span class="md-ellipsis">
     
   
-    Build and usage
+    SeaDB CLI
   
 
     
@@ -896,32 +952,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
         Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-and-test" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Build and test
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install-and-upgrade" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Install and upgrade
       
     </span>
   </a>
@@ -940,22 +996,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#first-time-setup" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        First-time setup
+        Commands
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="First-time setup">
+    <nav class="md-nav" aria-label="Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#save-the-connection-configuration" class="md-nav__link">
+  <a href="#set-config" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Save the connection configuration
+        set-config
       
     </span>
   </a>
@@ -963,10 +1019,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#log-in" class="md-nav__link">
+  <a href="#login" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Log in
+        login
       
     </span>
   </a>
@@ -974,10 +1030,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#log-out" class="md-nav__link">
+  <a href="#logout" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Log out
+        logout
       
     </span>
   </a>
@@ -985,10 +1041,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#execute-sql" class="md-nav__link">
+  <a href="#sql" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Execute SQL
+        sql
       
     </span>
   </a>
@@ -996,13 +1052,102 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#base-management" class="md-nav__link">
+  <a href="#base" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Base management
+        base
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        template
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        export
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        import
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="import">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-not-using-templates-base-not-using-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base not using templates -&gt; Base not using templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-using-templates-base-using-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base using templates -&gt; Base using templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-not-using-templates-base-using-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base not using templates -&gt; Base using templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-using-templates-base-not-using-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base using templates -&gt; Base not using templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1023,10 +1168,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#uninstall" class="md-nav__link">
+  <a href="#output-conventions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Uninstall
+        Output conventions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unsupported-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unsupported operations
       
     </span>
   </a>
@@ -1114,32 +1270,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
         Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-and-test" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Build and test
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install-and-upgrade" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Install and upgrade
       
     </span>
   </a>
@@ -1158,22 +1314,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#first-time-setup" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        First-time setup
+        Commands
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="First-time setup">
+    <nav class="md-nav" aria-label="Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#save-the-connection-configuration" class="md-nav__link">
+  <a href="#set-config" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Save the connection configuration
+        set-config
       
     </span>
   </a>
@@ -1181,10 +1337,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#log-in" class="md-nav__link">
+  <a href="#login" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Log in
+        login
       
     </span>
   </a>
@@ -1192,10 +1348,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#log-out" class="md-nav__link">
+  <a href="#logout" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Log out
+        logout
       
     </span>
   </a>
@@ -1203,10 +1359,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#execute-sql" class="md-nav__link">
+  <a href="#sql" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Execute SQL
+        sql
       
     </span>
   </a>
@@ -1214,13 +1370,102 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#base-management" class="md-nav__link">
+  <a href="#base" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Base management
+        base
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        template
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        export
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        import
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="import">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-not-using-templates-base-not-using-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base not using templates -&gt; Base not using templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-using-templates-base-using-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base using templates -&gt; Base using templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-not-using-templates-base-using-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base not using templates -&gt; Base using templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-using-templates-base-not-using-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base using templates -&gt; Base not using templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1241,10 +1486,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#uninstall" class="md-nav__link">
+  <a href="#output-conventions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Uninstall
+        Output conventions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unsupported-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unsupported operations
       
     </span>
   </a>
@@ -1282,82 +1538,62 @@
   
 
 
-<h1 id="seadb-cli-build-and-usage">SeaDB CLI: build and usage<a class="headerlink" href="#seadb-cli-build-and-usage" title="Permanent link">&para;</a></h1>
-<p>This page describes the complete process of building, installing, configuring, logging in, executing SQL, and managing bases with <code>seadb-cli</code>.</p>
-<p>The following subcommands are currently supported:</p>
+<h1 id="seadb-cli">SeaDB CLI<a class="headerlink" href="#seadb-cli" title="Permanent link">&para;</a></h1>
+<p><code>seadb-cli</code> is a command-line client for SeaDB.</p>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Connect and run your first query:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Save the server address.</span>
+seadb-cli<span class="w"> </span>set-config<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:8888
+
+<span class="c1"># Log in interactively to create an API key.</span>
+seadb-cli<span class="w"> </span>login
+
+<span class="c1"># Create a base and run SQL against it.</span>
+seadb-cli<span class="w"> </span>base<span class="w"> </span>create
+seadb-cli<span class="w"> </span>base<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>my-base
+<span class="nv">BASE_ID</span><span class="o">=</span>f5a24a4e-a5bf-463a-b878-13b0a3a509c8
+seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE TABLE Tasks (title text, done bool);"</span>
+seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT * FROM Tasks;"</span>
+</code></pre></div>
+<p>The remaining sections describe each command in detail.</p>
+<h2 id="supported-commands">Supported commands<a class="headerlink" href="#supported-commands" title="Permanent link">&para;</a></h2>
+<p>The following subcommands are available:</p>
 <ul>
 <li><code>set-config</code>: save the server address, timeout, and credential storage mode.</li>
-<li><code>login</code>: log in interactively and create an API key.</li>
+<li><code>login</code>: log in and create an API key.</li>
 <li><code>logout</code>: revoke the current API key and clean up local login state.</li>
 <li><code>sql</code>: execute a single SQL statement against a base.</li>
-<li><code>base</code>: create, list, inspect, delete bases, and change a base owner.</li>
-<li><code>install</code>: install the current binary to the user directory.</li>
-<li><code>uninstall</code>: remove the installed binary.</li>
+<li><code>base</code>: create, list, inspect, delete bases, and change a base owner, ID, or name.</li>
+<li><code>export</code>: export a base to a dump file.</li>
+<li><code>import</code>: import a base from a dump file.</li>
 </ul>
-<p><code>help</code> and <code>completion</code> are provided by the command framework. The CLI runs one command and then exits; there is no REPL or background process. Login state is stored in the config file and the credential store, so terminals that use the same config file share the login state.</p>
+<p><code>help</code> and <code>completion</code> are provided by the command framework. The CLI runs one
+command and then exits; there is no REPL or background process. Login state is
+stored in the config file and the credential store, so terminals that use the
+same config file share the login state.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p><code>seadb-cli</code> currently only supports macOS and Linux.</p>
 <ul>
-<li>The default credential mode is <code>keyring</code>:<ul>
+<li>Keyring is used to store credentials by default:<ul>
 <li>macOS uses Keychain.</li>
 <li>Linux uses Secret Service, which requires an available user D-Bus session.</li>
 <li>On headless Linux or over SSH, switch to <code>file</code> mode (see <a href="#credential-storage">Credential storage</a>).</li>
 </ul>
 </li>
 </ul>
-<h2 id="build-and-test">Build and test<a class="headerlink" href="#build-and-test" title="Permanent link">&para;</a></h2>
-<p>Run the following in the repository root:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>./SeaDB
-
-<span class="c1"># Run CLI unit tests. The tests use a local HTTP test server and do not</span>
-<span class="c1"># depend on a running SeaDB or FoundationDB.</span>
-go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./cmd/seadb-cli/...
-
-<span class="c1"># Build into a tmp directory next to the repository.</span>
-mkdir<span class="w"> </span>-p<span class="w"> </span>../tmp
-go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>../tmp/seadb-cli<span class="w"> </span>./cmd/seadb-cli
-
-<span class="c1"># Verify the binary and its subcommands.</span>
-../tmp/seadb-cli<span class="w"> </span>--help
-../tmp/seadb-cli<span class="w"> </span>-h
-</code></pre></div>
-<p>Optional cross-compilation examples:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># macOS Apple Silicon</span>
-<span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">GOOS</span><span class="o">=</span>darwin<span class="w"> </span><span class="nv">GOARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>../tmp/seadb-cli-darwin-arm64<span class="w"> </span>./cmd/seadb-cli
-
-<span class="c1"># Linux x86_64</span>
-<span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">GOOS</span><span class="o">=</span>linux<span class="w"> </span><span class="nv">GOARCH</span><span class="o">=</span>amd64<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>../tmp/seadb-cli-linux-amd64<span class="w"> </span>./cmd/seadb-cli
-</code></pre></div>
-<p>Cross-compiled binaries can only run on the corresponding operating system and CPU architecture.</p>
-<h2 id="install-and-upgrade">Install and upgrade<a class="headerlink" href="#install-and-upgrade" title="Permanent link">&para;</a></h2>
-<p>Use the built binary to install:</p>
-<div class="highlight"><pre><span></span><code>../tmp/seadb-cli<span class="w"> </span>install
-</code></pre></div>
-<p>This copies the current binary to:</p>
-<div class="highlight"><pre><span></span><code>$HOME/.local/bin/seadb-cli
-</code></pre></div>
-<p>If <code>$HOME/.local/bin</code> is not on your <code>PATH</code>, the CLI prints the <code>export PATH=...</code> line you need to run. It cannot modify the current terminal's <code>PATH</code> or edit your shell configuration.</p>
-<p>On macOS with zsh, add it to <code>PATH</code> permanently as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'\nexport PATH="$HOME/.local/bin:$PATH"\n'</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
-<span class="nb">source</span><span class="w"> </span>~/.zshrc
-<span class="nb">hash</span><span class="w"> </span>-r
-
-<span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>seadb-cli
-seadb-cli<span class="w"> </span>--help
-</code></pre></div>
-<p>After rebuilding, overwrite the installed version with the source binary:</p>
-<div class="highlight"><pre><span></span><code>../tmp/seadb-cli<span class="w"> </span>install<span class="w"> </span>--force
-../tmp/seadb-cli<span class="w"> </span>install<span class="w"> </span>-f
-</code></pre></div>
 <h2 id="configuration-file-and-login-state">Configuration file and login state<a class="headerlink" href="#configuration-file-and-login-state" title="Permanent link">&para;</a></h2>
 <p>When <code>SEADB_CONFIG</code> is not set, the CLI uses the user-level default configuration:</p>
 <div class="highlight"><pre><span></span><code>macOS: ~/Library/Application Support/seadb-cli/seadb_cli.yaml
 Linux: ~/.config/seadb-cli/seadb_cli.yaml
 </code></pre></div>
-<p>When <code>XDG_CONFIG_HOME</code> is set on Linux, the file is at <code>$XDG_CONFIG_HOME/seadb-cli/seadb_cli.yaml</code>. The <code>cmd/seadb-cli/seadb_cli.yaml</code> file in the repository is not read automatically; it is only used when <code>SEADB_CONFIG</code> is set explicitly.</p>
-<p>The CLI creates the directory and config file automatically on the first successful configuration or login, with mode <code>0600</code> on the config file. For normal use, do not set <code>SEADB_CONFIG</code>, so that all terminals read the same default config and share login state.</p>
-<p><code>SEADB_CONFIG</code> is only for temporary debugging, testing, or deliberately isolating environments:</p>
+<p>When <code>XDG_CONFIG_HOME</code> is set on Linux, the file is at
+<code>$XDG_CONFIG_HOME/seadb-cli/seadb_cli.yaml</code>.</p>
+<p>The CLI creates the directory and config file automatically on the first
+successful configuration or login, with mode <code>0600</code> on the config file. For
+normal use, do not set <code>SEADB_CONFIG</code>, so that all terminals read the same
+default config and share login state.</p>
+<p><code>SEADB_CONFIG</code> is only for temporary debugging, testing, or deliberately
+isolating environments:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">SEADB_CONFIG</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.config/seadb-cli-dev.yaml"</span>
 </code></pre></div>
 <p>The config file contains the following fields:</p>
@@ -1366,28 +1602,47 @@ Linux: ~/.config/seadb-cli/seadb_cli.yaml
 <span class="nt">credential_store</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyring</span>
 </code></pre></div>
 <ul>
-<li><code>server</code>: the SeaDB server address. It must use <code>http</code> or <code>https</code> and must not contain a username, query parameters, or a fragment.</li>
-<li><code>timeout</code>: the HTTP request timeout. It defaults to <code>30s</code> when omitted; an explicit non-positive value such as <code>0s</code> is treated as invalid.</li>
-<li><code>credential_store</code>: <code>keyring</code> or <code>file</code>. It defaults to <code>keyring</code> when omitted; an explicit empty value is invalid.</li>
-<li><code>username</code> and <code>key_id</code> are maintained automatically by <code>login</code> and <code>logout</code>; do not set or modify them manually.</li>
+<li><code>server</code>: the SeaDB server address. It must use <code>http</code> or <code>https</code> and must not
+  contain a username, query parameters, or a fragment.</li>
+<li><code>timeout</code>: the HTTP request timeout. It defaults to <code>30s</code> when omitted; an
+  explicit non-positive value such as <code>0s</code> is treated as invalid.</li>
+<li><code>credential_store</code>: <code>keyring</code> or <code>file</code>. It defaults to <code>keyring</code> when
+  omitted; an explicit empty value is invalid.</li>
+<li><code>username</code> and <code>key_id</code> are maintained automatically by <code>login</code> and <code>logout</code>;
+  do not set or modify them manually.</li>
 </ul>
-<p>An empty file or a file containing only comments is equivalent to a missing config file: all fields take their defaults and no parse error is raised.</p>
-<h2 id="first-time-setup">First-time setup<a class="headerlink" href="#first-time-setup" title="Permanent link">&para;</a></h2>
-<h3 id="save-the-connection-configuration">Save the connection configuration<a class="headerlink" href="#save-the-connection-configuration" title="Permanent link">&para;</a></h3>
+<p>An empty file or a file containing only comments is equivalent to a missing
+config file: all fields take their defaults and no parse error is raised.</p>
+<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
+<h3 id="set-config">set-config<a class="headerlink" href="#set-config" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>set-config<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:8888
 seadb-cli<span class="w"> </span>set-config<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:8888
 
 <span class="c1"># Change the timeout alone.</span>
 seadb-cli<span class="w"> </span>set-config<span class="w"> </span>--timeout<span class="w"> </span>60s
 seadb-cli<span class="w"> </span>set-config<span class="w"> </span>-t<span class="w"> </span>60s
+
+<span class="c1"># Change the credential storage mode alone.</span>
+seadb-cli<span class="w"> </span>set-config<span class="w"> </span>--credential-store<span class="w"> </span>file
+seadb-cli<span class="w"> </span>set-config<span class="w"> </span>-c<span class="w"> </span>file
 </code></pre></div>
-<p>When the server address is changed, the CLI first calls <code>GET /ping</code> and only saves the new address if it receives <code>{"ret":"pong"}</code>.</p>
-<p><code>--server</code> is supported only by <code>set-config</code> and <code>login</code>; all other commands use the address from the config file. To switch servers, run <code>seadb-cli logout</code> first, then <code>set-config --server</code> or edit the config file directly.</p>
-<p><code>--timeout</code> is supported only by <code>set-config</code>, <code>login</code>, <code>logout</code>, and <code>sql</code>. <code>set-config --timeout</code> writes the timeout to the config file; for the other three commands, <code>--timeout</code> only overrides the timeout of the current request. <code>install</code> and <code>uninstall</code> do not send requests and reject this parameter.</p>
-<h3 id="log-in">Log in<a class="headerlink" href="#log-in" title="Permanent link">&para;</a></h3>
+<p>When the server address is changed, the CLI verifies that the server is
+reachable and only saves the new address on success.</p>
+<p><code>--server</code> is supported only by <code>set-config</code> and <code>login</code>; all other commands use
+the address from the config file. To switch servers, run <code>seadb-cli logout</code>
+first, then <code>set-config --server</code> or edit the config file directly.</p>
+<p><code>--timeout</code> is supported only by <code>set-config</code>, <code>login</code>, <code>logout</code>, and <code>sql</code>.
+<code>set-config --timeout</code> writes the timeout to the config file; for the other
+three commands, <code>--timeout</code> only overrides the timeout of the current request.
+<code>base</code>, <code>export</code>, and <code>import</code> do not accept the <code>--timeout</code> parameter.</p>
+<h3 id="login">login<a class="headerlink" href="#login" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>login
 </code></pre></div>
-<p>Login must run in an interactive terminal. The CLI reads a username and a non-echoing password and creates an API key with a 30-day validity:</p>
+<p>Login reads a username and a non-echoing password and creates an API key with a
+30-day validity. Login can also be scripted with explicit flags:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>login<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:8888<span class="w"> </span>--username<span class="w"> </span>admin<span class="w"> </span>--password<span class="w"> </span>secret
+</code></pre></div>
+<p>The interactive flow looks like:</p>
 <div class="highlight"><pre><span></span><code>Username: admin
 Password:
 OK: logged in as admin
@@ -1395,29 +1650,31 @@ OK: logged in as admin
 <p>After a successful login:</p>
 <ul>
 <li>The config file records <code>username</code> and <code>key_id</code>.</li>
-<li>The encoded API key is written to macOS Keychain or Linux Secret Service by default; the password is not saved.</li>
+<li>The encoded API key is written to macOS Keychain or Linux Secret Service by
+  default; the password is not saved.</li>
 <li>Subsequent commands use the API key automatically.</li>
 </ul>
-<p>If no server address is configured yet, enter it interactively, or specify it directly:</p>
+<p>If no server address is configured yet, enter it interactively, or specify it
+directly:</p>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>login<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:8888
 seadb-cli<span class="w"> </span>login<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:8888
 </code></pre></div>
-<p>Login cannot run in a non-interactive terminal; complete login in an interactive terminal first.</p>
-<h3 id="log-out">Log out<a class="headerlink" href="#log-out" title="Permanent link">&para;</a></h3>
+<h3 id="logout">logout<a class="headerlink" href="#logout" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span><span class="nb">logout</span>
 </code></pre></div>
 <p>Logout revokes the API key created by <code>login</code>, removes the credential from the
 configured credential store, and removes <code>username</code> and <code>key_id</code> from the
-configuration file. It is safe to run when the server already considers the
-key invalid; the CLI still cleans up the local login state.</p>
+configuration file. It is safe to run when the server already considers the key
+invalid; the CLI still cleans up the local login state.</p>
 <p>Use a one-off timeout when needed:</p>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span><span class="nb">logout</span><span class="w"> </span>--timeout<span class="w"> </span>60s
 </code></pre></div>
 <p>If the server cannot be reached or the credential cannot be read, the CLI
 reports whether the server-side API key may still exist while cleaning up the
 local state.</p>
-<h3 id="execute-sql">Execute SQL<a class="headerlink" href="#execute-sql" title="Permanent link">&para;</a></h3>
-<p><code>sql</code> requires a target base UUID. The SQL can be passed with <code>-e</code> or read from a pipe or redirected stdin:</p>
+<h3 id="sql">sql<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
+<p><code>sql</code> requires a target base UUID. The SQL can be passed with <code>-e</code> or read from
+a pipe or redirected stdin:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">BASE_ID</span><span class="o">=</span>f5a24a4e-a5bf-463a-b878-13b0a3a509c8
 
 seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT * FROM t1"</span>
@@ -1426,17 +1683,46 @@ seadb-cli<span class="w"> </span>sql<span class="w"> </span>-b<span class="w"> <
 <span class="nb">printf</span><span class="w"> </span><span class="s1">'UPDATE t1 SET age = 21 WHERE _pk = 1;\n'</span><span class="w"> </span><span class="p">|</span>
 <span class="w">  </span>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span>
 </code></pre></div>
-<p>Query results that include metadata are printed as a table. A write operation with no result prints:</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># DQL</span>
+seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s1">'SELECT title, priority FROM Tasks WHERE done = false LIMIT 10;'</span>
+
+<span class="c1"># DML</span>
+seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s1">'UPDATE Tasks SET done = true WHERE _pk = 1;'</span>
+
+<span class="c1"># DDL via stdin</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">'CREATE TABLE Tasks (title text, priority int, done bool);'</span><span class="w"> </span><span class="p">|</span>
+<span class="w">  </span>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b
+</code></pre></div>
+<p>The following statements are supported:</p>
+<ul>
+<li>DQL: <code>SELECT</code>, <code>EXPLAIN</code></li>
+<li>DML: <code>INSERT</code>, <code>REPLACE</code>, <code>UPDATE</code>, <code>DELETE</code></li>
+<li>DDL: <code>CREATE TABLE</code>, <code>DROP TABLE</code>, <code>ALTER TABLE</code>, <code>CREATE INDEX</code>, <code>DROP INDEX</code></li>
+</ul>
+<p>Query results that include metadata are printed as a table. A write operation
+with no result prints:</p>
 <div class="highlight"><pre><span></span><code>OK: query executed
 </code></pre></div>
 <p>A query that returns an empty row set prints:</p>
 <div class="highlight"><pre><span></span><code>OK: query returned no rows
 </code></pre></div>
-<p>SQL statements are parsed by the server, and only the first statement in each call is executed. When multiple statements are passed through a pipe, the rest are ignored, so execute them one at a time.</p>
-<p>Running <code>seadb-cli sql --base "$BASE_ID"</code> without <code>-e</code> in an interactive terminal immediately returns <code>SQL statement is required via -e or stdin</code>; it does not wait for terminal EOF. Use a pipe or redirection to read from stdin.</p>
-<h3 id="base-management">Base management<a class="headerlink" href="#base-management" title="Permanent link">&para;</a></h3>
+<p>Only one SQL statement is executed per call, and the target base is specified by
+<code>--base</code>. Multi-statement scripts and SQL transaction commands are not
+supported.</p>
+<p>SQL statements are parsed by the server, and only the first statement in each
+call is executed. When multiple statements are passed through a pipe, the rest
+are ignored, so execute them one at a time.</p>
+<p>Running <code>seadb-cli sql --base "$BASE_ID"</code> without <code>-e</code> in an interactive
+terminal immediately returns <code>SQL statement is required via --execute/-e or
+stdin</code>; it does not wait for terminal EOF. Use a pipe or redirection to read
+from stdin.</p>
+<h3 id="base">base<a class="headerlink" href="#base" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create a base; the CLI-generated UUID is printed on success.</span>
 seadb-cli<span class="w"> </span>base<span class="w"> </span>create
+seadb-cli<span class="w"> </span>base<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>my-base
 
 <span class="c1"># List the bases owned by the current user.</span>
 seadb-cli<span class="w"> </span>base<span class="w"> </span>list
@@ -1453,13 +1739,90 @@ seadb-cli<span class="w"> </span>base<span class="w"> </span>metadata<span class
 <span class="c1"># Change the owner; administrators only.</span>
 seadb-cli<span class="w"> </span>base<span class="w"> </span>set-owner<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>alice
 
+<span class="c1"># Change a base ID or name; administrators only.</span>
+seadb-cli<span class="w"> </span>base<span class="w"> </span>set-id<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>&lt;new-uuid&gt;
+seadb-cli<span class="w"> </span>base<span class="w"> </span>set-name<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>new-name
+
 <span class="c1"># Delete with interactive confirmation; use --yes/-y in scripts.</span>
 seadb-cli<span class="w"> </span>base<span class="w"> </span>delete<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span>
 seadb-cli<span class="w"> </span>base<span class="w"> </span>delete<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>--yes
 </code></pre></div>
-<p><code>base stats</code> and <code>base metadata</code> print raw JSON; lists use table output. The base UUID is generated by the CLI, and permission and business validation are handled by the server.</p>
+<ul>
+<li><code>base create</code> does not accept a user-supplied UUID; the CLI generates a UUID
+  and prints it on success. <code>--name</code> gives the base an optional name.</li>
+<li><code>base list</code> lists all bases owned by the currently authenticated user by
+  default, equivalent to <code>--scope mine</code>.</li>
+<li>Regular users do not need to specify a scope. Administrators can use
+  <code>--scope mine</code> to view their own bases and <code>--scope all</code> to view all bases.</li>
+<li><code>base delete</code> asks for confirmation by default; non-interactive calls must
+  pass <code>--yes</code> explicitly.</li>
+<li><code>base set-owner</code>, <code>base set-id</code>, and <code>base set-name</code> are only available to
+  administrators.</li>
+<li><code>base stats</code> and <code>base metadata</code> print raw JSON; lists use table output.</li>
+</ul>
+<h4 id="template">template<a class="headerlink" href="#template" title="Permanent link">&para;</a></h4>
+<p>To create and modify template tables, pass <code>--template</code> instead of <code>--base</code>:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--template<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE TABLE Contacts (name text, email text);"</span>
+seadb-cli<span class="w"> </span>sql<span class="w"> </span>--template<span class="w"> </span>-e<span class="w"> </span><span class="s2">"ALTER TABLE Contacts ADD COLUMN phone text;"</span>
+</code></pre></div>
+<p>See <a href="../base_management/#templates">Base Management</a> for how templates work.</p>
+<h3 id="export">export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h3>
+<p><code>export</code> writes one base to a dump file named after the base in the output
+directory:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--base<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>--output<span class="w"> </span>./dump
+seadb-cli<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-b<span class="w"> </span>my-base<span class="w"> </span>-o<span class="w"> </span>./dump
+</code></pre></div>
+<p>The dump file is written to <code>&lt;output&gt;/&lt;base&gt;.dump</code> and its path is printed on
+success. The base reference may be a UUID or a name.</p>
+<h3 id="import">import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h3>
+<p><code>import</code> creates a new base from a dump file produced by <code>export</code>:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>import<span class="w"> </span>--input<span class="w"> </span>./dump/my-base.dump
+seadb-cli<span class="w"> </span>import<span class="w"> </span>-i<span class="w"> </span>./dump/my-base.dump
+</code></pre></div>
+<p>On success, the new base's UUID is printed. This is the basic form of the import command.</p>
+<p>There are 4 cases when importing a base. We will walk through them below.</p>
+<h4 id="base-not-using-templates-base-not-using-templates">Base not using templates -&gt; Base not using templates<a class="headerlink" href="#base-not-using-templates-base-not-using-templates" title="Permanent link">&para;</a></h4>
+<p>This is the most common and simple case. If your base doesn't have any table that uses a template, just run the basic <code>seadb-cli import</code> command.</p>
+<h4 id="base-using-templates-base-using-templates">Base using templates -&gt; Base using templates<a class="headerlink" href="#base-using-templates-base-using-templates" title="Permanent link">&para;</a></h4>
+<p>If the user you use to import the base has the same template tables as used by the base being imported,
+you can also run the basic <code>seadb-cli import</code> command to import it.
+Please note that you should have the same template names and the same schemas for the template tables.</p>
+<h4 id="base-not-using-templates-base-using-templates">Base not using templates -&gt; Base using templates<a class="headerlink" href="#base-not-using-templates-base-using-templates" title="Permanent link">&para;</a></h4>
+<p>In this case you want to migrate a base that's not using any templates to use specific templates for its tables.</p>
+<p>You need to specify the template table to use for existing tables in the base, with <code>--table-templates</code> option.</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>import<span class="w"> </span>--input<span class="w"> </span>./dump/my-base.dump<span class="w"> </span>--table-templates<span class="w"> </span>&lt;json-file&gt;
+</code></pre></div>
+<p>The <code>--table-templates</code> file is a JSON object keyed by table name. Each value
+specifies the template to bind the table to and which columns keep their own
+custom column data:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"Table1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"template_table_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template_table1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"custom_columns"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"col1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"col2"</span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"Table2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"template_table_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"template_table2"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"custom_columns"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>template_table_name</code> is the template table whose schema the table uses.</li>
+<li><code>custom_columns</code> lists the columns that keep their own custom column data
+  (for example, the options of a single-select or multiple-select column)
+  instead of inheriting the template table's data.</li>
+</ul>
+<p>A table not listed in the file is imported without a template binding.</p>
+<p>The template table's schema must match the source table's schema, otherwise the
+import is rejected.</p>
+<h4 id="base-using-templates-base-not-using-templates">Base using templates -&gt; Base not using templates<a class="headerlink" href="#base-using-templates-base-not-using-templates" title="Permanent link">&para;</a></h4>
+<p>In this case you want to remove the template bindings in the base when you import it.</p>
+<p>You need to use <code>--skip-template</code> option.</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>import<span class="w"> </span>--input<span class="w"> </span>./dump/my-base.dump<span class="w"> </span>--skip-template
+</code></pre></div>
 <h2 id="credential-storage">Credential storage<a class="headerlink" href="#credential-storage" title="Permanent link">&para;</a></h2>
-<p>The default <code>keyring</code> mode is suitable for macOS and Linux with a desktop session. On headless Linux or over SSH, use <code>file</code> mode:</p>
+<p>The default <code>keyring</code> mode is suitable for macOS and Linux with a desktop
+session. On headless Linux or over SSH, use <code>file</code> mode:</p>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span><span class="nb">logout</span>
 
 seadb-cli<span class="w"> </span>set-config<span class="w"> </span>--credential-store<span class="w"> </span>file
@@ -1467,44 +1830,80 @@ seadb-cli<span class="w"> </span>set-config<span class="w"> </span>-c<span class
 
 seadb-cli<span class="w"> </span>login
 </code></pre></div>
-<p>File mode stores the encoded API key in <code>&lt;config file path&gt;.credentials</code>. The CLI creates the credential file with mode <code>0600</code>; when replacing an existing file, its existing permissions are kept.</p>
+<p>File mode stores the encoded API key in <code>&lt;config file path&gt;.credentials</code>. The
+CLI creates the credential file with mode <code>0600</code>; when replacing an existing
+file, its existing permissions are kept.</p>
 <p>This file stores the encoded API key in plaintext, which is equivalent to a
 password and is protected only by file permissions. <code>keyring</code> mode does not
 leave a key file in the config directory.</p>
-<p>You cannot change the server address or <code>credential_store</code> while logged in. To switch servers or credential modes, run <code>logout</code> first, then <code>set-config</code>.</p>
-<h2 id="uninstall">Uninstall<a class="headerlink" href="#uninstall" title="Permanent link">&para;</a></h2>
-<p>Log out before uninstalling:</p>
-<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span><span class="nb">logout</span>
-seadb-cli<span class="w"> </span>uninstall
-</code></pre></div>
-<p><code>uninstall</code> removes:</p>
+<p>You cannot change the server address or <code>credential_store</code> while logged in. To
+switch servers or credential modes, run <code>logout</code> first, then <code>set-config</code>.</p>
+<h2 id="output-conventions">Output conventions<a class="headerlink" href="#output-conventions" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>$HOME/.local/bin/seadb-cli</code></li>
-<li>the default <code>seadb-cli</code> config directory and all of its contents, including <code>seadb_cli.yaml</code>, file credentials, custom configs, and backups.</li>
-</ul>
-<p>If the default config is still logged in, log out with the default config first to avoid leaving a server-side API key behind:</p>
-<div class="highlight"><pre><span></span><code>env<span class="w"> </span>-u<span class="w"> </span>SEADB_CONFIG<span class="w"> </span>seadb-cli<span class="w"> </span><span class="nb">logout</span>
-seadb-cli<span class="w"> </span>uninstall
+<li>SQL queries and list commands use table output. Base statistics and metadata
+  use raw JSON output.</li>
+<li>The CLI does not provide a selectable output format; JSON and CSV alternatives
+  are not available for table-based commands.</li>
+<li>A successful response with data prints only the returned data, without extra
+  status text.</li>
+<li>
+<p>A successful response with no data prints:</p>
+<div class="highlight"><pre><span></span><code>OK: &lt;operation result&gt;
 </code></pre></div>
-<p>A custom <code>SEADB_CONFIG</code> inside the default <code>seadb-cli</code> directory is removed along with the directory; one outside that directory is not. The uninstall command must be run by the installed <code>seadb-cli</code>, not by <code>../tmp/seadb-cli</code>.</p>
+</li>
+<li>
+<p>Failures are printed to stderr:</p>
+<div class="highlight"><pre><span></span><code>Error: &lt;reason&gt;
+</code></pre></div>
+</li>
+<li>
+<p>Exit codes: <code>0</code> on success, <code>1</code> on a request or business error, and <code>2</code> on a
+  CLI argument error.</p>
+</li>
+</ul>
+<h2 id="unsupported-operations">Unsupported operations<a class="headerlink" href="#unsupported-operations" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Creating bases through SQL statements such as <code>CREATE DATABASE</code>.</li>
+<li>Other output formats such as JSON or CSV.</li>
+<li>Displaying the number of rows affected by DML statements.</li>
+</ul>
 <h2 id="faq-and-exit-codes">FAQ and exit codes<a class="headerlink" href="#faq-and-exit-codes" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>not logged in; run seadb-cli login</code>: run <code>seadb-cli login</code> in the environment of the current config file.</li>
-<li><code>read login credential: ... does not match the configured server and username</code>: the local credential does not match the <code>server</code> or <code>username</code> in the current config. Run <code>seadb-cli logout</code>, then <code>seadb-cli login</code>.</li>
-<li><code>invalid api key</code>: the server considers the current API key unusable. Run <code>seadb-cli logout</code>, then <code>seadb-cli login</code>, and retry the original command.</li>
-<li><code>log out before changing the server</code> / <code>log out before changing the credential store</code>: you cannot change these two fields while logged in. Run <code>seadb-cli logout</code> first.</li>
-<li><code>read login credential: ...; API key ... was not revoked</code>: <code>logout</code> cleaned up the local login state but could not revoke the server-side key. You can log in again directly; delete the old key on the server or wait for it to expire.</li>
-<li><code>SeaDB reported API key ... as invalid, so it no longer needs to be revoked</code>: the server already considers the key invalid; local cleanup is enough for a successful logout.</li>
-<li>Only <code>logout</code> cleans up local login state. Business commands do not auto-clean when a key is invalid or the credential is corrupted. When <code>logout</code> cannot revoke a key, the output includes the key ID.</li>
-<li>macOS Keychain locked or denied access: unlock the login keychain in Keychain Access and allow access, then retry.</li>
-<li>Linux Secret Service unavailable: start a user D-Bus and Secret Service, or switch to <code>file</code> mode.</li>
-<li>A new terminal requires login again: check whether a different <code>SEADB_CONFIG</code> is set; only the same config path shares login state.</li>
+<li><code>not logged in; run seadb-cli login</code>: run <code>seadb-cli login</code> in the
+  environment of the current config file.</li>
+<li><code>read login credential: ... does not match the configured server and
+  username</code>: the local credential does not match the <code>server</code> or <code>username</code> in
+  the current config. Run <code>seadb-cli logout</code>, then <code>seadb-cli login</code>.</li>
+<li><code>invalid api key</code>: the server considers the current API key unusable. Run
+  <code>seadb-cli logout</code>, then <code>seadb-cli login</code>, and retry the original command.</li>
+<li><code>log out before changing the server</code> / <code>log out before changing the credential
+  store</code>: you cannot change these two fields while logged in. Run
+  <code>seadb-cli logout</code> first.</li>
+<li><code>read login credential: ...; API key ... was not revoked</code>: <code>logout</code> cleaned up
+  the local login state but could not revoke the server-side key. You can log in
+  again directly; delete the old key on the server or wait for it to expire.</li>
+<li><code>SeaDB reported API key ... as invalid, so it no longer needs to be revoked</code>:
+  the server already considers the key invalid; local cleanup is enough for a
+  successful logout.</li>
+<li>Only <code>logout</code> cleans up local login state. Business commands do not
+  auto-clean when a key is invalid or the credential is corrupted. When
+  <code>logout</code> cannot revoke a key, the output includes the key ID.</li>
+<li>macOS Keychain locked or denied access: unlock the login keychain in Keychain
+  Access and allow access, then retry.</li>
+<li>Linux Secret Service unavailable: start a user D-Bus and Secret Service, or
+  switch to <code>file</code> mode.</li>
+<li>A new terminal requires login again: check whether a different <code>SEADB_CONFIG</code>
+  is set; only the same config path shares login state.</li>
 </ul>
 <p>Exit codes:</p>
 <ul>
 <li><code>0</code>: the command succeeded.</li>
-<li><code>1</code>: a runtime error, such as a connection, authentication, credential, or server request failure.</li>
-<li><code>2</code>: an incorrect command, argument, or argument value, including <code>help</code> and <code>completion</code> receiving an unknown command or extra arguments. An unknown command returns <code>2</code> even with <code>--help</code> and prints no help; for a valid command name, <code>--help</code> takes precedence, prints help, and returns <code>0</code>.</li>
+<li><code>1</code>: a runtime error, such as a connection, authentication, credential, or
+  server request failure.</li>
+<li><code>2</code>: an incorrect command, argument, or argument value, including <code>help</code> and
+  <code>completion</code> receiving an unknown command or extra arguments. An unknown
+  command returns <code>2</code> even with <code>--help</code> and prints no help; for a valid command
+  name, <code>--help</code> takes precedence, prints help, and returns <code>0</code>.</li>
 </ul>
 
 
@@ -1541,7 +1940,7 @@ seadb-cli<span class="w"> </span>uninstall
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../overview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+          <a href="../sql_syntax/" class="md-footer__link md-footer__link--prev" aria-label="Previous: SQL Syntax">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1551,7 +1950,7 @@ seadb-cli<span class="w"> </span>uninstall
                 Previous
               </span>
               <div class="md-ellipsis">
-                Overview
+                SQL Syntax
               </div>
             </div>
           </a>

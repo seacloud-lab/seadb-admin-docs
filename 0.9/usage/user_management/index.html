@@ -10,13 +10,13 @@
         <meta name="author" content="seadb">
       
       
-        <link rel="canonical" href="https://seacloud-lab.github.io/seadb-admin-docs/0.9/cli/overview/">
+        <link rel="canonical" href="https://seacloud-lab.github.io/seadb-admin-docs/0.9/usage/user_management/">
       
       
         <link rel="prev" href="../../configuration/cluster_environment_variables/">
       
       
-        <link rel="next" href="../usage/">
+        <link rel="next" href="../base_management/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Overview - SeaDB Admin Manual</title>
+        <title>User Management - SeaDB Admin Manual</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#seadb-cli-overview" class="md-skip">
+        <a href="#user-management" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              User Management
             
           </span>
         </div>
@@ -301,7 +301,7 @@
           
   
   
-  SeaDB CLI
+  Usage
 
         </a>
       </li>
@@ -781,7 +781,7 @@
   <span class="md-ellipsis">
     
   
-    SeaDB CLI
+    Usage
   
 
     
@@ -797,7 +797,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    SeaDB CLI
+    Usage
   
 
           </label>
@@ -826,7 +826,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    User Management
   
 
     
@@ -844,7 +844,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    User Management
   
 
     
@@ -870,88 +870,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#currently-available-commands" class="md-nav__link">
+  <a href="#user" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Currently available commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Currently available commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sql" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SQL
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#base-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Base management
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#planned-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Planned commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Planned commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#user-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        User management
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-key-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API key management
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-conventions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output conventions
+        User
       
     </span>
   </a>
@@ -959,10 +881,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#unsupported-operations" class="md-nav__link">
+  <a href="#role" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unsupported operations
+        Role
       
     </span>
   </a>
@@ -970,49 +892,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cli-to-api-mapping" class="md-nav__link">
+  <a href="#api-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI-to-API mapping
+        API key
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="CLI-to-API mapping">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#current-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current commands
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#planned-commands_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Planned commands
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cluster-mode-prerequisites" class="md-nav__link">
+  <a href="#base-ownership" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cluster mode prerequisites
+        Base ownership
       
     </span>
   </a>
@@ -1035,14 +929,70 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/" class="md-nav__link">
+      <a href="../base_management/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Build and usage
+    Base Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql_syntax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Syntax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SeaDB CLI
   
 
     
@@ -1117,88 +1067,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#currently-available-commands" class="md-nav__link">
+  <a href="#user" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Currently available commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Currently available commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sql" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SQL
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#base-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Base management
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#planned-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Planned commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Planned commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#user-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        User management
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-key-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API key management
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-conventions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output conventions
+        User
       
     </span>
   </a>
@@ -1206,10 +1078,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#unsupported-operations" class="md-nav__link">
+  <a href="#role" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unsupported operations
+        Role
       
     </span>
   </a>
@@ -1217,49 +1089,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cli-to-api-mapping" class="md-nav__link">
+  <a href="#api-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI-to-API mapping
+        API key
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="CLI-to-API mapping">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#current-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current commands
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#planned-commands_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Planned commands
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cluster-mode-prerequisites" class="md-nav__link">
+  <a href="#base-ownership" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cluster mode prerequisites
+        Base ownership
       
     </span>
   </a>
@@ -1286,225 +1130,48 @@
   
 
 
-<h1 id="seadb-cli-overview">SeaDB CLI overview<a class="headerlink" href="#seadb-cli-overview" title="Permanent link">&para;</a></h1>
-<p>SeaDB provides a REST API for SQL execution, base management, user management, and base ownership. The <code>seadb-cli</code> tool is a standalone Go command-line client for this API. The CLI only calls existing SeaDB APIs; it does not access FoundationDB, the metabase, or SeaDB's internal methods directly.</p>
-<p>After login, each request is authenticated with the <code>Authorization: ApiKey &lt;encoded&gt;</code> header, where <code>&lt;encoded&gt;</code> is the API key returned by the server on login.</p>
-<p>See <a href="../usage/">Build and usage</a> for how to build, install, and configure the CLI.</p>
-<p>The implemented commands are <code>set-config</code>, <code>login</code>, <code>logout</code>, <code>sql</code>, <code>base</code>,
-<code>install</code>, and <code>uninstall</code>. The user-management and API-key-management commands
-later on this page describe the design target and are not yet available.</p>
-<h2 id="currently-available-commands">Currently available commands<a class="headerlink" href="#currently-available-commands" title="Permanent link">&para;</a></h2>
-<h3 id="sql">SQL<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>&lt;uuid&gt;<span class="w"> </span>-e<span class="w"> </span><span class="s1">'&lt;sql&gt;'</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">'&lt;sql&gt;'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>&lt;uuid&gt;
-</code></pre></div>
-<p>Examples:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># DQL</span>
-seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="s1">'SELECT title, priority FROM Tasks WHERE done = false LIMIT 10;'</span>
-
-<span class="c1"># DML</span>
-seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="s1">'UPDATE Tasks SET done = true WHERE _pk = 1;'</span>
-
-<span class="c1"># DDL via stdin</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">'CREATE TABLE Tasks (title text, priority int, done bool);'</span><span class="w"> </span><span class="p">|</span>
-<span class="w">  </span>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b
-</code></pre></div>
-<p>The following statements are supported:</p>
-<ul>
-<li>DQL: <code>SELECT</code>, <code>EXPLAIN</code></li>
-<li>DML: <code>INSERT</code>, <code>REPLACE</code>, <code>UPDATE</code>, <code>DELETE</code></li>
-<li>DDL: <code>CREATE TABLE</code>, <code>DROP TABLE</code>, <code>ALTER TABLE</code>, <code>CREATE INDEX</code>, <code>DROP INDEX</code></li>
-</ul>
-<p>Only one SQL statement is executed per call, and the target base is specified by <code>--base</code>. Multi-statement scripts and SQL transaction commands are not supported.</p>
-<h3 id="base-management">Base management<a class="headerlink" href="#base-management" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>base<span class="w"> </span>create
-seadb-cli<span class="w"> </span>base<span class="w"> </span>list
-seadb-cli<span class="w"> </span>base<span class="w"> </span>list<span class="w"> </span>--scope<span class="w"> </span>mine
-seadb-cli<span class="w"> </span>base<span class="w"> </span>list<span class="w"> </span>--scope<span class="w"> </span>all
-seadb-cli<span class="w"> </span>base<span class="w"> </span>stats<span class="w"> </span>&lt;uuid&gt;
-seadb-cli<span class="w"> </span>base<span class="w"> </span>metadata<span class="w"> </span>&lt;uuid&gt;
-seadb-cli<span class="w"> </span>base<span class="w"> </span>delete<span class="w"> </span>&lt;uuid&gt;
-seadb-cli<span class="w"> </span>base<span class="w"> </span>set-owner<span class="w"> </span>&lt;uuid&gt;<span class="w"> </span>&lt;username&gt;
-</code></pre></div>
-<ul>
-<li><code>base create</code> does not accept a user-supplied UUID; the CLI generates a UUID and prints it on success.</li>
-<li><code>base list</code> lists all bases owned by the currently authenticated user by default, equivalent to <code>--scope mine</code>.</li>
-<li>Regular users do not need to specify a scope. Administrators can use <code>--scope mine</code> to view their own bases and <code>--scope all</code> to view all bases.</li>
-<li><code>base delete</code> asks for confirmation by default; non-interactive calls must pass <code>--yes</code> explicitly.</li>
-<li><code>base set-owner</code> is only available to administrators.</li>
-</ul>
-<h2 id="planned-commands">Planned commands<a class="headerlink" href="#planned-commands" title="Permanent link">&para;</a></h2>
-<p>The following commands are part of the CLI design but have not been implemented
-in the current <code>seadb-cli</code>.</p>
-<h3 id="user-management">User management<a class="headerlink" href="#user-management" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>&lt;username&gt;
-seadb-cli<span class="w"> </span>user<span class="w"> </span>list
-seadb-cli<span class="w"> </span>user<span class="w"> </span>set-password<span class="w"> </span>&lt;username&gt;
-seadb-cli<span class="w"> </span>user<span class="w"> </span>set-role<span class="w"> </span>&lt;username&gt;<span class="w"> </span>--role<span class="w"> </span>admin
-seadb-cli<span class="w"> </span>user<span class="w"> </span>delete<span class="w"> </span>&lt;username&gt;
-</code></pre></div>
-<ul>
-<li>When creating a user or changing a password, the target password is read without echo by default.</li>
-<li><code>--role</code> can be specified multiple times; the same role must not be repeated. Updating replaces all of the user's roles.</li>
-<li>Only the roles currently supported by SeaDB are accepted: <code>admin</code> and <code>default_role</code>.</li>
-<li><code>user delete</code> uses the same confirmation rules as <code>base delete</code>.</li>
-</ul>
-<h3 id="api-key-management">API key management<a class="headerlink" href="#api-key-management" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>seadb-cli api-key create &lt;name&gt;
-seadb-cli api-key create &lt;name&gt; --expire-days 30
-seadb-cli api-key create &lt;name&gt; --no-expire
-seadb-cli api-key list
-seadb-cli api-key delete &lt;key-id&gt; [&lt;key-id&gt;...]
-</code></pre></div>
-<ul>
-<li><code>api-key create</code> creates a key only for the currently authenticated user. The key expires after 30 days by default. <code>--expire-days</code> accepts a positive integer; a permanent key must be specified explicitly with <code>--no-expire</code>. The two parameters cannot be used together.</li>
-<li>On success, a single-row table shows <code>key_id</code>, <code>key_name</code>, <code>encoded</code>, the creation time, and the expiration time. <code>encoded</code> is returned by the server only once; the CLI does not write it to the login credential or config file.</li>
-<li><code>api-key list</code> only lists the current user's keys; the output does not include <code>encoded</code>.</li>
-<li>Regular users can only delete their own keys; administrators can delete any user's key by key ID. Deletion asks for confirmation by default.</li>
-<li>Deleting the key currently used for login also removes the local login credential and login identity from the config file.</li>
-</ul>
-<h2 id="output-conventions">Output conventions<a class="headerlink" href="#output-conventions" title="Permanent link">&para;</a></h2>
-<ul>
-<li>SQL queries and list commands use table output. Base statistics and metadata use raw JSON output.</li>
-<li>The CLI does not provide a selectable output format; JSON and CSV alternatives are not available for table-based commands.</li>
-<li>A successful response with data prints only the returned data, without extra status text.</li>
-<li>
-<p>A successful response with no data prints:</p>
-<div class="highlight"><pre><span></span><code>OK: &lt;operation result&gt;
-</code></pre></div>
-</li>
-<li>
-<p>Failures are printed to stderr:</p>
-<div class="highlight"><pre><span></span><code>Error: &lt;reason&gt;
-</code></pre></div>
-</li>
-<li>
-<p>Exit codes: <code>0</code> on success, <code>1</code> on a request or business error, and <code>2</code> on a CLI argument error.</p>
-</li>
-</ul>
-<h2 id="unsupported-operations">Unsupported operations<a class="headerlink" href="#unsupported-operations" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Managing users, grants, and bases through SQL statements such as <code>CREATE USER</code>, <code>GRANT</code>, or <code>CREATE DATABASE</code>.</li>
-<li>Creating, querying, or deleting custom roles.</li>
-<li>Authorizing one base to multiple users, or setting roles such as <code>reader</code>/<code>writer</code> on a base.</li>
-<li>User-facing JWT token management commands, and metrics, request, and cluster-node management commands.</li>
-<li>Other output formats such as JSON or CSV.</li>
-<li>Displaying DML affected rows; the current query API does not return this field.</li>
-</ul>
-<h2 id="cli-to-api-mapping">CLI-to-API mapping<a class="headerlink" href="#cli-to-api-mapping" title="Permanent link">&para;</a></h2>
-<h3 id="current-commands">Current commands<a class="headerlink" href="#current-commands" title="Permanent link">&para;</a></h3>
+<h1 id="user-management">User Management<a class="headerlink" href="#user-management" title="Permanent link">&para;</a></h1>
+<p>SeaDB authenticates every request against a <strong>user</strong> and authorizes it against
+the user's <strong>roles</strong> and <strong>base ownership</strong>. This page introduces the user and
+role model.</p>
+<h2 id="user">User<a class="headerlink" href="#user" title="Permanent link">&para;</a></h2>
+<p>A user is an identity that can access SeaDB. Each user has a unique <code>username</code>
+and a <code>password</code>. Passwords are stored as <code>argon2id</code> hashes, never in plaintext.</p>
+<h2 id="role">Role<a class="headerlink" href="#role" title="Permanent link">&para;</a></h2>
+<p>Roles control what a user is allowed to do. SeaDB ships with two built-in roles
+and does not yet support custom roles:</p>
 <table>
 <thead>
 <tr>
-<th>CLI command</th>
-<th>SeaDB API</th>
+<th>Role</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>login</code> / <code>set-config --server</code> connection check</td>
-<td><code>GET /ping</code></td>
+<td><code>admin</code></td>
+<td>Manages the users, and all bases. Can read and write every base.</td>
 </tr>
 <tr>
-<td><code>login</code></td>
-<td><code>POST /api/v1/users/api_keys</code></td>
-</tr>
-<tr>
-<td><code>logout</code></td>
-<td><code>DELETE /api/v1/users/api_keys</code></td>
-</tr>
-<tr>
-<td><code>sql</code></td>
-<td><code>POST /api/v1/{base_id}/query</code></td>
-</tr>
-<tr>
-<td><code>base create</code></td>
-<td><code>POST /api/v1/{base_id}/base</code></td>
-</tr>
-<tr>
-<td><code>base list</code> / <code>--scope mine</code></td>
-<td><code>GET /api/v1/users/bases</code></td>
-</tr>
-<tr>
-<td><code>base list --scope all</code></td>
-<td><code>GET /api/v1/bases</code></td>
-</tr>
-<tr>
-<td><code>base stats</code></td>
-<td><code>GET /api/v1/{base_id}/base-info</code></td>
-</tr>
-<tr>
-<td><code>base metadata</code></td>
-<td><code>GET /api/v1/{base_id}/metadata</code></td>
-</tr>
-<tr>
-<td><code>base delete</code></td>
-<td><code>DELETE /api/v1/{base_id}/base</code></td>
-</tr>
-<tr>
-<td><code>base set-owner</code></td>
-<td><code>POST /api/v1/{base_id}/base/update-base-owner</code></td>
+<td><code>default_role</code></td>
+<td>Reads and writes only the bases it owns. This is the role assigned to ordinary application users.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="planned-commands_1">Planned commands<a class="headerlink" href="#planned-commands_1" title="Permanent link">&para;</a></h3>
-<p>These mappings belong to the unimplemented user and API-key management design:</p>
-<table>
-<thead>
-<tr>
-<th>CLI command</th>
-<th>SeaDB API</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>user create</code></td>
-<td><code>POST /api/v1/users</code></td>
-</tr>
-<tr>
-<td><code>user list</code></td>
-<td><code>GET /api/v1/users</code></td>
-</tr>
-<tr>
-<td><code>user set-password</code> / <code>user set-role</code></td>
-<td><code>PUT /api/v1/users</code></td>
-</tr>
-<tr>
-<td><code>user delete</code></td>
-<td><code>DELETE /api/v1/users</code></td>
-</tr>
-<tr>
-<td><code>api-key create</code></td>
-<td><code>POST /api/v1/users/api_keys</code></td>
-</tr>
-<tr>
-<td><code>api-key list</code></td>
-<td><code>GET /api/v1/users/api_keys</code></td>
-</tr>
-<tr>
-<td><code>api-key delete</code></td>
-<td><code>DELETE /api/v1/users/api_keys</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="cluster-mode-prerequisites">Cluster mode prerequisites<a class="headerlink" href="#cluster-mode-prerequisites" title="Permanent link">&para;</a></h2>
-<p>For the currently implemented management commands to work in cluster mode, the
-Proxy must forward the following endpoints:</p>
-<div class="highlight"><pre><span></span><code>GET    /ping
-GET    /api/v1/users/bases
-POST   /api/v1/{base_id}/base/update-base-owner
-POST   /api/v1/users/api_keys
-DELETE /api/v1/users/api_keys
-</code></pre></div>
-<p>The planned user and API-key management commands additionally require:</p>
-<div class="highlight"><pre><span></span><code>GET    /api/v1/users/api_keys
-GET    /api/v1/users
-POST   /api/v1/users
-PUT    /api/v1/users
-DELETE /api/v1/users
-</code></pre></div>
+<p>A user can hold one or more roles.</p>
+<h2 id="api-key">API key<a class="headerlink" href="#api-key" title="Permanent link">&para;</a></h2>
+<p>An API key is a revocable credential issued to a user. It is a convenient
+alternative to sending a username and password on every request, and it can be
+deleted independently of the user account. Each user can create multiple API
+keys, but one key per application scenario is recommended.</p>
+<p>An API key is identified by a <code>key_id</code>. The full credential, <code>key_id:key</code>
+Base64-URL-encoded, is returned only once at creation time as the <code>encoded</code>
+value; the server stores only the hash of the key. Clients must save the
+<code>encoded</code> value themselves.</p>
+<h2 id="base-ownership">Base ownership<a class="headerlink" href="#base-ownership" title="Permanent link">&para;</a></h2>
+<p>Each base is bound to exactly one owning user. The owner of a base can read and
+write it; an <code>admin</code> can access any base. When a base is created, SeaDB records
+the authenticated user as its owner.</p>
 
 
 
@@ -1557,13 +1224,13 @@ DELETE /api/v1/users
         
         
           
-          <a href="../usage/" class="md-footer__link md-footer__link--next" aria-label="Next: Build and usage">
+          <a href="../base_management/" class="md-footer__link md-footer__link--next" aria-label="Next: Base Management">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Build and usage
+                Base Management
               </div>
             </div>
             <div class="md-footer__button md-icon">
