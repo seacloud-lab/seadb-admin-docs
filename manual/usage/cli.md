@@ -42,7 +42,9 @@ same config file share the login state.
 
 ## Prerequisites
 
-- The default credential mode is `keyring`:
+`seadb-cli` currently only supports macOS and Linux.
+
+- Keyring is used to store credentials by default:
     - macOS uses Keychain.
     - Linux uses Secret Service, which requires an available user D-Bus session.
     - On headless Linux or over SSH, switch to `file` mode (see [Credential storage](#credential-storage)).
@@ -57,9 +59,7 @@ Linux: ~/.config/seadb-cli/seadb_cli.yaml
 ```
 
 When `XDG_CONFIG_HOME` is set on Linux, the file is at
-`$XDG_CONFIG_HOME/seadb-cli/seadb_cli.yaml`. The
-`cmd/seadb-cli/seadb_cli.yaml` file in the repository is not read automatically;
-it is only used when `SEADB_CONFIG` is set explicitly.
+`$XDG_CONFIG_HOME/seadb-cli/seadb_cli.yaml`.
 
 The CLI creates the directory and config file automatically on the first
 successful configuration or login, with mode `0600` on the config file. For
@@ -318,13 +318,29 @@ seadb-cli import --input ./dump/my-base.dump
 seadb-cli import -i ./dump/my-base.dump
 ```
 
-On success, the new base's UUID is printed. Optional flags:
+On success, the new base's UUID is printed. This is the basic form of the import command.
 
-- `--table-templates <json>` maps table names to template-table definitions
-  during import.
-- `--skip-template` imports without applying table template.
+There are 4 cases when importing a base. We will walk through them below.
 
-`--skip-template` and `--table-templates` cannot be used together.
+#### Base not using templates -> Base not using templates
+
+This is the most common and simple case. If your base doesn't have any table that uses a template, just run the basic `seadb-cli import` command.
+
+#### Base using templates -> Base using templates
+
+If the user you use to import the base has the same template tables as used by the base being imported,
+you can also run the basic `seadb-cli import` command to import it.
+Please note that you should have the same template names and the same schemas for the template tables.
+
+#### Base not using templates -> Base using templates
+
+In this case you want to migrate a base that's not using any templates to use specific templates for its tables.
+
+You need to specify the template table to use for existing tables in the base, with `--table-templates` option.
+
+```bash
+seadb-cli import --input ./dump/my-base.dump --table-templates <json-file>
+```
 
 The `--table-templates` file is a JSON object keyed by table name. Each value
 specifies the template to bind the table to and which columns keep their own
@@ -348,9 +364,20 @@ custom column data:
   (for example, the options of a single-select or multiple-select column)
   instead of inheriting the template table's data.
 
-A table not listed in the file is imported without a template binding. The
-template table's schema must match the source table's schema, otherwise the
+A table not listed in the file is imported without a template binding.
+
+The template table's schema must match the source table's schema, otherwise the
 import is rejected.
+
+#### Base using templates -> Base not using templates
+
+In this case you want to remove the template bindings in the base when you import it.
+
+You need to use `--skip-template` option.
+
+```bash
+seadb-cli import --input ./dump/my-base.dump --skip-template
+```
 
 ## Credential storage
 
@@ -403,8 +430,6 @@ switch servers or credential modes, run `logout` first, then `set-config`.
 ## Unsupported operations
 
 - Creating bases through SQL statements such as `CREATE DATABASE`.
-- User-facing JWT token management commands, and metrics, request, and
-  cluster-node management commands.
 - Other output formats such as JSON or CSV.
 - Displaying the number of rows affected by DML statements.
 
