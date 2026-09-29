@@ -1211,11 +1211,6 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
 <td><code>1000ms</code></td>
 </tr>
 <tr>
-<td><code>SEADB_TRANSACTION_TIMEOUT</code></td>
-<td>Maximum duration of a transaction. Accepts a duration such as <code>300s</code> or <code>5m</code>; a plain number is seconds. Invalid values fall back to the default.</td>
-<td><code>300s</code></td>
-</tr>
-<tr>
 <td><code>SEADB_QUERY_PER_MINUTE_LIMIT</code></td>
 <td>The global per-minute API call limit.</td>
 <td><code>50000</code></td>
@@ -1270,6 +1265,7 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
 </tbody>
 </table>
 <h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
+<p>SeaDB exposes Prometheus compatible metrics through <code>/metrics</code> endpoint. The options here controls the metrics.</p>
 <table>
 <thead>
 <tr>
