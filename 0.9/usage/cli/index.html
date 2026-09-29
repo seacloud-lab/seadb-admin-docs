@@ -1631,10 +1631,7 @@ reachable and only saves the new address on success.</p>
 <p><code>--server</code> is supported only by <code>set-config</code> and <code>login</code>; all other commands use
 the address from the config file. To switch servers, run <code>seadb-cli logout</code>
 first, then <code>set-config --server</code> or edit the config file directly.</p>
-<p><code>--timeout</code> is supported only by <code>set-config</code>, <code>login</code>, <code>logout</code>, and <code>sql</code>.
-<code>set-config --timeout</code> writes the timeout to the config file; for the other
-three commands, <code>--timeout</code> only overrides the timeout of the current request.
-<code>base</code>, <code>export</code>, and <code>import</code> do not accept the <code>--timeout</code> parameter.</p>
+<p><code>set-config --timeout</code> writes the timeout to the config file.</p>
 <h3 id="login">login<a class="headerlink" href="#login" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>login
 </code></pre></div>
