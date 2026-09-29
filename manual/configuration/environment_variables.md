@@ -17,7 +17,6 @@ FoundationDB connection variables, see [Cluster env](cluster_environment_variabl
 | `SEADB_LOG_LEVEL` | The log level of SeaDB. | `info` |
 | `LOG_TO_STDOUT` | Write SeaDB logs to standard output instead of log files. | `false` |
 | `SEADB_SLOW_QUERY_THRESHOLD` | The slow-query threshold of SeaDB. | `1000ms` |
-| `SEADB_TRANSACTION_TIMEOUT` | Maximum duration of a transaction. Accepts a duration such as `300s` or `5m`; a plain number is seconds. Invalid values fall back to the default. | `300s` |
 | `SEADB_QUERY_PER_MINUTE_LIMIT` | The global per-minute API call limit. | `50000` |
 | `SEADB_REQUEST_TIMEOUT` | The request timeout. | `30s` |
 | `JWT_PRIVATE_KEY` | The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value on every SeaDB node and trusted JWT-issuing service. | (required) |
@@ -33,6 +32,8 @@ FoundationDB connection variables, see [Cluster env](cluster_environment_variabl
 | `SEADB_UPDATE_BASE_STATS_AT` | Daily time, in `HH:MM`, at which SeaDB updates base storage and table row-count statistics. Invalid values fall back to the default. | `01:00` |
 
 ### Metrics
+
+SeaDB exposes Prometheus compatible metrics through `/metrics` endpoint. The options here controls the metrics.
 
 | Variable | Description | Default |
 | --- | --- | --- |
