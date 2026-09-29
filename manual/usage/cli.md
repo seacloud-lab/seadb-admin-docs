@@ -117,10 +117,7 @@ reachable and only saves the new address on success.
 the address from the config file. To switch servers, run `seadb-cli logout`
 first, then `set-config --server` or edit the config file directly.
 
-`--timeout` is supported only by `set-config`, `login`, `logout`, and `sql`.
-`set-config --timeout` writes the timeout to the config file; for the other
-three commands, `--timeout` only overrides the timeout of the current request.
-`base`, `export`, and `import` do not accept the `--timeout` parameter.
+`set-config --timeout` writes the timeout to the config file.
 
 ### login
 
