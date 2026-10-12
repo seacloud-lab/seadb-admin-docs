@@ -90,6 +90,7 @@ nav:
     - Environment variables: configuration/environment_variables.md
     - Cluster env: configuration/cluster_environment_variables.md
   - Usage:
+    - Quick Start: usage/quick_start.md
     - User Management: usage/user_management.md
     - Base Management: usage/base_management.md
     - SQL Syntax: usage/sql_syntax.md
