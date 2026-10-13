@@ -32,6 +32,8 @@ The following subcommands are available:
 - `logout`: revoke the current API key and clean up local login state.
 - `sql`: execute a single SQL statement against a base.
 - `base`: create, list, inspect, delete bases, and change a base owner, ID, or name.
+- `user`: create, list, delete users, and set their passwords or roles
+  (administrators only).
 - `export`: export a base to a dump file.
 - `import`: import a base from a dump file.
 
@@ -291,7 +293,114 @@ seadb-cli sql --template -e "CREATE TABLE Contacts (name text, email text);"
 seadb-cli sql --template -e "ALTER TABLE Contacts ADD COLUMN phone text;"
 ```
 
-See [Base Management](base_management.md#templates) for how templates work.
+See [Base Management](base_management.md#template) for how templates work.
+
+### user
+
+All `user` subcommands require a logged-in account with the `admin` role.
+Ordinary users cannot list or manage users, including changing their own
+passwords. See [User Management](user_management.md) for the role model and
+account lifecycle.
+
+| Command | Purpose |
+| --- | --- |
+| `user create <username>` | Create a user with a password and optional roles. |
+| `user list` | List all users and their roles. |
+| `user set-password <username>` | Set a user's password without changing its roles. |
+| `user set-role <username>` | Replace a user's entire role list. |
+| `user delete <username>` | Delete one user after confirmation. |
+
+#### Create a user
+
+```bash
+# Enter the new user's password without echoing; defaults to default_role.
+seadb-cli user create alice
+
+# Create an administrator interactively.
+seadb-cli user create bob --role admin
+
+# Supply the target user's password explicitly for a script.
+seadb-cli user create alice --pwd '<password>' --role default_role
+seadb-cli user create alice -p '<password>' -r default_role
+```
+
+- A non-empty username and password are required; the username must be unique.
+- Omitting `--role` assigns `default_role`.
+- `--role` / `-r` accepts only `admin` and `default_role`. To assign multiple
+  roles, repeat the option, for example `--role admin --role default_role`.
+  Duplicate roles and comma-separated role lists are rejected.
+- `--pwd` / `-p` sets the target user's password. It is distinct from
+  `login --password` / `-p`, which authenticates the account logging in.
+- Without `--pwd`, the CLI prompts with `Password:` and reads without echoing.
+  When stdin is not interactive, `--pwd` is required; piping a password into
+  stdin is not supported.
+- Creation prints a one-row table with `USERNAME` and `ROLES` columns.
+
+#### List users
+
+```bash
+seadb-cli user list
+```
+
+The CLI automatically retrieves all pages, using 100 users per API request,
+and prints a table with `USERNAME` and `ROLES` columns. Multiple roles are shown
+as comma-separated values. There are no CLI pagination flags. If no users are
+returned, the output is `OK: no users`.
+
+#### Set a password
+
+```bash
+seadb-cli user set-password alice
+seadb-cli user set-password alice --pwd '<new-password>'
+seadb-cli user set-password alice -p '<new-password>'
+```
+
+Password input follows the same rules as `user create`. This changes only the
+password and does not revoke existing API keys. Success prints:
+
+```text
+OK: user password updated
+```
+
+#### Replace roles
+
+```bash
+seadb-cli user set-role alice --role admin
+seadb-cli user set-role alice -r default_role
+seadb-cli user set-role alice --role admin --role default_role
+```
+
+At least one `--role` / `-r` is required. The supported values and duplicate
+checks are the same as for `user create`. The supplied roles replace all
+existing roles; they are not appended. For example, `--role default_role`
+removes `admin` from an administrator. The password and base ownership are
+unchanged. Success prints:
+
+```text
+OK: user roles updated
+```
+
+#### Delete a user
+
+```bash
+seadb-cli user delete alice
+seadb-cli user delete alice --yes
+seadb-cli user delete alice -y
+```
+
+By default, the CLI prompts `Delete user alice? [y/N]: `. Only `y` or `yes`
+(case-insensitive) confirms deletion. Any other answer cancels and prints
+`OK: user deletion canceled`. Non-interactive calls must pass `--yes` / `-y`;
+piping a confirmation into stdin is not supported. Success prints:
+
+```text
+OK: user deleted
+```
+
+Deletion removes the user's account, role assignments, API key records, base
+ownership records, and template records, but does not delete its base data.
+Transfer bases with `base set-owner` before deleting the user if they should
+retain an owner. See [Delete a user](user_management.md#delete-a-user).
 
 ### export
 
@@ -427,6 +536,8 @@ switch servers or credential modes, run `logout` first, then `set-config`.
 ## Unsupported operations
 
 - Creating bases through SQL statements such as `CREATE DATABASE`.
+- Managing users and roles through SQL statements such as `CREATE USER` or
+  `GRANT`, creating custom roles, or assigning reader/writer roles to a base.
 - Other output formats such as JSON or CSV.
 - Displaying the number of rows affected by DML statements.
 
