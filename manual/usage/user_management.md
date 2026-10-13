@@ -30,18 +30,15 @@ change their own passwords.
 
 ## Create and manage users
 
-### Log in as an administrator
+### Log in as root user
 
-The first administrator is created during server setup; see
-[Create the first administrator](../setup/seadb_setup_single_node.md#4-create-the-first-administrator).
-After the server is running, log in with that account to manage other users:
+A `root` user is automatically created during server setup. Use the root password you specified during setup to login.
 
 ```bash
-seadb-cli login --username seadb-admin
+seadb-cli login --username root
 ```
 
-Enter the administrator's password when prompted. Subsequent commands use the
-API key created by `login`.
+Enter the root user's password when prompted.
 
 ### Create a user
 
