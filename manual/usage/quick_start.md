@@ -8,9 +8,6 @@ data with SQL.
 
 - Deploy SeaDB by following [Setup SeaDB](../setup/seadb_setup_single_node.md).
 - Have `seadb-cli` available on your macOS or Linux client.
-- Have the username and password of the initial administrator created during
-  setup. This guide uses `root`; if you created it with a different name, such as
-  `seadb-admin`, use that name instead. There is no default password.
 
 The examples connect to `http://127.0.0.1:8888`. Replace this address with your
 SeaDB server address if it is running on another machine.
