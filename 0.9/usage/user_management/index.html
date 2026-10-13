@@ -892,6 +892,89 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#create-and-manage-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create and manage users
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create and manage users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log-in-as-root-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log in as root user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-a-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change a password
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replace-a-users-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace a user's roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete a user
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#api-key" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1089,6 +1172,89 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#create-and-manage-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create and manage users
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create and manage users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log-in-as-root-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log in as root user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-a-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change a password
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replace-a-users-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace a user's roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete a user
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#api-key" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1131,9 +1297,10 @@
 
 
 <h1 id="user-management">User Management<a class="headerlink" href="#user-management" title="Permanent link">&para;</a></h1>
-<p>SeaDB authenticates every request against a <strong>user</strong> and authorizes it against
-the user's <strong>roles</strong> and <strong>base ownership</strong>. This page introduces the user and
-role model.</p>
+<p>SeaDB uses <strong>users</strong>, <strong>roles</strong>, and <strong>base ownership</strong> to control access. This
+page describes the user model and how administrators manage accounts with
+<code>seadb-cli</code>. See the <a href="../cli/#user">SeaDB CLI user reference</a> for command syntax
+and output details.</p>
 <h2 id="user">User<a class="headerlink" href="#user" title="Permanent link">&para;</a></h2>
 <p>A user is an identity that can access SeaDB. Each user has a unique <code>username</code>
 and a <code>password</code>. Passwords are stored as <code>argon2id</code> hashes, never in plaintext.</p>
@@ -1158,7 +1325,73 @@ and does not yet support custom roles:</p>
 </tr>
 </tbody>
 </table>
-<p>A user can hold one or more roles.</p>
+<p>A user can hold one or more roles. New users receive <code>default_role</code> unless
+roles are explicitly specified. A user with <code>admin</code> has administrator privileges
+whether or not it also holds <code>default_role</code>.</p>
+<p>Only administrators can create, list, update, or delete users. This includes
+password changes: ordinary users cannot use the user management commands to
+change their own passwords.</p>
+<h2 id="create-and-manage-users">Create and manage users<a class="headerlink" href="#create-and-manage-users" title="Permanent link">&para;</a></h2>
+<h3 id="log-in-as-root-user">Log in as root user<a class="headerlink" href="#log-in-as-root-user" title="Permanent link">&para;</a></h3>
+<p>A <code>root</code> user is automatically created during server setup. Use the root password you specified during setup to login.</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>login<span class="w"> </span>--username<span class="w"> </span>root
+</code></pre></div>
+<p>Enter the root user's password when prompted.</p>
+<h3 id="create-a-user">Create a user<a class="headerlink" href="#create-a-user" title="Permanent link">&para;</a></h3>
+<p>Specify a unique username and enter the new user's password at the non-echoing
+prompt:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>alice
+</code></pre></div>
+<p>The user receives <code>default_role</code> and can create and manage its own bases. To
+create another administrator, specify the role explicitly:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>bob<span class="w"> </span>--role<span class="w"> </span>admin
+</code></pre></div>
+<p>For non-interactive use, supply the target user's password with <code>--pwd</code> or <code>-p</code>:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>alice<span class="w"> </span>--pwd<span class="w"> </span><span class="s1">'&lt;password&gt;'</span><span class="w"> </span>--role<span class="w"> </span>default_role
+</code></pre></div>
+<p>Creation prints the username and assigned roles as a table. Passwords are not
+included in the output.</p>
+<h3 id="list-users">List users<a class="headerlink" href="#list-users" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>list
+</code></pre></div>
+<p>The CLI retrieves all pages of users and prints their usernames and roles.</p>
+<h3 id="change-a-password">Change a password<a class="headerlink" href="#change-a-password" title="Permanent link">&para;</a></h3>
+<p>An administrator can set a new password for any user, including its own account:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>set-password<span class="w"> </span>alice
+seadb-cli<span class="w"> </span>user<span class="w"> </span>set-password<span class="w"> </span>alice<span class="w"> </span>--pwd<span class="w"> </span><span class="s1">'&lt;new-password&gt;'</span>
+</code></pre></div>
+<p>This changes only the password, leaving the user's roles unchanged. Changing a
+password does not revoke existing API keys; revoke unwanted keys separately
+through the API.</p>
+<h3 id="replace-a-users-roles">Replace a user's roles<a class="headerlink" href="#replace-a-users-roles" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Give Alice administrator privileges.</span>
+seadb-cli<span class="w"> </span>user<span class="w"> </span>set-role<span class="w"> </span>alice<span class="w"> </span>--role<span class="w"> </span>admin
+
+<span class="c1"># Return Alice to an ordinary user.</span>
+seadb-cli<span class="w"> </span>user<span class="w"> </span>set-role<span class="w"> </span>alice<span class="w"> </span>--role<span class="w"> </span>default_role
+</code></pre></div>
+<p>The supplied roles replace the user's entire role list rather than adding to
+it. At least one role is required. Only <code>admin</code> and <code>default_role</code> are supported;
+to assign both, repeat the option:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>set-role<span class="w"> </span>alice<span class="w"> </span>--role<span class="w"> </span>admin<span class="w"> </span>--role<span class="w"> </span>default_role
+</code></pre></div>
+<p>Each role may be specified only once. Changing roles does not change the user's
+password or transfer ownership of any bases.</p>
+<h3 id="delete-a-user">Delete a user<a class="headerlink" href="#delete-a-user" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>delete<span class="w"> </span>alice
+</code></pre></div>
+<p>The CLI asks for confirmation. Enter <code>y</code> or <code>yes</code> to proceed; the default is to
+cancel. Non-interactive calls must explicitly pass <code>--yes</code> or <code>-y</code>:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>delete<span class="w"> </span>alice<span class="w"> </span>--yes
+</code></pre></div>
+<p>Deletion removes the account, its role assignments, API key records, base
+ownership records, and template records. It does not delete the data in the
+user's bases. Transfer bases to another existing user before deleting the
+account if they should retain an owner:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>base<span class="w"> </span>set-owner<span class="w"> </span>&lt;base&gt;<span class="w"> </span>bob
+seadb-cli<span class="w"> </span>user<span class="w"> </span>delete<span class="w"> </span>alice
+</code></pre></div>
+<p>See <a href="../base_management/">Base Management</a> for managing bases and templates.</p>
 <h2 id="api-key">API key<a class="headerlink" href="#api-key" title="Permanent link">&para;</a></h2>
 <p>An API key is a revocable credential issued to a user. It is a convenient
 alternative to sending a username and password on every request, and it can be
@@ -1168,10 +1401,26 @@ keys, but one key per application scenario is recommended.</p>
 Base64-URL-encoded, is returned only once at creation time as the <code>encoded</code>
 value; the server stores only the hash of the key. Clients must save the
 <code>encoded</code> value themselves.</p>
+<p>API keys authenticate requests as the user that created them; they do not carry
+an independent role list. Authorization uses that user's roles and base
+ownership. Use the credential in the HTTP header:</p>
+<div class="highlight"><pre><span></span><code>Authorization: ApiKey &lt;encoded&gt;
+</code></pre></div>
+<p>Users can create and list their own keys and delete their own keys.
+Administrators can also delete another user's key by its ID. These operations
+are available through the <a href="https://seadb-api.readme.io">API Reference</a>.
+The CLI's <code>login</code> creates a 30-day API key and stores it in the configured
+credential store; <code>logout</code> revokes that key and clears local login state. See
+<a href="../cli/#login">SeaDB CLI</a> for details.</p>
 <h2 id="base-ownership">Base ownership<a class="headerlink" href="#base-ownership" title="Permanent link">&para;</a></h2>
 <p>Each base is bound to exactly one owning user. The owner of a base can read and
 write it; an <code>admin</code> can access any base. When a base is created, SeaDB records
 the authenticated user as its owner.</p>
+<p>An administrator can transfer ownership with
+<code>seadb-cli base set-owner &lt;base&gt; &lt;username&gt;</code>. The new owner must already exist.
+SeaDB does not support assigning multiple owners or reader/writer roles to a
+base. Users and roles are managed through the CLI or REST API, not SQL
+statements such as <code>CREATE USER</code> or <code>GRANT</code>.</p>
 
 
 

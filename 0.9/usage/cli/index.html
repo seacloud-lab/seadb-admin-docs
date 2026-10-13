@@ -1080,6 +1080,78 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        user
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="user">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-a-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set a password
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replace-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete a user
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#export" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1398,6 +1470,78 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        user
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="user">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-a-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set a password
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replace-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete a user
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#export" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1564,6 +1708,8 @@ seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w
 <li><code>logout</code>: revoke the current API key and clean up local login state.</li>
 <li><code>sql</code>: execute a single SQL statement against a base.</li>
 <li><code>base</code>: create, list, inspect, delete bases, and change a base owner, ID, or name.</li>
+<li><code>user</code>: create, list, delete users, and set their passwords or roles
+  (administrators only).</li>
 <li><code>export</code>: export a base to a dump file.</li>
 <li><code>import</code>: import a base from a dump file.</li>
 </ul>
@@ -1762,7 +1908,109 @@ seadb-cli<span class="w"> </span>base<span class="w"> </span>delete<span class="
 <div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--template<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE TABLE Contacts (name text, email text);"</span>
 seadb-cli<span class="w"> </span>sql<span class="w"> </span>--template<span class="w"> </span>-e<span class="w"> </span><span class="s2">"ALTER TABLE Contacts ADD COLUMN phone text;"</span>
 </code></pre></div>
-<p>See <a href="../base_management/#templates">Base Management</a> for how templates work.</p>
+<p>See <a href="../base_management/#template">Base Management</a> for how templates work.</p>
+<h3 id="user">user<a class="headerlink" href="#user" title="Permanent link">&para;</a></h3>
+<p>All <code>user</code> subcommands require a logged-in account with the <code>admin</code> role.
+Ordinary users cannot list or manage users, including changing their own
+passwords. See <a href="../user_management/">User Management</a> for the role model and
+account lifecycle.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user create &lt;username&gt;</code></td>
+<td>Create a user with a password and optional roles.</td>
+</tr>
+<tr>
+<td><code>user list</code></td>
+<td>List all users and their roles.</td>
+</tr>
+<tr>
+<td><code>user set-password &lt;username&gt;</code></td>
+<td>Set a user's password without changing its roles.</td>
+</tr>
+<tr>
+<td><code>user set-role &lt;username&gt;</code></td>
+<td>Replace a user's entire role list.</td>
+</tr>
+<tr>
+<td><code>user delete &lt;username&gt;</code></td>
+<td>Delete one user after confirmation.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="create-a-user">Create a user<a class="headerlink" href="#create-a-user" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enter the new user's password without echoing; defaults to default_role.</span>
+seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>alice
+
+<span class="c1"># Create an administrator interactively.</span>
+seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>bob<span class="w"> </span>--role<span class="w"> </span>admin
+
+<span class="c1"># Supply the target user's password explicitly for a script.</span>
+seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>alice<span class="w"> </span>--pwd<span class="w"> </span><span class="s1">'&lt;password&gt;'</span><span class="w"> </span>--role<span class="w"> </span>default_role
+seadb-cli<span class="w"> </span>user<span class="w"> </span>create<span class="w"> </span>alice<span class="w"> </span>-p<span class="w"> </span><span class="s1">'&lt;password&gt;'</span><span class="w"> </span>-r<span class="w"> </span>default_role
+</code></pre></div>
+<ul>
+<li>A non-empty username and password are required; the username must be unique.</li>
+<li>Omitting <code>--role</code> assigns <code>default_role</code>.</li>
+<li><code>--role</code> / <code>-r</code> accepts only <code>admin</code> and <code>default_role</code>. To assign multiple
+  roles, repeat the option, for example <code>--role admin --role default_role</code>.
+  Duplicate roles and comma-separated role lists are rejected.</li>
+<li><code>--pwd</code> / <code>-p</code> sets the target user's password. It is distinct from
+  <code>login --password</code> / <code>-p</code>, which authenticates the account logging in.</li>
+<li>Without <code>--pwd</code>, the CLI prompts with <code>Password:</code> and reads without echoing.
+  When stdin is not interactive, <code>--pwd</code> is required; piping a password into
+  stdin is not supported.</li>
+<li>Creation prints a one-row table with <code>USERNAME</code> and <code>ROLES</code> columns.</li>
+</ul>
+<h4 id="list-users">List users<a class="headerlink" href="#list-users" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>list
+</code></pre></div>
+<p>The CLI automatically retrieves all pages, using 100 users per API request,
+and prints a table with <code>USERNAME</code> and <code>ROLES</code> columns. Multiple roles are shown
+as comma-separated values. There are no CLI pagination flags. If no users are
+returned, the output is <code>OK: no users</code>.</p>
+<h4 id="set-a-password">Set a password<a class="headerlink" href="#set-a-password" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>set-password<span class="w"> </span>alice
+seadb-cli<span class="w"> </span>user<span class="w"> </span>set-password<span class="w"> </span>alice<span class="w"> </span>--pwd<span class="w"> </span><span class="s1">'&lt;new-password&gt;'</span>
+seadb-cli<span class="w"> </span>user<span class="w"> </span>set-password<span class="w"> </span>alice<span class="w"> </span>-p<span class="w"> </span><span class="s1">'&lt;new-password&gt;'</span>
+</code></pre></div>
+<p>Password input follows the same rules as <code>user create</code>. This changes only the
+password and does not revoke existing API keys. Success prints:</p>
+<div class="highlight"><pre><span></span><code>OK: user password updated
+</code></pre></div>
+<h4 id="replace-roles">Replace roles<a class="headerlink" href="#replace-roles" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>set-role<span class="w"> </span>alice<span class="w"> </span>--role<span class="w"> </span>admin
+seadb-cli<span class="w"> </span>user<span class="w"> </span>set-role<span class="w"> </span>alice<span class="w"> </span>-r<span class="w"> </span>default_role
+seadb-cli<span class="w"> </span>user<span class="w"> </span>set-role<span class="w"> </span>alice<span class="w"> </span>--role<span class="w"> </span>admin<span class="w"> </span>--role<span class="w"> </span>default_role
+</code></pre></div>
+<p>At least one <code>--role</code> / <code>-r</code> is required. The supported values and duplicate
+checks are the same as for <code>user create</code>. The supplied roles replace all
+existing roles; they are not appended. For example, <code>--role default_role</code>
+removes <code>admin</code> from an administrator. The password and base ownership are
+unchanged. Success prints:</p>
+<div class="highlight"><pre><span></span><code>OK: user roles updated
+</code></pre></div>
+<h4 id="delete-a-user">Delete a user<a class="headerlink" href="#delete-a-user" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>user<span class="w"> </span>delete<span class="w"> </span>alice
+seadb-cli<span class="w"> </span>user<span class="w"> </span>delete<span class="w"> </span>alice<span class="w"> </span>--yes
+seadb-cli<span class="w"> </span>user<span class="w"> </span>delete<span class="w"> </span>alice<span class="w"> </span>-y
+</code></pre></div>
+<p>By default, the CLI prompts <code>Delete user alice? [y/N]:</code>. Only <code>y</code> or <code>yes</code>
+(case-insensitive) confirms deletion. Any other answer cancels and prints
+<code>OK: user deletion canceled</code>. Non-interactive calls must pass <code>--yes</code> / <code>-y</code>;
+piping a confirmation into stdin is not supported. Success prints:</p>
+<div class="highlight"><pre><span></span><code>OK: user deleted
+</code></pre></div>
+<p>Deletion removes the user's account, role assignments, API key records, base
+ownership records, and template records, but does not delete its base data.
+Transfer bases with <code>base set-owner</code> before deleting the user if they should
+retain an owner. See <a href="../user_management/#delete-a-user">Delete a user</a>.</p>
 <h3 id="export">export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h3>
 <p><code>export</code> writes one base to a dump file named after the base in the output
 directory:</p>
@@ -1861,6 +2109,8 @@ switch servers or credential modes, run <code>logout</code> first, then <code>se
 <h2 id="unsupported-operations">Unsupported operations<a class="headerlink" href="#unsupported-operations" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Creating bases through SQL statements such as <code>CREATE DATABASE</code>.</li>
+<li>Managing users and roles through SQL statements such as <code>CREATE USER</code> or
+  <code>GRANT</code>, creating custom roles, or assigning reader/writer roles to a base.</li>
 <li>Other output formats such as JSON or CSV.</li>
 <li>Displaying the number of rows affected by DML statements.</li>
 </ul>
