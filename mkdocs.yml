@@ -86,6 +86,8 @@ nav:
     - Cluster deployment:
       - FoundationDB: setup/foundationdb_cluster.md
       - SeaDB: setup/seadb_cluster_native.md
+    - Management:
+      - Backup and restore: setup/backup_restore.md
   - Configuration:
     - Environment variables: configuration/environment_variables.md
     - Cluster env: configuration/cluster_environment_variables.md
