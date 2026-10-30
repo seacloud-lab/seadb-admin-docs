@@ -2,6 +2,8 @@
 
 SeaDB supports scheduled backup and restore for the Pebble storage backend. Backup is disabled by default.
 
+For FoundationDB backend, SeaDB is not responsible for backup and restore. The FoundationDB admin should setup proper backup and restore mechanism for the FoundationDB cluster.
+
 ## Configure backups (see [environment variables](../configuration/environment_variables.md#pebble-backup) for details)
 
 Configure scheduled backups with the [Pebble backup environment variables](../configuration/environment_variables.md#pebble-backup).
