@@ -7,7 +7,8 @@ data with SQL.
 ## Before you start
 
 - Deploy SeaDB by following [Setup SeaDB](../setup/seadb_setup_single_node.md).
-- Have `seadb-cli` available on your macOS or Linux client.
+- Have [`seadb-cli`](https://sos-ch-dk-2.exo.io/cloud-seaticket-ai-seadb-cli/seadb-cli-x86_64-0.9) for Linux (x86_64) available on your client.
+
 
 The examples connect to `http://127.0.0.1:8888`. Replace this address with your
 SeaDB server address if it is running on another machine.
