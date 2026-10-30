@@ -31,6 +31,30 @@ FoundationDB connection variables, see [Cluster env](cluster_environment_variabl
 | `SEADB_STORAGE_CLEANUP_TIME` | The time at which SeaDB base cleanup starts. It is used to clean up deleted table and index data. | `00:00` |
 | `SEADB_UPDATE_BASE_STATS_AT` | Daily time, in `HH:MM`, at which SeaDB updates base storage and table row-count statistics. Invalid values fall back to the default. | `01:00` |
 
+### Pebble backup
+
+These are the options related to backup for Pebble backend. Pebble backups are disabled by default. When enabled, the backup worker creates scheduled ZIP archives and stores them locally or in S3. See [Backup and restore](../setup/backup_restore.md) for the backup and restore procedure.
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `SEADB_PEBBLE_BACKUP_ENABLE` | Enable scheduled Pebble backups. | `false` |
+| `SEADB_PEBBLE_BACKUP_AT` | Daily backup time in `HH:MM` format. Required when backups are enabled. | (required when enabled) |
+| `SEADB_PEBBLE_BACKUP_KEEP_DAYS` | Delete backups older than this number of days. | `3` |
+| `SEADB_PEBBLE_BACKUP_STORAGE` | Backup storage. Choose `local` or `s3`. | `local` |
+| `SEADB_PEBBLE_BACKUP_LOCAL_DIR` | Destination directory for local backups. | (required for `local`) |
+| `SEADB_PEBBLE_BACKUP_S3_PREFIX` | Prefix under which S3 backups are uploaded. | |
+| `SEADB_PEBBLE_BACKUP_S3_HOST` | S3-compatible service endpoint. | |
+| `SEADB_PEBBLE_BACKUP_S3_AWS_REGION` | AWS or S3-compatible service region. | |
+| `SEADB_PEBBLE_BACKUP_S3_USE_HTTPS` | Whether to use HTTPS. | |
+| `SEADB_PEBBLE_BACKUP_S3_BUCKET` | S3 bucket for backups. | (required for `s3`) |
+| `SEADB_PEBBLE_BACKUP_S3_PATH_STYLE_REQUEST` | Whether to use path-style requests. | |
+| `SEADB_PEBBLE_BACKUP_S3_KEY_ID` | S3 access key ID. | (required for `s3`) |
+| `SEADB_PEBBLE_BACKUP_S3_KEY` | S3 secret access key. | (required for `s3`) |
+| `SEADB_PEBBLE_BACKUP_S3_USE_V4_SIGNATURE` | Whether to use V4 request signatures. | |
+| `SEADB_PEBBLE_BACKUP_S3_SSE_C_KEY` | Server-side encryption customer key. | |
+
+`SEADB_PEBBLE_BACKUP_STORAGE` must be `local` or `s3`. S3 storage requires the bucket, access key ID, and secret access key variables shown above. Backups are uploaded below the configured `SEADB_PEBBLE_BACKUP_S3_PREFIX`, and archives older than `SEADB_PEBBLE_BACKUP_KEEP_DAYS` are removed from the selected storage.
+
 ### Metrics
 
 SeaDB exposes Prometheus compatible metrics through `/metrics` endpoint. The options here controls the metrics.
