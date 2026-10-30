@@ -33,7 +33,7 @@ FoundationDB connection variables, see [Cluster env](cluster_environment_variabl
 
 ### Pebble backup
 
-Pebble backups are disabled by default. When enabled, the backup worker creates scheduled ZIP archives and stores them locally or in S3. See [Backup and restore](../setup/backup_restore.md) for the backup and restore procedure.
+These are the options related to backup for Pebble backend. Pebble backups are disabled by default. When enabled, the backup worker creates scheduled ZIP archives and stores them locally or in S3. See [Backup and restore](../setup/backup_restore.md) for the backup and restore procedure.
 
 | Variable | Description | Default |
 | --- | --- | --- |
