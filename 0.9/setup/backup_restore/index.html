@@ -756,10 +756,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configure-backups-see-environment-variables-for-details" class="md-nav__link">
+  <a href="#configure-backups" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configure backups (see environment variables for details)
+        Configure backups
       
     </span>
   </a>
@@ -1180,10 +1180,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configure-backups-see-environment-variables-for-details" class="md-nav__link">
+  <a href="#configure-backups" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configure backups (see environment variables for details)
+        Configure backups
       
     </span>
   </a>
@@ -1235,8 +1235,9 @@
 <h1 id="backup-and-restore">Backup and restore<a class="headerlink" href="#backup-and-restore" title="Permanent link">&para;</a></h1>
 <p>SeaDB supports scheduled backup and restore for the Pebble storage backend. Backup is disabled by default.</p>
 <p>For FoundationDB backend, SeaDB is not responsible for backup and restore. The FoundationDB admin should setup proper backup and restore mechanism for the FoundationDB cluster.</p>
-<h2 id="configure-backups-see-environment-variables-for-details">Configure backups (see <a href="../../configuration/environment_variables/#pebble-backup">environment variables</a> for details)<a class="headerlink" href="#configure-backups-see-environment-variables-for-details" title="Permanent link">&para;</a></h2>
-<p>Configure scheduled backups with the <a href="../../configuration/environment_variables/#pebble-backup">Pebble backup environment variables</a>.</p>
+<h2 id="configure-backups">Configure backups<a class="headerlink" href="#configure-backups" title="Permanent link">&para;</a></h2>
+<p>SeaDB can be configured to create backups for the Pebble storage backend every day. The backup files may be stored locally or in S3 compatible storage. SeaDB admin can choose the time for backup.</p>
+<p>See how to configure scheduled backups with the <a href="../../configuration/environment_variables/#pebble-backup">Pebble backup environment variables</a>.</p>
 <h2 id="backup-files">Backup files<a class="headerlink" href="#backup-files" title="Permanent link">&para;</a></h2>
 <p>Backups are ZIP archives containing the Pebble storage state. They use the following filename format:</p>
 <div class="highlight"><pre><span></span><code>seadb_backup_YYYYMMDDTHHMMSSZ.zip
