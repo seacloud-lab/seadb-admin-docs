@@ -1822,26 +1822,24 @@ seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w
 <li><code>set-config</code>: save the server address, timeout, and credential storage mode.</li>
 <li><code>login</code>: log in and create an API key.</li>
 <li><code>logout</code>: revoke the current API key and clean up local login state.</li>
-<li><code>sql</code>: execute a single SQL statement against a base.</li>
+<li><code>sql</code>: execute SQL against a base, or open an interactive SQL terminal.</li>
 <li><code>base</code>: create, list, inspect, delete bases, and change a base owner, ID, or name.</li>
 <li><code>user</code>: create, list, delete users, and set their passwords or roles
   (administrators only).</li>
 <li><code>export</code>: export a base to a dump file.</li>
 <li><code>import</code>: import a base from a dump file.</li>
 </ul>
-<p><code>help</code> and <code>completion</code> are provided by the command framework. The CLI runs one
-command and then exits; there is no REPL or background process. Login state is
-stored in the config file and the credential store, so terminals that use the
-same config file share the login state.</p>
+<p><code>help</code> and <code>completion</code> are provided by the command framework. Commands exit
+when they finish; the interactive <code>sql</code> terminal stays open until you leave it.
+Login state is stored in the config file and the credential store, so terminals
+that use the same config file share the login state.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p><code>seadb-cli</code> currently only supports macOS and Linux.</p>
 <ul>
-<li>Keyring is used to store credentials by default:<ul>
+<li>Keyring is used to store credentials by default:</li>
 <li>macOS uses Keychain.</li>
 <li>Linux uses Secret Service, which requires an available user D-Bus session.</li>
 <li>On headless Linux or over SSH, switch to <code>file</code> mode (see <a href="#credential-storage">Credential storage</a>).</li>
-</ul>
-</li>
 </ul>
 <h2 id="configuration-file-and-login-state">Configuration file and login state<a class="headerlink" href="#configuration-file-and-login-state" title="Permanent link">&para;</a></h2>
 <p>When <code>SEADB_CONFIG</code> is not set, the CLI uses the user-level default configuration:</p>
@@ -1932,10 +1930,11 @@ invalid; the CLI still cleans up the local login state.</p>
 reports whether the server-side API key may still exist while cleaning up the
 local state.</p>
 <h3 id="sql">sql<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
-<p><code>sql</code> requires a target base UUID. The SQL can be passed with <code>-e</code> or read from
-a pipe or redirected stdin:</p>
+<p><code>sql</code> requires a target base UUID. Pass SQL with <code>-e</code>, read it from a pipe or
+redirected stdin, or start an interactive terminal by omitting <code>-e</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">BASE_ID</span><span class="o">=</span>f5a24a4e-a5bf-463a-b878-13b0a3a509c8
 
+seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span>
 seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT * FROM t1"</span>
 seadb-cli<span class="w"> </span>sql<span class="w"> </span>-b<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE_ID</span><span class="s2">"</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT * FROM t1"</span>
 
@@ -1955,6 +1954,15 @@ seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w
 <span class="nb">echo</span><span class="w"> </span><span class="s1">'CREATE TABLE Tasks (title text, priority int, done bool);'</span><span class="w"> </span><span class="p">|</span>
 <span class="w">  </span>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--base<span class="w"> </span>2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b
 </code></pre></div>
+<p>The interactive flow looks like (table borders omitted):</p>
+<div class="highlight"><pre><span></span><code>SeaDB SQL terminal. End a line with ';' to run the SQL. Type exit, quit, or press Ctrl+D to leave.
+seadb&gt; SELECT title
+&gt; FROM Tasks
+&gt; WHERE done = false;
+TITLE
+Task A
+seadb&gt; exit
+</code></pre></div>
 <p>The following statements are supported:</p>
 <ul>
 <li>DQL: <code>SELECT</code>, <code>EXPLAIN</code></li>
@@ -1968,16 +1976,15 @@ with no result prints:</p>
 <p>A query that returns an empty row set prints:</p>
 <div class="highlight"><pre><span></span><code>OK: query returned no rows
 </code></pre></div>
-<p>Only one SQL statement is executed per call, and the target base is specified by
-<code>--base</code>. Multi-statement scripts and SQL transaction commands are not
-supported.</p>
-<p>SQL statements are parsed by the server, and only the first statement in each
-call is executed. When multiple statements are passed through a pipe, the rest
-are ignored, so execute them one at a time.</p>
-<p>Running <code>seadb-cli sql --base "$BASE_ID"</code> without <code>-e</code> in an interactive
-terminal immediately returns <code>SQL statement is required via --execute/-e or
-stdin</code>; it does not wait for terminal EOF. Use a pipe or redirection to read
-from stdin.</p>
+<p>In the interactive terminal:</p>
+<ul>
+<li>Enter SQL at <code>seadb&gt;</code> and continue on additional lines at <code>&gt;</code>.</li>
+<li>End a line with <code>;</code> and press Enter to execute.</li>
+<li>Enter <code>exit</code> or <code>quit</code> at <code>seadb&gt;</code>, or press Ctrl+D, to leave. Ctrl+D
+  discards unfinished input.</li>
+<li>Query errors are displayed without closing the terminal.</li>
+</ul>
+<p>SQL transaction commands are not supported.</p>
 <h3 id="base">base<a class="headerlink" href="#base" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create a base; the CLI-generated UUID is printed on success.</span>
 seadb-cli<span class="w"> </span>base<span class="w"> </span>create
@@ -2021,7 +2028,8 @@ seadb-cli<span class="w"> </span>base<span class="w"> </span>delete<span class="
 </ul>
 <h4 id="template">template<a class="headerlink" href="#template" title="Permanent link">&para;</a></h4>
 <p>To create and modify template tables, pass <code>--template</code> instead of <code>--base</code>:</p>
-<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--template<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE TABLE Contacts (name text, email text);"</span>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>sql<span class="w"> </span>--template
+seadb-cli<span class="w"> </span>sql<span class="w"> </span>--template<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE TABLE Contacts (name text, email text);"</span>
 seadb-cli<span class="w"> </span>sql<span class="w"> </span>--template<span class="w"> </span>-e<span class="w"> </span><span class="s2">"ALTER TABLE Contacts ADD COLUMN phone text;"</span>
 </code></pre></div>
 <p>See <a href="../base_management/#template">Base Management</a> for how templates work.</p>
@@ -2219,7 +2227,8 @@ switch servers or credential modes, run <code>logout</code> first, then <code>se
 </li>
 <li>
 <p>Exit codes: <code>0</code> on success, <code>1</code> on a request or business error, and <code>2</code> on a
-  CLI argument error.</p>
+  CLI argument error. A query error inside the interactive <code>sql</code> terminal does
+  not end the terminal; leaving it normally still returns <code>0</code>.</p>
 </li>
 </ul>
 <h2 id="unsupported-operations">Unsupported operations<a class="headerlink" href="#unsupported-operations" title="Permanent link">&para;</a></h2>
@@ -2228,6 +2237,7 @@ switch servers or credential modes, run <code>logout</code> first, then <code>se
 <li>Managing users and roles through SQL statements such as <code>CREATE USER</code> or
   <code>GRANT</code>, creating custom roles, or assigning reader/writer roles to a base.</li>
 <li>Other output formats such as JSON or CSV.</li>
+<li>Command history or canceling pending input in the SQL terminal.</li>
 <li>Displaying the number of rows affected by DML statements.</li>
 </ul>
 <h2 id="faq-and-exit-codes">FAQ and exit codes<a class="headerlink" href="#faq-and-exit-codes" title="Permanent link">&para;</a></h2>
