@@ -30,26 +30,26 @@ The following subcommands are available:
 - `set-config`: save the server address, timeout, and credential storage mode.
 - `login`: log in and create an API key.
 - `logout`: revoke the current API key and clean up local login state.
-- `sql`: execute a single SQL statement against a base.
+- `sql`: execute SQL against a base, or open an interactive SQL terminal.
 - `base`: create, list, inspect, delete bases, and change a base owner, ID, or name.
 - `user`: create, list, delete users, and set their passwords or roles
   (administrators only).
 - `export`: export a base to a dump file.
 - `import`: import a base from a dump file.
 
-`help` and `completion` are provided by the command framework. The CLI runs one
-command and then exits; there is no REPL or background process. Login state is
-stored in the config file and the credential store, so terminals that use the
-same config file share the login state.
+`help` and `completion` are provided by the command framework. Commands exit
+when they finish; the interactive `sql` terminal stays open until you leave it.
+Login state is stored in the config file and the credential store, so terminals
+that use the same config file share the login state.
 
 ## Prerequisites
 
 `seadb-cli` currently only supports macOS and Linux.
 
 - Keyring is used to store credentials by default:
-    - macOS uses Keychain.
-    - Linux uses Secret Service, which requires an available user D-Bus session.
-    - On headless Linux or over SSH, switch to `file` mode (see [Credential storage](#credential-storage)).
+  - macOS uses Keychain.
+  - Linux uses Secret Service, which requires an available user D-Bus session.
+  - On headless Linux or over SSH, switch to `file` mode (see [Credential storage](#credential-storage)).
 
 ## Configuration file and login state
 
@@ -180,12 +180,13 @@ local state.
 
 ### sql
 
-`sql` requires a target base UUID. The SQL can be passed with `-e` or read from
-a pipe or redirected stdin:
+`sql` requires a target base UUID. Pass SQL with `-e`, read it from a pipe or
+redirected stdin, or start an interactive terminal by omitting `-e`:
 
 ```bash
 BASE_ID=f5a24a4e-a5bf-463a-b878-13b0a3a509c8
 
+seadb-cli sql --base "$BASE_ID"
 seadb-cli sql --base "$BASE_ID" -e "SELECT * FROM t1"
 seadb-cli sql -b "$BASE_ID" -e "SELECT * FROM t1"
 
@@ -209,6 +210,18 @@ echo 'CREATE TABLE Tasks (title text, priority int, done bool);' |
   seadb-cli sql --base 2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b
 ```
 
+The interactive flow looks like (table borders omitted):
+
+```text
+SeaDB SQL terminal. End a line with ';' to run the SQL. Type exit, quit, or press Ctrl+D to leave.
+seadb> SELECT title
+> FROM Tasks
+> WHERE done = false;
+TITLE
+Task A
+seadb> exit
+```
+
 The following statements are supported:
 
 - DQL: `SELECT`, `EXPLAIN`
@@ -228,18 +241,15 @@ A query that returns an empty row set prints:
 OK: query returned no rows
 ```
 
-Only one SQL statement is executed per call, and the target base is specified by
-`--base`. Multi-statement scripts and SQL transaction commands are not
-supported.
+In the interactive terminal:
 
-SQL statements are parsed by the server, and only the first statement in each
-call is executed. When multiple statements are passed through a pipe, the rest
-are ignored, so execute them one at a time.
+- Enter SQL at `seadb>` and continue on additional lines at `>`.
+- End a line with `;` and press Enter to execute.
+- Enter `exit` or `quit` at `seadb>`, or press Ctrl+D, to leave. Ctrl+D
+  discards unfinished input.
+- Query errors are displayed without closing the terminal.
 
-Running `seadb-cli sql --base "$BASE_ID"` without `-e` in an interactive
-terminal immediately returns `SQL statement is required via --execute/-e or
-stdin`; it does not wait for terminal EOF. Use a pipe or redirection to read
-from stdin.
+SQL transaction commands are not supported.
 
 ### base
 
@@ -289,6 +299,7 @@ seadb-cli base delete "$BASE_ID" --yes
 To create and modify template tables, pass `--template` instead of `--base`:
 
 ```bash
+seadb-cli sql --template
 seadb-cli sql --template -e "CREATE TABLE Contacts (name text, email text);"
 seadb-cli sql --template -e "ALTER TABLE Contacts ADD COLUMN phone text;"
 ```
@@ -388,7 +399,7 @@ seadb-cli user delete alice --yes
 seadb-cli user delete alice -y
 ```
 
-By default, the CLI prompts `Delete user alice? [y/N]: `. Only `y` or `yes`
+By default, the CLI prompts `Delete user alice? [y/N]:`. Only `y` or `yes`
 (case-insensitive) confirms deletion. Any other answer cancels and prints
 `OK: user deletion canceled`. Non-interactive calls must pass `--yes` / `-y`;
 piping a confirmation into stdin is not supported. Success prints:
@@ -531,7 +542,8 @@ switch servers or credential modes, run `logout` first, then `set-config`.
     ```
 
 - Exit codes: `0` on success, `1` on a request or business error, and `2` on a
-  CLI argument error.
+  CLI argument error. A query error inside the interactive `sql` terminal does
+  not end the terminal; leaving it normally still returns `0`.
 
 ## Unsupported operations
 
@@ -539,6 +551,7 @@ switch servers or credential modes, run `logout` first, then `set-config`.
 - Managing users and roles through SQL statements such as `CREATE USER` or
   `GRANT`, creating custom roles, or assigning reader/writer roles to a base.
 - Other output formats such as JSON or CSV.
+- Command history or canceling pending input in the SQL terminal.
 - Displaying the number of rows affected by DML statements.
 
 ## FAQ and exit codes
