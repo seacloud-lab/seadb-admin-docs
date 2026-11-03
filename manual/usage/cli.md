@@ -37,12 +37,10 @@ The following subcommands are available:
 - `export`: export a base to a dump file.
 - `import`: import a base from a dump file.
 
-`help` and `completion` are provided by the command framework. Each command
-starts a new process and then exits. The interactive `sql` terminal is the
-exception and stays open until you leave it. There is no background process or
-saved interactive session. Login state is stored in the config file and the
-credential store, so terminals that use the same config file share the login
-state.
+`help` and `completion` are provided by the command framework. Commands exit
+when they finish; the interactive `sql` terminal stays open until you leave it.
+Login state is stored in the config file and the credential store, so terminals
+that use the same config file share the login state.
 
 ## Prerequisites
 
@@ -210,9 +208,6 @@ seadb-cli sql --base 2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b \
 # DDL via stdin
 echo 'CREATE TABLE Tasks (title text, priority int, done bool);' |
   seadb-cli sql --base 2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b
-
-# Interactive terminal
-seadb-cli sql --base 2b5d1e7a-5ca1-4e61-b236-c4f0c50cf65b
 ```
 
 The interactive flow looks like (table borders omitted):
@@ -246,21 +241,13 @@ A query that returns an empty row set prints:
 OK: query returned no rows
 ```
 
-The target base is specified by `--base` or `-b`. `--execute` and `-e` are
-equivalent. Without `-e`, a terminal opens an interactive prompt; a pipe or
-redirection is read until EOF and executed once. Empty piped input returns an
-argument error. The CLI sends the entered text to the server and does not parse
-it.
-
 In the interactive terminal:
 
-- `seadb>` starts a statement, and `>` continues it across lines.
-- The statement runs when a line ends with `;`, ignoring trailing whitespace.
-- A blank line at `seadb>` does nothing.
-- `exit`, `quit`, or Ctrl+D leaves the terminal. While a statement is being
-  entered, `exit` and `quit` are treated as SQL text.
-- Ctrl+D discards a statement that does not end with `;`.
-- A query error is printed to stderr and the prompt returns.
+- Enter SQL at `seadb>` and continue on additional lines at `>`.
+- End a line with `;` and press Enter to execute.
+- Enter `exit` or `quit` at `seadb>`, or press Ctrl+D, to leave. Ctrl+D
+  discards unfinished input.
+- Query errors are displayed without closing the terminal.
 
 SQL transaction commands are not supported.
 
@@ -309,8 +296,7 @@ seadb-cli base delete "$BASE_ID" --yes
 
 #### template
 
-To create and modify template tables, pass `--template` instead of `--base`.
-Omitting `-e` opens the interactive terminal for the template:
+To create and modify template tables, pass `--template` instead of `--base`:
 
 ```bash
 seadb-cli sql --template
@@ -565,8 +551,7 @@ switch servers or credential modes, run `logout` first, then `set-config`.
 - Managing users and roles through SQL statements such as `CREATE USER` or
   `GRANT`, creating custom roles, or assigning reader/writer roles to a base.
 - Other output formats such as JSON or CSV.
-- Command history in the interactive SQL terminal, or canceling input that has
-  not been submitted.
+- Command history or canceling pending input in the SQL terminal.
 - Displaying the number of rows affected by DML statements.
 
 ## FAQ and exit codes
