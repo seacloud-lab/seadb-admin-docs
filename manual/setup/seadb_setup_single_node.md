@@ -8,7 +8,7 @@ The commands in this guide require:
 
 - Docker Engine with Docker Compose v2.
 - `openssl` to generate a JWT signing secret.
-- `wget` to download the Compose file.
+- `wget` to download the Compose file and environment template.
 - `curl` to verify the SeaDB API.
 
 The examples use the following paths:
@@ -16,16 +16,22 @@ The examples use the following paths:
 - `/opt/seadb`: Docker Compose files and `.env`.
 - `/opt/seadb-data`: persistent SeaDB data mounted into the container at `/shared`.
 
-## 1. Prepare the deployment directory
+## 1. Download deployment files
 
-Create a directory for the Compose files and a separate directory for persistent SeaDB data:
+Download `.env` and `seadb.yml` into the same deployment directory:
 
 ```bash
 mkdir -p /opt/seadb /opt/seadb-data
 cd /opt/seadb
+
+wget -O .env https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/env
+wget https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/seadb.yml
+chmod 600 .env
 ```
 
-## 2. Create the environment configuration
+The template sets `COMPOSE_FILE=seadb.yml`, so Docker Compose automatically uses this file and `.env`. Run all Docker Compose commands below from `/opt/seadb`.
+
+## 2. Configure `.env`
 
 Generate a private random value for SeaDB's JWT signing key:
 
@@ -33,13 +39,11 @@ Generate a private random value for SeaDB's JWT signing key:
 openssl rand -hex 32
 ```
 
-Create `.env` in `/opt/seadb` and save the generated value as `SEADB_SERVER_ACCESS_TOKEN`:
+Edit `/opt/seadb/.env`. Set `JWT_PRIVATE_KEY` to the generated value and choose a strong, private password for the initial `root` administrator. Leave the remaining template values at their defaults unless you need to customize the deployment:
 
 ```env
-COMPOSE_FILE=seadb.yml
-SEADB_IMAGE=seafileltd/seadb:0.9.0-testing
-SEADB_VOLUME=/opt/seadb-data
-SEADB_SERVER_ACCESS_TOKEN=<paste-the-generated-value-here>
+JWT_PRIVATE_KEY=<paste-the-generated-value-here>
+INIT_SEADB_ROOT_PASSWORD='<set-a-strong-root-password>'
 ```
 
 The variables used by the Docker deployment are:
@@ -49,86 +53,30 @@ The variables used by the Docker deployment are:
 | `COMPOSE_FILE` | Compose file used for this deployment. |
 | `SEADB_IMAGE` | SeaDB Docker image. |
 | `SEADB_VOLUME` | Host directory used to persist the contents of `/shared`. |
-| `SEADB_SERVER_ACCESS_TOKEN` | Secret passed to the container as `JWT_PRIVATE_KEY` and used to sign and verify JWT credentials. |
+| `TIME_ZONE` | Container time zone. Defaults to `UTC`. |
+| `LOG_TO_STDOUT` | Write SeaDB logs to standard output instead of log files. Defaults to `false`. |
+| `JWT_PRIVATE_KEY` | Secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters. |
+| `INIT_SEADB_ROOT_PASSWORD` | Password used to create the `root` administrator on first startup. Remove after successful initialization. |
+
+Use single quotes around passwords in `.env` so characters such as `$` and `#` are treated literally.
 
 !!! warning "Keep the JWT signing secret unchanged"
-    `SEADB_SERVER_ACCESS_TOKEN` is mapped to `JWT_PRIVATE_KEY` inside the SeaDB container. It is a server signing secret, not a normal REST API key. Keep the same value when recreating or upgrading the container. Changing it invalidates JWTs signed with the old value.
+    `JWT_PRIVATE_KEY` is a server signing secret, not a normal REST API key. Keep the same value when recreating or upgrading the container. Changing it invalidates JWTs signed with the old value.
 
-Restrict access to `.env` because it contains a secret:
+## 3. Start SeaDB
 
-```bash
-chmod 600 .env
-```
-
-## 3. Download the Docker Compose file
-
-Download `seadb.yml` into the same directory:
-
-```bash
-wget -O seadb.yml https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/seadb.yml
-```
-
-The Compose file publishes SeaDB on port `8888`, mounts `SEADB_VOLUME` at `/shared`, and includes a health check for `GET /ping`.
-
-Before continuing, validate the resolved Compose configuration:
-
-```bash
-docker compose --env-file .env -f seadb.yml config
-```
-
-## 4. Create the first administrator
-
-Create the first administrator before starting the SeaDB service. The one-time initialization container accesses the same Pebble data directory as SeaDB, so the regular SeaDB container must not be running at the same time.
-
-Read the administrator password without echoing it to the terminal:
-
-```bash
-read -s SEADB_PASSWORD
-export SEADB_PASSWORD
-echo
-```
-
-Then create the administrator:
-
-```bash
-docker compose --env-file .env -f seadb.yml run \
-  --rm \
-  --no-deps \
-  -T \
-  -e SEADB_DATA_DIR=/shared \
-  -e SEADB_LOG_DIR=/shared/logs \
-  --entrypoint /opt/seadb/sea-db \
-  seadb \
-  add-admin \
-  --user seadb-admin \
-  --password "$SEADB_PASSWORD"
-```
-
-A successful initialization prints a message similar to:
-
-```text
-level=info msg="Create admin user seadb-admin successful"
-```
-
-!!! warning "Do not run add-admin while SeaDB is using the Pebble data directory"
-    Run this command only for a new data directory and before starting SeaDB. If SeaDB has already been started, stop it first with:
-
-    ```bash
-    docker compose --env-file .env -f seadb.yml stop seadb
-    ```
-
-## 5. Start SeaDB
+On first startup with a new data directory, the container runs `sea-db init` to create the `root` administrator using `INIT_SEADB_ROOT_PASSWORD`. No separate administrator initialization command is needed. Subsequent starts use the persistent initialization state.
 
 Start SeaDB in detached mode:
 
 ```bash
-docker compose --env-file .env -f seadb.yml up -d
+docker compose up -d
 ```
 
 Check the container state:
 
 ```bash
-docker compose --env-file .env -f seadb.yml ps
+docker compose ps
 ```
 
 Immediately after startup, the health state may briefly be `starting`. Check the health status again with:
@@ -136,7 +84,7 @@ Immediately after startup, the health state may briefly be `starting`. Check the
 ```bash
 docker inspect \
   --format='{{.State.Health.Status}}' \
-  "$(docker compose --env-file .env -f seadb.yml ps -q seadb)"
+  "$(docker compose ps -q seadb)"
 ```
 
 The expected status after initialization is:
@@ -148,12 +96,14 @@ healthy
 !!! success "SeaDB container is healthy"
     A `healthy` status means the Docker health check can successfully reach SeaDB's `/ping` endpoint.
 
-## 6. Verify the logs and API
+## 4. Verify the logs and API
 
 Check the latest SeaDB logs:
 
+With `LOG_TO_STDOUT=false`, SeaDB application logs are stored under `/opt/seadb-data/logs`; the command below shows container startup and initialization output. Set `LOG_TO_STDOUT=true` to include application logs in Docker logs.
+
 ```bash
-docker compose --env-file .env -f seadb.yml logs --tail=100 seadb
+docker compose logs --tail=100 seadb
 ```
 
 After a successful startup, the log contains:
@@ -180,9 +130,27 @@ The expected response is:
     - The SeaDB container health status is `healthy`.
     - The SeaDB log shows `seadb started`.
     - `http://127.0.0.1:8888/ping` returns `{"ret":"pong"}`.
-    - The initial administrator has been created successfully.
+    - You can log in as `root` using the password set during initialization.
 
 At this point, clients can connect to SeaDB at `http://<server-address>:8888`.
+
+## 5. Verify root access and remove the initialization password
+
+Use `seadb-cli` to verify root access. See [SeaDB CLI](../usage/cli.md) for client configuration and usage:
+
+```bash
+seadb-cli login --server http://127.0.0.1:8888 --username root
+```
+
+Enter the password configured as `INIT_SEADB_ROOT_PASSWORD` when prompted. See [User Management](../usage/user_management.md) to create application users.
+
+After successful initialization and login, back up the root password securely and remove `INIT_SEADB_ROOT_PASSWORD` from `.env`. Recreate the container to remove the initialization password from its environment:
+
+```bash
+docker compose up -d
+```
+
+The root account and its password remain in persistent storage. Keep `JWT_PRIVATE_KEY` in `.env` unchanged. Changing or restoring `INIT_SEADB_ROOT_PASSWORD` does not reset the password of an already initialized root account.
 
 ## Persistent data
 
@@ -201,7 +169,7 @@ Recreating or removing the container does not remove this bind-mounted directory
 Check the service logs first:
 
 ```bash
-docker compose --env-file .env -f seadb.yml logs --tail=100 seadb
+docker compose logs --tail=100 seadb
 ```
 
 Then test the API manually:
@@ -212,16 +180,12 @@ curl -v http://127.0.0.1:8888/ping
 
 Also confirm that port `8888` is not already being used by another service.
 
-### `add-admin` cannot access the data directory
+### Initialization requires a root password
 
-Make sure the regular SeaDB container is stopped before running the one-time administrator initialization command:
+For a new data directory, set a non-empty `INIT_SEADB_ROOT_PASSWORD` in `.env` before starting SeaDB. If startup reports that this variable is required, set it and recreate the container with `docker compose up -d`.
 
-```bash
-docker compose --env-file .env -f seadb.yml stop seadb
-```
-
-Single-node SeaDB and the `add-admin` process must not access the same Pebble data directory concurrently.
+Do not remove the initialization password until startup and root login have succeeded. Do not delete the persistent data directory to reset a password.
 
 ### Existing JWTs stop working after the container is recreated
 
-Confirm that `SEADB_SERVER_ACCESS_TOKEN` in `.env` has not changed. This value is used as SeaDB's `JWT_PRIVATE_KEY`; changing it invalidates credentials signed with the previous key.
+Confirm that `JWT_PRIVATE_KEY` in `.env` has not changed. Changing it invalidates credentials signed with the previous key.
