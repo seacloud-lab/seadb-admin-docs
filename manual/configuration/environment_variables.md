@@ -1,9 +1,8 @@
 # Environment variables
 
 SeaDB is configured through environment variables. This page documents the
-variables consumed by the `sea-db` process in both single-node and cluster
-deployments. For cluster coordination, Cluster-Manager, SeaDB-Proxy, and
-FoundationDB connection variables, see [Cluster env](cluster_environment_variables.md).
+variables consumed by the `sea-db` process in single-node deployments using
+the Pebble storage backend.
 
 ## SeaDB
 
@@ -19,15 +18,15 @@ FoundationDB connection variables, see [Cluster env](cluster_environment_variabl
 | `SEADB_SLOW_QUERY_THRESHOLD` | The slow-query threshold of SeaDB. | `1000ms` |
 | `SEADB_QUERY_PER_MINUTE_LIMIT` | The global per-minute API call limit. | `50000` |
 | `SEADB_REQUEST_TIMEOUT` | The request timeout. | `30s` |
-| `JWT_PRIVATE_KEY` | The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value on every SeaDB node and trusted JWT-issuing service. | (required) |
+| `JWT_PRIVATE_KEY` | The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value in SeaDB and any trusted JWT-issuing service. | (required) |
 
 ### Storage
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `SEADB_STORAGE_BACKEND` | The KV backend used to store data. Choose either `fdb` or `pebble`. | `pebble` |
+| `SEADB_STORAGE_BACKEND` | The KV backend used to store data. Use `pebble` for single-node deployment. | `pebble` |
 | `SEADB_DATA_DIR` | The data directory of SeaDB, used to store temporary files such as external sort files. | (required) |
-| `SEADB_KEY_PREFIX` | The key prefix used by SeaDB's FDB and Pebble storage backends. If the FoundationDB cluster is shared by multiple applications, set a SeaDB-specific prefix to distinguish it from other applications. | |
+| `SEADB_KEY_PREFIX` | The key prefix used by SeaDB's Pebble storage backend. | |
 | `SEADB_STORAGE_CLEANUP_TIME` | The time at which SeaDB base cleanup starts. It is used to clean up deleted table and index data. | `00:00` |
 | `SEADB_UPDATE_BASE_STATS_AT` | Daily time, in `HH:MM`, at which SeaDB updates base storage and table row-count statistics. Invalid values fall back to the default. | `01:00` |
 

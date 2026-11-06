@@ -1,0 +1,17 @@
+COMPOSE_FILE=seadb.yml
+
+# Image and persistent storage
+SEADB_IMAGE=seafileltd/seadb:0.9-latest
+SEADB_VOLUME=/opt/seadb-data
+
+# System settings
+TIME_ZONE=UTC
+LOG_TO_STDOUT=false
+
+# Generate with: openssl rand -hex 32
+# Keep this signing secret unchanged when recreating or upgrading the container.
+JWT_PRIVATE_KEY=
+
+# Required for first startup only; initializes the root administrator.
+# Remove after successful initialization and recreate the container.
+INIT_SEADB_ROOT_PASSWORD=
