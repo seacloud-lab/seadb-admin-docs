@@ -1,6 +1,11 @@
 site_name: SeaDB Admin Manual
 site_author: seadb
 docs_dir: ./manual
+# Keep cluster documentation sources without publishing them.
+exclude_docs: |
+  setup/foundationdb_cluster.md
+  setup/seadb_cluster_native.md
+  configuration/cluster_environment_variables.md
 site_url: https://seacloud-lab.github.io/seadb-admin-docs/
 
 repo_name: seacloud-lab/seadb-admin-docs
@@ -83,14 +88,14 @@ nav:
   - Setup:
     - Overview: setup/overview.md
     - Setup SeaDB: setup/seadb_setup_single_node.md
-    - Cluster deployment:
-      - FoundationDB: setup/foundationdb_cluster.md
-      - SeaDB: setup/seadb_cluster_native.md
+    #- Cluster deployment:
+    #  - FoundationDB: setup/foundationdb_cluster.md
+    #  - SeaDB: setup/seadb_cluster_native.md
     - Management:
       - Backup and restore: setup/backup_restore.md
   - Configuration:
     - Environment variables: configuration/environment_variables.md
-    - Cluster env: configuration/cluster_environment_variables.md
+    #- Cluster env: configuration/cluster_environment_variables.md
   - Usage:
     - Quick Start: usage/quick_start.md
     - User Management: usage/user_management.md
