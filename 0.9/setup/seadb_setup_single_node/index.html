@@ -16,14 +16,14 @@
         <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../foundationdb_cluster/">
+        <link rel="next" href="../backup_restore/">
       
       
         
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -563,10 +563,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-prepare-the-deployment-directory" class="md-nav__link">
+  <a href="#1-download-deployment-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Prepare the deployment directory
+        1. Download deployment files
       
     </span>
   </a>
@@ -574,10 +574,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-create-the-environment-configuration" class="md-nav__link">
+  <a href="#2-configure-env" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Create the environment configuration
+        2. Configure .env
       
     </span>
   </a>
@@ -585,10 +585,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-download-the-docker-compose-file" class="md-nav__link">
+  <a href="#3-start-seadb" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Download the Docker Compose file
+        3. Start SeaDB
       
     </span>
   </a>
@@ -596,10 +596,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-create-the-first-administrator" class="md-nav__link">
+  <a href="#4-verify-the-logs-and-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Create the first administrator
+        4. Verify the logs and API
       
     </span>
   </a>
@@ -607,21 +607,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-start-seadb" class="md-nav__link">
+  <a href="#5-verify-root-access-and-remove-the-initialization-password" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Start SeaDB
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-verify-the-logs-and-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Verify the logs and API
+        5. Verify root access and remove the initialization password
       
     </span>
   </a>
@@ -663,10 +652,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add-admin-cannot-access-the-data-directory" class="md-nav__link">
+  <a href="#initialization-requires-a-root-password" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add-admin cannot access the data directory
+        Initialization requires a root password
       
     </span>
   </a>
@@ -731,7 +720,7 @@
   <span class="md-ellipsis">
     
   
-    Cluster deployment
+    Management
   
 
     
@@ -744,125 +733,6 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Cluster deployment
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../foundationdb_cluster/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    FoundationDB
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../seadb_cluster_native/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SeaDB
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Management
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -982,34 +852,6 @@
     
   
     Environment variables
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../configuration/cluster_environment_variables/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cluster env
   
 
     
@@ -1294,10 +1136,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-prepare-the-deployment-directory" class="md-nav__link">
+  <a href="#1-download-deployment-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Prepare the deployment directory
+        1. Download deployment files
       
     </span>
   </a>
@@ -1305,10 +1147,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-create-the-environment-configuration" class="md-nav__link">
+  <a href="#2-configure-env" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Create the environment configuration
+        2. Configure .env
       
     </span>
   </a>
@@ -1316,10 +1158,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-download-the-docker-compose-file" class="md-nav__link">
+  <a href="#3-start-seadb" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Download the Docker Compose file
+        3. Start SeaDB
       
     </span>
   </a>
@@ -1327,10 +1169,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-create-the-first-administrator" class="md-nav__link">
+  <a href="#4-verify-the-logs-and-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Create the first administrator
+        4. Verify the logs and API
       
     </span>
   </a>
@@ -1338,21 +1180,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-start-seadb" class="md-nav__link">
+  <a href="#5-verify-root-access-and-remove-the-initialization-password" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Start SeaDB
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-verify-the-logs-and-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Verify the logs and API
+        5. Verify root access and remove the initialization password
       
     </span>
   </a>
@@ -1394,10 +1225,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add-admin-cannot-access-the-data-directory" class="md-nav__link">
+  <a href="#initialization-requires-a-root-password" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add-admin cannot access the data directory
+        Initialization requires a root password
       
     </span>
   </a>
@@ -1447,7 +1278,7 @@
 <ul>
 <li>Docker Engine with Docker Compose v2.</li>
 <li><code>openssl</code> to generate a JWT signing secret.</li>
-<li><code>wget</code> to download the Compose file.</li>
+<li><code>wget</code> to download the Compose file and environment template.</li>
 <li><code>curl</code> to verify the SeaDB API.</li>
 </ul>
 <p>The examples use the following paths:</p>
@@ -1455,20 +1286,23 @@
 <li><code>/opt/seadb</code>: Docker Compose files and <code>.env</code>.</li>
 <li><code>/opt/seadb-data</code>: persistent SeaDB data mounted into the container at <code>/shared</code>.</li>
 </ul>
-<h2 id="1-prepare-the-deployment-directory">1. Prepare the deployment directory<a class="headerlink" href="#1-prepare-the-deployment-directory" title="Permanent link">&para;</a></h2>
-<p>Create a directory for the Compose files and a separate directory for persistent SeaDB data:</p>
+<h2 id="1-download-deployment-files">1. Download deployment files<a class="headerlink" href="#1-download-deployment-files" title="Permanent link">&para;</a></h2>
+<p>Download <code>.env</code> and <code>seadb.yml</code> into the same deployment directory:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/seadb<span class="w"> </span>/opt/seadb-data
 <span class="nb">cd</span><span class="w"> </span>/opt/seadb
+
+wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </span>https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/env
+wget<span class="w"> </span>https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/seadb.yml
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>.env
 </code></pre></div>
-<h2 id="2-create-the-environment-configuration">2. Create the environment configuration<a class="headerlink" href="#2-create-the-environment-configuration" title="Permanent link">&para;</a></h2>
+<p>The template sets <code>COMPOSE_FILE=seadb.yml</code>, so Docker Compose automatically uses this file and <code>.env</code>. Run all Docker Compose commands below from <code>/opt/seadb</code>.</p>
+<h2 id="2-configure-env">2. Configure <code>.env</code><a class="headerlink" href="#2-configure-env" title="Permanent link">&para;</a></h2>
 <p>Generate a private random value for SeaDB's JWT signing key:</p>
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span>
 </code></pre></div>
-<p>Create <code>.env</code> in <code>/opt/seadb</code> and save the generated value as <code>SEADB_SERVER_ACCESS_TOKEN</code>:</p>
-<div class="highlight"><pre><span></span><code>COMPOSE_FILE=seadb.yml
-SEADB_IMAGE=seafileltd/seadb:0.9.0-testing
-SEADB_VOLUME=/opt/seadb-data
-SEADB_SERVER_ACCESS_TOKEN=&lt;paste-the-generated-value-here&gt;
+<p>Edit <code>/opt/seadb/.env</code>. Set <code>JWT_PRIVATE_KEY</code> to the generated value and choose a strong, private password for the initial <code>root</code> administrator. Leave the remaining template values at their defaults unless you need to customize the deployment:</p>
+<div class="highlight"><pre><span></span><code>JWT_PRIVATE_KEY=&lt;paste-the-generated-value-here&gt;
+INIT_SEADB_ROOT_PASSWORD='&lt;set-a-strong-root-password&gt;'
 </code></pre></div>
 <p>The variables used by the Docker deployment are:</p>
 <table>
@@ -1492,66 +1326,40 @@ SEADB_SERVER_ACCESS_TOKEN=&lt;paste-the-generated-value-here&gt;
 <td>Host directory used to persist the contents of <code>/shared</code>.</td>
 </tr>
 <tr>
-<td><code>SEADB_SERVER_ACCESS_TOKEN</code></td>
-<td>Secret passed to the container as <code>JWT_PRIVATE_KEY</code> and used to sign and verify JWT credentials.</td>
+<td><code>TIME_ZONE</code></td>
+<td>Container time zone. Defaults to <code>UTC</code>.</td>
+</tr>
+<tr>
+<td><code>LOG_TO_STDOUT</code></td>
+<td>Write SeaDB logs to standard output instead of log files. Defaults to <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>JWT_PRIVATE_KEY</code></td>
+<td>Secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters.</td>
+</tr>
+<tr>
+<td><code>INIT_SEADB_ROOT_PASSWORD</code></td>
+<td>Password used to create the <code>root</code> administrator on first startup. Remove after successful initialization.</td>
 </tr>
 </tbody>
 </table>
+<p>Use single quotes around passwords in <code>.env</code> so characters such as <code>$</code> and <code>#</code> are treated literally.</p>
 <div class="admonition warning">
 <p class="admonition-title">Keep the JWT signing secret unchanged</p>
-<p><code>SEADB_SERVER_ACCESS_TOKEN</code> is mapped to <code>JWT_PRIVATE_KEY</code> inside the SeaDB container. It is a server signing secret, not a normal REST API key. Keep the same value when recreating or upgrading the container. Changing it invalidates JWTs signed with the old value.</p>
+<p><code>JWT_PRIVATE_KEY</code> is a server signing secret, not a normal REST API key. Keep the same value when recreating or upgrading the container. Changing it invalidates JWTs signed with the old value.</p>
 </div>
-<p>Restrict access to <code>.env</code> because it contains a secret:</p>
-<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>.env
-</code></pre></div>
-<h2 id="3-download-the-docker-compose-file">3. Download the Docker Compose file<a class="headerlink" href="#3-download-the-docker-compose-file" title="Permanent link">&para;</a></h2>
-<p>Download <code>seadb.yml</code> into the same directory:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>-O<span class="w"> </span>seadb.yml<span class="w"> </span>https://seacloud-lab.github.io/seadb-admin-docs/0.9/repo/docker/seadb.yml
-</code></pre></div>
-<p>The Compose file publishes SeaDB on port <code>8888</code>, mounts <code>SEADB_VOLUME</code> at <code>/shared</code>, and includes a health check for <code>GET /ping</code>.</p>
-<p>Before continuing, validate the resolved Compose configuration:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>config
-</code></pre></div>
-<h2 id="4-create-the-first-administrator">4. Create the first administrator<a class="headerlink" href="#4-create-the-first-administrator" title="Permanent link">&para;</a></h2>
-<p>Create the first administrator before starting the SeaDB service. The one-time initialization container accesses the same Pebble data directory as SeaDB, so the regular SeaDB container must not be running at the same time.</p>
-<p>Read the administrator password without echoing it to the terminal:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">read</span><span class="w"> </span>-s<span class="w"> </span>SEADB_PASSWORD
-<span class="nb">export</span><span class="w"> </span>SEADB_PASSWORD
-<span class="nb">echo</span>
-</code></pre></div>
-<p>Then create the administrator:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--rm<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--no-deps<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-T<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">SEADB_DATA_DIR</span><span class="o">=</span>/shared<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">SEADB_LOG_DIR</span><span class="o">=</span>/shared/logs<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--entrypoint<span class="w"> </span>/opt/seadb/sea-db<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>seadb<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>add-admin<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--user<span class="w"> </span>seadb-admin<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--password<span class="w"> </span><span class="s2">"</span><span class="nv">$SEADB_PASSWORD</span><span class="s2">"</span>
-</code></pre></div>
-<p>A successful initialization prints a message similar to:</p>
-<div class="highlight"><pre><span></span><code>level=info msg="Create admin user seadb-admin successful"
-</code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Do not run add-admin while SeaDB is using the Pebble data directory</p>
-<p>Run this command only for a new data directory and before starting SeaDB. If SeaDB has already been started, stop it first with:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>stop<span class="w"> </span>seadb
-</code></pre></div>
-</div>
-<h2 id="5-start-seadb">5. Start SeaDB<a class="headerlink" href="#5-start-seadb" title="Permanent link">&para;</a></h2>
+<h2 id="3-start-seadb">3. Start SeaDB<a class="headerlink" href="#3-start-seadb" title="Permanent link">&para;</a></h2>
+<p>On first startup with a new data directory, the container runs <code>sea-db init</code> to create the <code>root</code> administrator using <code>INIT_SEADB_ROOT_PASSWORD</code>. No separate administrator initialization command is needed. Subsequent starts use the persistent initialization state.</p>
 <p>Start SeaDB in detached mode:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>up<span class="w"> </span>-d
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <p>Check the container state:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>ps
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>ps
 </code></pre></div>
 <p>Immediately after startup, the health state may briefly be <code>starting</code>. Check the health status again with:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>inspect<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--format<span class="o">=</span><span class="s1">'{{.State.Health.Status}}'</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"</span><span class="k">$(</span>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>ps<span class="w"> </span>-q<span class="w"> </span>seadb<span class="k">)</span><span class="s2">"</span>
+<span class="w">  </span><span class="s2">"</span><span class="k">$(</span>docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w"> </span>-q<span class="w"> </span>seadb<span class="k">)</span><span class="s2">"</span>
 </code></pre></div>
 <p>The expected status after initialization is:</p>
 <div class="highlight"><pre><span></span><code>healthy
@@ -1560,9 +1368,10 @@ SEADB_SERVER_ACCESS_TOKEN=&lt;paste-the-generated-value-here&gt;
 <p class="admonition-title">SeaDB container is healthy</p>
 <p>A <code>healthy</code> status means the Docker health check can successfully reach SeaDB's <code>/ping</code> endpoint.</p>
 </div>
-<h2 id="6-verify-the-logs-and-api">6. Verify the logs and API<a class="headerlink" href="#6-verify-the-logs-and-api" title="Permanent link">&para;</a></h2>
+<h2 id="4-verify-the-logs-and-api">4. Verify the logs and API<a class="headerlink" href="#4-verify-the-logs-and-api" title="Permanent link">&para;</a></h2>
 <p>Check the latest SeaDB logs:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>seadb
+<p>With <code>LOG_TO_STDOUT=false</code>, SeaDB application logs are stored under <code>/opt/seadb-data/logs</code>; the command below shows container startup and initialization output. Set <code>LOG_TO_STDOUT=true</code> to include application logs in Docker logs.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>seadb
 </code></pre></div>
 <p>After a successful startup, the log contains:</p>
 <div class="highlight"><pre><span></span><code>seadb started
@@ -1580,10 +1389,19 @@ SEADB_SERVER_ACCESS_TOKEN=&lt;paste-the-generated-value-here&gt;
 <li>The SeaDB container health status is <code>healthy</code>.</li>
 <li>The SeaDB log shows <code>seadb started</code>.</li>
 <li><code>http://127.0.0.1:8888/ping</code> returns <code>{"ret":"pong"}</code>.</li>
-<li>The initial administrator has been created successfully.</li>
+<li>You can log in as <code>root</code> using the password set during initialization.</li>
 </ul>
 </div>
 <p>At this point, clients can connect to SeaDB at <code>http://&lt;server-address&gt;:8888</code>.</p>
+<h2 id="5-verify-root-access-and-remove-the-initialization-password">5. Verify root access and remove the initialization password<a class="headerlink" href="#5-verify-root-access-and-remove-the-initialization-password" title="Permanent link">&para;</a></h2>
+<p>Use <code>seadb-cli</code> to verify root access. See <a href="../../usage/cli/">SeaDB CLI</a> for client configuration and usage:</p>
+<div class="highlight"><pre><span></span><code>seadb-cli<span class="w"> </span>login<span class="w"> </span>--server<span class="w"> </span>http://127.0.0.1:8888<span class="w"> </span>--username<span class="w"> </span>root
+</code></pre></div>
+<p>Enter the password configured as <code>INIT_SEADB_ROOT_PASSWORD</code> when prompted. See <a href="../../usage/user_management/">User Management</a> to create application users.</p>
+<p>After successful initialization and login, back up the root password securely and remove <code>INIT_SEADB_ROOT_PASSWORD</code> from <code>.env</code>. Recreate the container to remove the initialization password from its environment:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<p>The root account and its password remain in persistent storage. Keep <code>JWT_PRIVATE_KEY</code> in <code>.env</code> unchanged. Changing or restoring <code>INIT_SEADB_ROOT_PASSWORD</code> does not reset the password of an already initialized root account.</p>
 <h2 id="persistent-data">Persistent data<a class="headerlink" href="#persistent-data" title="Permanent link">&para;</a></h2>
 <p>The Compose file mounts the host directory configured by <code>SEADB_VOLUME</code> into the container at <code>/shared</code>. With the configuration in this guide, persistent data is stored under:</p>
 <div class="highlight"><pre><span></span><code>/opt/seadb-data
@@ -1592,19 +1410,17 @@ SEADB_SERVER_ACCESS_TOKEN=&lt;paste-the-generated-value-here&gt;
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="the-container-remains-in-starting-or-becomes-unhealthy">The container remains in <code>starting</code> or becomes <code>unhealthy</code><a class="headerlink" href="#the-container-remains-in-starting-or-becomes-unhealthy" title="Permanent link">&para;</a></h3>
 <p>Check the service logs first:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>seadb
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>seadb
 </code></pre></div>
 <p>Then test the API manually:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-v<span class="w"> </span>http://127.0.0.1:8888/ping
 </code></pre></div>
 <p>Also confirm that port <code>8888</code> is not already being used by another service.</p>
-<h3 id="add-admin-cannot-access-the-data-directory"><code>add-admin</code> cannot access the data directory<a class="headerlink" href="#add-admin-cannot-access-the-data-directory" title="Permanent link">&para;</a></h3>
-<p>Make sure the regular SeaDB container is stopped before running the one-time administrator initialization command:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>-f<span class="w"> </span>seadb.yml<span class="w"> </span>stop<span class="w"> </span>seadb
-</code></pre></div>
-<p>Single-node SeaDB and the <code>add-admin</code> process must not access the same Pebble data directory concurrently.</p>
+<h3 id="initialization-requires-a-root-password">Initialization requires a root password<a class="headerlink" href="#initialization-requires-a-root-password" title="Permanent link">&para;</a></h3>
+<p>For a new data directory, set a non-empty <code>INIT_SEADB_ROOT_PASSWORD</code> in <code>.env</code> before starting SeaDB. If startup reports that this variable is required, set it and recreate the container with <code>docker compose up -d</code>.</p>
+<p>Do not remove the initialization password until startup and root login have succeeded. Do not delete the persistent data directory to reset a password.</p>
 <h3 id="existing-jwts-stop-working-after-the-container-is-recreated">Existing JWTs stop working after the container is recreated<a class="headerlink" href="#existing-jwts-stop-working-after-the-container-is-recreated" title="Permanent link">&para;</a></h3>
-<p>Confirm that <code>SEADB_SERVER_ACCESS_TOKEN</code> in <code>.env</code> has not changed. This value is used as SeaDB's <code>JWT_PRIVATE_KEY</code>; changing it invalidates credentials signed with the previous key.</p>
+<p>Confirm that <code>JWT_PRIVATE_KEY</code> in <code>.env</code> has not changed. Changing it invalidates credentials signed with the previous key.</p>
 
 
 
@@ -1657,13 +1473,13 @@ SEADB_SERVER_ACCESS_TOKEN=&lt;paste-the-generated-value-here&gt;
         
         
           
-          <a href="../foundationdb_cluster/" class="md-footer__link md-footer__link--next" aria-label="Next: FoundationDB">
+          <a href="../backup_restore/" class="md-footer__link md-footer__link--next" aria-label="Next: Backup and restore">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                FoundationDB
+                Backup and restore
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1723,7 +1539,7 @@ SEADB_SERVER_ACCESS_TOKEN=&lt;paste-the-generated-value-here&gt;
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       

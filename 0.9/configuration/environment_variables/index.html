@@ -16,14 +16,14 @@
         <link rel="prev" href="../../setup/backup_restore/">
       
       
-        <link rel="next" href="../cluster_environment_variables/">
+        <link rel="next" href="../../usage/quick_start/">
       
       
         
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -538,7 +538,7 @@
   <span class="md-ellipsis">
     
   
-    Cluster deployment
+    Management
   
 
     
@@ -551,122 +551,6 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Cluster deployment
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../setup/foundationdb_cluster/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    FoundationDB
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../setup/seadb_cluster_native/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SeaDB
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Management
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -918,34 +802,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cluster_environment_variables/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cluster env
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1304,9 +1160,8 @@
 
 <h1 id="environment-variables">Environment variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h1>
 <p>SeaDB is configured through environment variables. This page documents the
-variables consumed by the <code>sea-db</code> process in both single-node and cluster
-deployments. For cluster coordination, Cluster-Manager, SeaDB-Proxy, and
-FoundationDB connection variables, see <a href="../cluster_environment_variables/">Cluster env</a>.</p>
+variables consumed by the <code>sea-db</code> process in single-node deployments using
+the Pebble storage backend.</p>
 <h2 id="seadb">SeaDB<a class="headerlink" href="#seadb" title="Permanent link">&para;</a></h2>
 <h3 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
 <table>
@@ -1360,7 +1215,7 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
 </tr>
 <tr>
 <td><code>JWT_PRIVATE_KEY</code></td>
-<td>The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value on every SeaDB node and trusted JWT-issuing service.</td>
+<td>The secret used to sign and verify JWT credentials. Use a private random value of at least 32 characters, and configure the same value in SeaDB and any trusted JWT-issuing service.</td>
 <td>(required)</td>
 </tr>
 </tbody>
@@ -1377,7 +1232,7 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
 <tbody>
 <tr>
 <td><code>SEADB_STORAGE_BACKEND</code></td>
-<td>The KV backend used to store data. Choose either <code>fdb</code> or <code>pebble</code>.</td>
+<td>The KV backend used to store data. Use <code>pebble</code> for single-node deployment.</td>
 <td><code>pebble</code></td>
 </tr>
 <tr>
@@ -1387,7 +1242,7 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
 </tr>
 <tr>
 <td><code>SEADB_KEY_PREFIX</code></td>
-<td>The key prefix used by SeaDB's FDB and Pebble storage backends. If the FoundationDB cluster is shared by multiple applications, set a SeaDB-specific prefix to distinguish it from other applications.</td>
+<td>The key prefix used by SeaDB's Pebble storage backend.</td>
 <td></td>
 </tr>
 <tr>
@@ -1603,13 +1458,13 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
         
         
           
-          <a href="../cluster_environment_variables/" class="md-footer__link md-footer__link--next" aria-label="Next: Cluster env">
+          <a href="../../usage/quick_start/" class="md-footer__link md-footer__link--next" aria-label="Next: Quick Start">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Cluster env
+                Quick Start
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1669,7 +1524,7 @@ FoundationDB connection variables, see <a href="../cluster_environment_variables
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
