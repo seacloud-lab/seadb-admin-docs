@@ -35,7 +35,7 @@ Supported column types:
 | `float32` | 32-bit floating point. |
 | `float64` | 64-bit floating point. |
 | `bool` | Boolean. |
-| `datetime` | Date/time with optional timezone and sub-second precision. Time constants support ISO format strings (such as `"2006-1-2"`, `"2006-1-2 15:04:05"`), RFC 3339 strings (such as `"2020-12-31T23:59:59Z"`), and sub-second RFC 3339 Nano strings (such as `"2020-12-31T23:59:59.123456789Z"`). |
+| `datetime` | Date/time with optional timezone and sub-second precision. |
 | `single-select` | Single-select column with option metadata. |
 | `multiple-select` | Multiple-select column with option metadata. |
 | `list` | List of elements of the same type. |
