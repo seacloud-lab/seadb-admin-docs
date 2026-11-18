@@ -98,7 +98,7 @@ The following table maps SeaDB column data to the types used in SQL fields.
 | Single select | String | Returns the option key by default; set the request's `convert_keys` parameter to `true` to return the option name. | Constants use the option name, for example `WHERE single_select = "New York"`. | Sorted by option definition order. |
 | Multiple select | List of string | Returns the option keys by default; set the request's `convert_keys` parameter to `true` to return the option names. | Constants use the option name. See the list type section below for matching rules. | Supported; see the list type section below. |
 | Checkbox | Bool |  | Supported | Supported |
-| Date | Datetime | Returns an RFC 3339 string. | Constants use ISO format time strings such as `"2006-1-2"` and `"2006-1-2 15:04:05"`. RFC 3339 strings such as `"2020-12-31T23:59:60Z"` are also supported. | Supported |
+| Date | Datetime | Returns an RFC 3339 string (RFC 3339 Nano when sub-second precision is present). | Input strings use ISO format time strings such as `"2006-1-2"` and `"2006-1-2 15:04:05"`. RFC 3339 strings such as `"2020-12-31T23:59:59Z"` and sub-second RFC 3339 Nano strings such as `"2020-12-31T23:59:59.123456789Z"` are also supported. | Supported |
 | List | List of elements of the same type |  | Supported | Supported; see the list type section below. |
 
 ## List type handling
