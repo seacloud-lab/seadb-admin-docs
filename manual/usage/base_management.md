@@ -35,7 +35,7 @@ Supported column types:
 | `float32` | 32-bit floating point. |
 | `float64` | 64-bit floating point. |
 | `bool` | Boolean. |
-| `datetime` | Date/time with optional timezone. |
+| `datetime` | Date/time with optional timezone and sub-second precision. |
 | `single-select` | Single-select column with option metadata. |
 | `multiple-select` | Multiple-select column with option metadata. |
 | `list` | List of elements of the same type. |
