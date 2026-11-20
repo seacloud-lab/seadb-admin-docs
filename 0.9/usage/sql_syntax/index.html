@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -1373,8 +1373,8 @@ DELETE FROM table_name [WhereClause]
 <tr>
 <td>Date</td>
 <td>Datetime</td>
-<td>Returns an RFC 3339 string.</td>
-<td>Constants use ISO format time strings such as <code>"2006-1-2"</code> and <code>"2006-1-2 15:04:05"</code>. RFC 3339 strings such as <code>"2020-12-31T23:59:60Z"</code> are also supported.</td>
+<td>Returns an RFC 3339 string (RFC 3339 Nano when sub-second precision is present).</td>
+<td>Input strings use ISO format time strings such as <code>"2006-1-2"</code> and <code>"2006-1-2 15:04:05"</code>. RFC 3339 strings such as <code>"2020-12-31T23:59:59Z"</code> and sub-second RFC 3339 Nano strings such as <code>"2020-12-31T23:59:59.123456789Z"</code> are also supported.</td>
 <td>Supported</td>
 </tr>
 <tr>
